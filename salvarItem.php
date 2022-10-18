@@ -1,7 +1,7 @@
 <?php 
 
 $user = 'root';
-$pass = 'versa@123';
+$pass = '';
 $db = new PDO('mysql:host=localhost;dbname=OSI8', $user, $pass);
 
 $sql = "SELECT * FROM itens";
@@ -9,25 +9,28 @@ $result = $db->query($sql);
 $rows = $result->fetchAll();
 
 
-if($rows <= 20){
-    if(!empty($_POST['itemText']) && !empty($_POST['qtdItemText'])){
+if(count($rows) <= 20){
+    if(!empty($_POST['itemText']) && !empty($_POST['qtdItemNumber'])){
         $itemText = $_POST["itemText"];
-        $qtdItemText = $_POST["qtdItemText"];
+        $qtdItemNumber = $_POST["qtdItemNumber"];
         $sql = "INSERT INTO itens(item, qtdItem) VALUES(:item, :qtdItem)";
         $stmt = $db->prepare($sql);
         $stmt->bindParam( ':item', $itemText );
-        $stmt->bindParam( ':qtdItem', $qtdItemText );
+        $stmt->bindParam( ':qtdItem', $qtdItemNumber );
         
         $result = $stmt->execute();
         
-        if ( ! $result )
-        {
-            var_dump( $stmt->errorInfo() );
+        if (!$result){
+            header('Location: /osi8?msg=error');
             exit;
         }
-    
-        echo $stmt->rowCount() . "linhas inseridas";
+
+        header('Location: /osi8?msg=success');
+        exit;
     }
+} else {
+    header('Location: /osi8?msg=warning');
+    exit;
 }
 
 ?>

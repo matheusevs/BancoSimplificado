@@ -16,15 +16,15 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <form id="formularioItens" method="post" action="salvarItem.php">
-                        <h1 class="display-4 text-center col">LISTA DE DESEJOS</h1>
+                    <form id="formularioItens" method="post" action="salvarParticipante.php">
+                        <h1 class="display-4 text-center col">LISTA DE PARTICIPANTES</h1>
                         <div class="form-group input-group">
-                            <label for="item"></label>
-                            <input required="required" class="form-control" type="text" id="item" placeholder="Digite seu item" name="itemText" maxlength="255">
+                            <label for="nome"></label>
+                            <input required="required" class="form-control" type="text" id="nome" placeholder="Digite seu nome" name="nomeText" maxlength="255">
                         </div>
                         <div class="form-group input-group">
-                            <label for="qtdItem"></label>
-                            <input required="required" class="form-control" type="number" id="qtdItem" placeholder="Digite o kg ou litros do item" name="qtdItemNumber">
+                            <label for="qtdConsumo"></label>
+                            <input required="required" class="form-control" type="number" id="qtdConsumo" placeholder="Digite o kg ou litros que ira consumir" name="consumoNumber">
                         </div>
                         <div id="botoes">
                             <button id="botao" class="btn btn-custom btn-branco" type="submit" value="Salvar">SALVAR</button>
