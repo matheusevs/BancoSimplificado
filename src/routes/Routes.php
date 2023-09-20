@@ -106,6 +106,17 @@ class Router
 
                 }
 
+                if(preg_match('/^\/participantes\/(\d+)$/', $this->route, $matches)) {
+
+                    $id = $matches[1];
+                    $getParticipanteById = $this->ParticipanteController->getParticipanteById($id);
+
+                    echo json_encode($getParticipanteById);
+                    exit;
+
+                }
+
+
                 if($this->route == '/'){
                     
                     if(!include_once('./index.php')){

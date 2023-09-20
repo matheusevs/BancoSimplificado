@@ -32,7 +32,7 @@
                         </div>
                         <div id="botoes">
                             <button id="botao" class="btn btn-custom btn-branco" type="submit" value="Salvar">SALVAR</button>
-                        </div>        
+                        </div>
                     </form>
                 </div>
             </div>

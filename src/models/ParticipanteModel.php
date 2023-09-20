@@ -54,4 +54,20 @@ class ParticipanteModel{
 
     }
 
+    public function getParticipanteById($id){
+
+        $sql = "SELECT * FROM participantes WHERE id = {$id};";
+
+        $buscaParticipante = mysqli_query($this->connect, $sql);
+        if(!$buscaParticipante){
+            return ['error' => mysqli_error($this->connect)];
+        }
+        if($buscaParticipante->num_rows == 0){
+            return ['error' => 'Não foi identificado nenhum participante com o id informado'];
+        }
+
+        return mysqli_fetch_array($buscaParticipante, MYSQLI_ASSOC);
+
+    }
+
 }

@@ -39,8 +39,15 @@ class ParticipanteController{
 
     public function getParticipantes(){
 
-        $getUsers = $this->ParticipanteModel->getParticipantes();
-        return $getUsers;
+        $getParticipantes = $this->ParticipanteModel->getParticipantes();
+        return $getParticipantes;
+
+    }
+
+    public function getParticipanteById($id){
+
+        $getParticipante = $this->ParticipanteModel->getParticipanteById($id);
+        return $getParticipante;
 
     }
 
