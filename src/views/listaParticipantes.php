@@ -56,7 +56,7 @@
                                                 <th>' .$value['consumo']. '</th>
                                                 <th>' .$dataFormatada. '</th>
                                                 <td>
-                                                    <button class="btn btn-primary btn-edit" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarClienteModal"> <i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-primary btn-edit" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarParticipanteModal"> <i class="fas fa-edit"></i></button>
                                                     <button class="btn btn-danger btn-delete" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#confirm-delete"><i class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="editarClienteModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal fade" id="editarParticipanteModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

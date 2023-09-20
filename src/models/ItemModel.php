@@ -53,4 +53,48 @@ class ItemModel
 
     }
 
+    public function getItensById($id){
+
+        $sql = "SELECT * FROM itens WHERE id = {$id};";
+
+        $buscaItens = mysqli_query($this->connect, $sql);
+        if(!$buscaItens){
+            return ['error' => mysqli_error($this->connect)];
+        }
+        if($buscaItens->num_rows == 0){
+            return ['error' => 'Não foi identificado nenhum item com o id informado'];
+        }
+
+        return mysqli_fetch_array($buscaItens, MYSQLI_ASSOC);
+
+    }
+
+    public function updateItem($id, $data){
+
+        $sql = "
+            UPDATE itens SET item = '{$data['itemTextEdit']}', qtdItem = {$data['qtdItemNumberEdit']}, hora_update = '{$data['hora_update']}' WHERE id = {$id};
+        ";
+
+        $itemUpdate = mysqli_query($this->connect, $sql);
+        if(!$itemUpdate){
+            return ['error' => mysqli_error($this->connect)];
+        }
+        
+        return $itemUpdate;
+
+    }
+
+    public function deleteItensById($id){
+
+        $sql = "DELETE FROM itens WHERE id = {$id};";
+
+        $itemDelete = mysqli_query($this->connect, $sql);
+        if(!$itemDelete){
+            return ['error' => mysqli_error($this->connect)];
+        }
+        
+        return $itemDelete;
+
+    }
+
 }
