@@ -85,4 +85,17 @@ class ParticipanteModel{
 
     }
 
+    public function deleteParticipantesById($id){
+
+        $sql = "DELETE FROM participantes WHERE id = {$id};";
+
+        $participanteDelete = mysqli_query($this->connect, $sql);
+        if(!$participanteDelete){
+            return ['error' => mysqli_error($this->connect)];
+        }
+        
+        return $participanteDelete;
+
+    }
+
 }

@@ -57,10 +57,7 @@
                                                 <th>' .$dataFormatada. '</th>
                                                 <td>
                                                     <button class="btn btn-primary btn-edit" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarClienteModal"> <i class="fas fa-edit"></i></button>
-                                                    <form id="formDelete" style="display: inline;">
-                                                        <input type="hidden" value="' .$value['id'] .'" name="idDelete"/>
-                                                        <button type="submit" class="btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    <button class="btn btn-danger btn-delete" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#confirm-delete"><i class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         ';
@@ -112,8 +109,11 @@
                             Tem certeza que deseja excluir esse item?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="fecharExclusao" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <a href="#" id="btn-confirm-delete" class="btn btn-danger">Excluir</a>
+                        <form id="formDelete" style="display: inline;">
+                            <input type="hidden" id="id" name="id"/>
+                            <button type="button" id="fecharDeletar" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button id="delete" type="submit" id="btn-confirm-delete" class="btn btn-danger">Excluir</a>
+                        </form>
                         </div>
                     </div>
                 </div>

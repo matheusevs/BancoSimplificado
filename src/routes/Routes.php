@@ -152,6 +152,25 @@ class Router
 
             break;
 
+            case 'DELETE':
+
+                if(preg_match('/^\/deletarParticipante\/(\d+)$/', $this->route, $matches)){
+                    
+                    $id = $matches[1];
+                    $deleteParticipantesById = $this->ParticipanteController->deleteParticipantesById($id, $this->body);
+                    
+                    if(isset($deleteParticipantesById['error'])){
+
+                        echo json_encode($deleteParticipantesById);
+
+                    }
+
+                    exit;
+                    
+                }
+
+            break;
+
         }
     
     }

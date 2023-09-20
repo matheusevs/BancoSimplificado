@@ -42,13 +42,13 @@ $(function(){
             data: JSON.stringify(form),
             contentType: 'application/json',
             success: res => {
-                console.log(res);
 
                 $("#fecharEditar").click();
 
                 if(!res.error){
 
                     toastr.success(res.message,'Sucesso!');
+                    window.location.reload();
 
 
                 } else {
@@ -61,6 +61,38 @@ $(function(){
 
         });
 
+    });
+
+    $("#formDelete").on("submit", event => {
+
+        event.preventDefault();
+
+        const id = $('.btn-delete').val();
+
+        $.ajax({
+            type: "DELETE",
+            url: `/deletarParticipante/${id}`,
+            contentType: 'application/json',
+            success: res => {
+
+                $("#fecharDeletar").click();
+
+                if(!res.error){
+
+                    toastr.success(res.message,'Sucesso!');
+                    window.location.reload();
+
+
+                } else {
+
+                    toastr.error(res.error,'Erro!');
+
+                }
+
+            }
+
+        });
+    
     });
 
 });

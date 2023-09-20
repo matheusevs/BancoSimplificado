@@ -56,8 +56,20 @@ class ParticipanteController{
 
         if(!$this->ParticipanteModel->updateParticipante($id, $data)){
             return ['error' => 'Não foi possível atualizar o participante.'];
-        }     
+        }
         
+    }
+
+    public function deleteParticipantesById($id){
+
+        if(empty($id)){
+            return ['error' => 'Id não informado'];
+        }
+
+        if(!$this->ParticipanteModel->deleteParticipantesById($id)){
+            return ['error' => 'Não foi possível deletar o participante.'];
+        }
+
     }
 
     public function validateFields($body, $type){
