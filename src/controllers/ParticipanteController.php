@@ -37,4 +37,11 @@ class ParticipanteController{
 
     }
 
+    public function getParticipantes(){
+
+        $getUsers = $this->ParticipanteModel->getParticipantes();
+        return $getUsers;
+
+    }
+
 }

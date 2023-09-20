@@ -3,12 +3,18 @@ USE OSI8;
 
 CREATE TABLE IF NOT EXISTS itens
 (
-    item    varchar(255) null,
-    qtdItem int null
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    item            VARCHAR(255) NOT NULL,
+    qtdItem         INT NOT NULL,
+    hora_registro   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    hora_update     TIMESTAMP NULL DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS participantes
 (
-    nome    varchar(255) null,
-    consumo int null
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    nome            VARCHAR(255) NOT NULL,
+    consumo         INT NOT NULL,
+    hora_registro   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    hora_update     TIMESTAMP NULL DEFAULT NULL
 );

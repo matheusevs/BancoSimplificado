@@ -13,8 +13,8 @@ $router = new Router();
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="./src/views/css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="./src/views/css/estilo.css">
+        <link type="text/css" rel="stylesheet" href="/src/views/css/normalize.css">
+        <link type="text/css" rel="stylesheet" href="/src/views/css/estilo.css">
         <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
@@ -26,9 +26,37 @@ $router = new Router();
                     <h1 class="display-4 text-center col">EVENTO</h1>
                 </div>
 
-                <div class="display-4 text-center col">
-                    <input class="btn btn-custom btn-branco" type="submit" onclick="location.href='/src/views/item.php'" value="Cadastrar Itens"/>
-                    <input class="btn btn-custom btn-branco" type="submit" onclick="location.href='/src/views/participantes.php'" value="Cadastrar Participantes"/>
+                <div class="container pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <form method="GET" action="/item/">
+                                <div id="botoes">
+                                    <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Cadastrar Itens</button>
+                                </div>        
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <form method="GET" action="/participantes/">
+                                <div id="botoes">
+                                    <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Cadastrar Participantes</button>
+                                </div>        
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <form method="GET" action="/listaItens/">
+                                <div id="botoes">
+                                    <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Listar Itens</button>
+                                </div>        
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <form method="GET" action="/listaParticipantes/">
+                                <div id="botoes">
+                                    <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Listar participantes</button>
+                                </div>        
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

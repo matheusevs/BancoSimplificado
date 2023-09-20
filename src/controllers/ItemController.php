@@ -36,4 +36,11 @@ class ItemController
 
     }
 
+    public function getItens(){
+
+        $getItens = $this->ItemModel->getItens();
+        return $getItens;
+
+    }
+
 }

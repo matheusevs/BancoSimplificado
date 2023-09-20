@@ -23,6 +23,7 @@ class Router
         $this->ItemController = new ItemController();
         $this->ParticipanteController = new ParticipanteController();
         
+        $this->route = $this->validateRouteUrl($this->route);
         $this->routes();
 
     }
@@ -65,9 +66,60 @@ class Router
                 }
 
             break;
+            
+            case 'GET':               
+
+                if($this->route == '/item/'){
+                    
+                    if(!include_once('./src/views/item.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+                if($this->route == '/participantes/'){
+                    
+                    if(!include_once('./src/views/participantes.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+                if($this->route == '/listaItens/'){
+                    
+                    if(!include_once('./src/views/listaItens.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+                if($this->route == '/listaParticipantes/'){
+                    
+                    if(!include_once('./src/views/listaParticipantes.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+            break;
 
         }
     
     }
 
+    public function validateRouteUrl($route){
+        
+        if(empty($_GET['msg'])) {
+            $url = strtok($route, '?');
+            
+            return $url;
+        }
+
+    }
+
 }
+

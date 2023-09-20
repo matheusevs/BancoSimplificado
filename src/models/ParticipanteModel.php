@@ -29,4 +29,29 @@ class ParticipanteModel{
 
     }
 
+    public function getParticipantes(){
+
+        $arrayParticipantes = [];
+
+        $sql = "SELECT * FROM participantes;";
+        
+        $getParticipantes = mysqli_query($this->connect, $sql);
+        if(!$getParticipantes){
+            return ['error' => mysqli_error($this->connect)];
+        }
+
+        if($getParticipantes->num_rows == 0){
+            return ['error' => 'Não foi encontrado nenhum participante.'];
+        }
+
+        while($row = mysqli_fetch_array($getParticipantes, MYSQLI_ASSOC)){
+      
+            array_push($arrayParticipantes, $row);
+        
+        }
+
+        return $arrayParticipantes;
+
+    }
+
 }
