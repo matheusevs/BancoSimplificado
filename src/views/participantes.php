@@ -5,18 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="normalize.css">
-        <link rel="stylesheet" type="text/css" href="estilo.css">
+        <link rel="stylesheet" type="text/css" href="./css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="./css/estilo.css">
     </head>
     <body id="fundo">
         <section id="home">
             <div id="caixa_formulario" class="container pt-5 pb-5">
                 <div class="row">
-                    <h1 class="display-4 text-center col">CHURRASCO DA KELLE</h1>
+                    <h1 class="display-4 text-center col">EVENTO</h1>
                 </div>
 
                 <div class="row justify-content-center">
-                    <form id="formularioItens" method="post" action="salvarParticipante.php">
+                    <form id="formularioItens" method="POST" action="/cadastrarParticipantes/">
                         <h1 class="display-4 text-center col">LISTA DE PARTICIPANTES</h1>
                         <div class="form-group input-group">
                             <label for="nome"></label>

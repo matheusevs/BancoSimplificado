@@ -1,3 +1,11 @@
+<?php 
+
+define('RELATIVE_PATH', dirname(__FILE__));
+require_once('./src/routes/Routes.php');
+$router = new Router();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -5,8 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="normalize.css">
-        <link rel="stylesheet" type="text/css" href="estilo.css">
+        <link rel="stylesheet" type="text/css" href="./src/views/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="./src/views/css/estilo.css">
         <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
@@ -15,13 +23,12 @@
         <section id="home">
             <div id="caixa_formulario" class="container pt-5 pb-5">
                 <div class="row">
-                    <h1 class="display-4 text-center col">CHURRASCO DA KELLE</h1>
+                    <h1 class="display-4 text-center col">EVENTO</h1>
                 </div>
 
                 <div class="display-4 text-center col">
-                    <input class="btn btn-custom btn-branco" type="submit" onclick="location.href='item.php'" value="Cadastrar Itens"/>
-                    <input class="btn btn-custom btn-branco" type="submit" onclick="location.href='participantes.php'" value="Cadastrar Participantes"/>
-                    <input class="btn btn-custom btn-branco" type="submit" onclick="location.href='calcular.php'" value="Calcular itens"/>
+                    <input class="btn btn-custom btn-branco" type="submit" onclick="location.href='/src/views/item.php'" value="Cadastrar Itens"/>
+                    <input class="btn btn-custom btn-branco" type="submit" onclick="location.href='/src/views/participantes.php'" value="Cadastrar Participantes"/>
                 </div>
             </div>
         </section>
