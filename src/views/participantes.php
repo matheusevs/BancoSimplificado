@@ -11,13 +11,16 @@
     </head>
     <body id="fundo">
         <section id="home">
-            <div id="caixa_formulario" class="container pt-5 pb-5">
+            <div id="caixa_formulario" class="container">
+                <a href="/" class="btn btn-back">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
                 <div class="row">
                     <h1 class="display-4 text-center col">EVENTO</h1>
                 </div>
 
                 <div class="row justify-content-center">
-                    <form id="formularioItens" method="POST" action="/cadastrarParticipantes/">
+                    <form id="formularioItens" method="POST" action="/cadastrarParticipantes">
                         <h1 class="display-4 text-center col">LISTA DE PARTICIPANTES</h1>
                         <div class="form-group input-group">
                             <label for="nome"></label>

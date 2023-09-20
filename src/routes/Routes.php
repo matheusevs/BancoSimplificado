@@ -33,8 +33,9 @@ class Router
 
         switch($this->method){
 
+
             case 'POST':
-                if($this->route == '/cadastrarItens/'){
+                if($this->route == '/cadastrarItens'){
                     
                     $createItem = ItemController::saveItem($this->body);
                     if(isset($createItem['error'])){
@@ -49,7 +50,7 @@ class Router
                 
                 }
 
-                if($this->route == '/cadastrarParticipantes/'){
+                if($this->route == '/cadastrarParticipantes'){
 
                     $createParticipante = ParticipanteController::saveParticipante($this->body);
                     if(isset($createParticipante['error'])){
@@ -67,9 +68,9 @@ class Router
 
             break;
             
-            case 'GET':               
+            case 'GET':
 
-                if($this->route == '/item/'){
+                if($this->route == '/item'){
                     
                     if(!include_once('./src/views/item.php')){
                         include_once('./src/views/error.php');
@@ -78,7 +79,7 @@ class Router
 
                 }
 
-                if($this->route == '/participantes/'){
+                if($this->route == '/participantes'){
                     
                     if(!include_once('./src/views/participantes.php')){
                         include_once('./src/views/error.php');
@@ -87,7 +88,7 @@ class Router
 
                 }
 
-                if($this->route == '/listaItens/'){
+                if($this->route == '/listaItens'){
                     
                     if(!include_once('./src/views/listaItens.php')){
                         include_once('./src/views/error.php');
@@ -96,12 +97,26 @@ class Router
 
                 }
 
-                if($this->route == '/listaParticipantes/'){
+                if($this->route == '/listaParticipantes'){
                     
                     if(!include_once('./src/views/listaParticipantes.php')){
                         include_once('./src/views/error.php');
                     }
                     exit;
+
+                }
+
+                if($this->route == '/'){
+                    
+                    if(!include_once('./index.php')){
+                        include_once('./src/views/error.php');
+                    }
+
+                } else {
+
+                    if($this->route){
+                        include_once('./src/views/error.php');
+                    }
 
                 }
 

@@ -8,31 +8,14 @@
 </head>
 <body>
 
-<?php
-    $motivoErro = $_GET['motivoErro'];
-
-    if($motivoErro == 'acessoBanco'){
-        $mensagem = 'Ocorreu um erro ao acessar o banco de dados, solicite suporte!';
-    }
-
-    if($motivoErro == 'database'){
-        $mensagem = 'Não foi possível encontrar a base de dados, verifique se a mesma foi criada!';
-    }
-
-    if($motivoErro == 'semRegistros'){
-        $mensagem = 'Não existem registros no banco, verifique e tente novamente!';
-    }
-
-?>
-
 <body class="bg-purple">
         <div class="stars">
             <div class="central-body">
                 <h1>Ocorreu um erro!</h1>
                 <h2> 
-                    <?php echo $mensagem ?>
+                    404 - PÁGINA NÃO ENCONTRADA
                 </h2>
-                <a href="../../index.php" class="btn-go-home" target="_blank">VOLTAR</a>
+                <a href="/" class="btn-go-home">VOLTAR</a>
             </div>
             <div class="objects">
                 <img class="object_rocket" src="http://salehriaz.com/404Page/img/rocket.svg" width="40px">

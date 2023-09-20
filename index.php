@@ -21,7 +21,7 @@ $router = new Router();
     </head>
     <body id="fundo">
         <section id="home">
-            <div id="caixa_formulario" class="container pt-5 pb-5">
+            <div id="caixa_formulario" class="container">
                 <div class="row">
                     <h1 class="display-4 text-center col">EVENTO</h1>
                 </div>
@@ -29,28 +29,28 @@ $router = new Router();
                 <div class="container pt-5 pb-5">
                     <div class="row">
                         <div class="col-md-3">
-                            <form method="GET" action="/item/">
+                            <form method="GET" action="/item">
                                 <div id="botoes">
                                     <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Cadastrar Itens</button>
                                 </div>        
                             </form>
                         </div>
                         <div class="col-md-3">
-                            <form method="GET" action="/participantes/">
+                            <form method="GET" action="/participantes">
                                 <div id="botoes">
                                     <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Cadastrar Participantes</button>
                                 </div>        
                             </form>
                         </div>
                         <div class="col-md-3">
-                            <form method="GET" action="/listaItens/">
+                            <form method="GET" action="/listaItens">
                                 <div id="botoes">
                                     <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Listar Itens</button>
                                 </div>        
                             </form>
                         </div>
                         <div class="col-md-3">
-                            <form method="GET" action="/listaParticipantes/">
+                            <form method="GET" action="/listaParticipantes">
                                 <div id="botoes">
                                     <button id="botao" class="btn btn-custom btn-branco btn-block" type="submit" value="TESTE">Listar participantes</button>
                                 </div>        
