@@ -1,5 +1,7 @@
 <?php 
 
+date_default_timezone_set('America/Sao_Paulo');
+
 define('RELATIVE_PATH', dirname(__FILE__));
 require_once('./src/routes/Routes.php');
 $router = new Router();

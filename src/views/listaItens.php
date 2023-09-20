@@ -35,24 +35,26 @@
                             <tbody class="table table-bordereds justify-content-center">
                             <?php 
                                 $itens = $ItemController->getItens();
-                                foreach($itens as $key => $value){
-
-                                    $dateTime = new DateTime($value['hora_registro']);
-                                    $dataFormatada = $dateTime->format("d/m/Y H:i:s");
-
-                                    if($value['hora_update']){
-                                        $dateTime = new DateTime($value['hora_update']);
+                                if(!$itens['error']){
+                                    foreach($itens as $key => $value){
+    
+                                        $dateTime = new DateTime($value['hora_registro']);
                                         $dataFormatada = $dateTime->format("d/m/Y H:i:s");
+    
+                                        if($value['hora_update']){
+                                            $dateTime = new DateTime($value['hora_update']);
+                                            $dataFormatada = $dateTime->format("d/m/Y H:i:s");
+                                        }
+    
+                                        echo '
+                                            <tr>
+                                                <th>' .$value['id']. '</th>
+                                                <th>' .$value['item']. '</th>
+                                                <th>' .$value['qtdItem']. '</th>
+                                                <th>' .$dataFormatada. '</th>
+                                            </tr>
+                                        ';
                                     }
-
-                                    echo '
-                                        <tr>
-                                            <th>' .$value['id']. '</th>
-                                            <th>' .$value['item']. '</th>
-                                            <th>' .$value['qtdItem']. '</th>
-                                            <th>' .$dataFormatada. '</th>
-                                        </tr>
-                                    ';
                                 }
                             ?>
                             </tbody>

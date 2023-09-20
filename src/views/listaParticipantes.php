@@ -38,31 +38,33 @@
                             <?php 
                                 $participantes = $ParticipanteController->getParticipantes();
                                
-                                foreach($participantes as $key => $value){
-
-                                    $dateTime = new DateTime($value['hora_registro']);
-                                    $dataFormatada = $dateTime->format("d/m/Y H:i:s");
-
-                                    if($value['hora_update']){
-                                        $dateTime = new DateTime($value['hora_update']);
+                                if(!$participantes['error']){
+                                    foreach($participantes as $key => $value){
+    
+                                        $dateTime = new DateTime($value['hora_registro']);
                                         $dataFormatada = $dateTime->format("d/m/Y H:i:s");
+    
+                                        if($value['hora_update']){
+                                            $dateTime = new DateTime($value['hora_update']);
+                                            $dataFormatada = $dateTime->format("d/m/Y H:i:s");
+                                        }
+    
+                                        echo '
+                                            <tr>
+                                                <th>' .$value['id']. '</th>
+                                                <th>' .$value['nome']. '</th>
+                                                <th>' .$value['consumo']. '</th>
+                                                <th>' .$dataFormatada. '</th>
+                                                <td>
+                                                    <button class="btn btn-primary btn-edit" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarClienteModal"> <i class="fas fa-edit"></i></button>
+                                                    <form id="formDelete" style="display: inline;">
+                                                        <input type="hidden" value="' .$value['id'] .'" name="idDelete"/>
+                                                        <button type="submit" class="btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        ';
                                     }
-
-                                    echo '
-                                        <tr>
-                                            <th>' .$value['id']. '</th>
-                                            <th>' .$value['nome']. '</th>
-                                            <th>' .$value['consumo']. '</th>
-                                            <th>' .$dataFormatada. '</th>
-                                            <td>
-                                                <button class="btn btn-primary btn-edit" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarClienteModal"> <i class="fas fa-edit"></i></button>
-                                                <form id="formDelete" style="display: inline;">
-                                                    <input type="hidden" value="' .$value['id'] .'" name="idDelete"/>
-                                                    <button type="submit" class="btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    ';
                                 }
                             ?>
                             </tbody>
@@ -77,7 +79,7 @@
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="ModalLabel">Editar participante</h1>
                         </div>
-                        <form id="formEdit" method="POST" action="/editarParticipante">
+                        <form id="formEdit">
                             <input type="hidden" id="id" name="id"/>
                             <div class="modal-body">
                                 <div>

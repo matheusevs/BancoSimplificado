@@ -70,4 +70,19 @@ class ParticipanteModel{
 
     }
 
+    public function updateParticipante($id, $data){
+
+        $sql = "
+            UPDATE participantes SET nome = '{$data['nomeTextEdit']}', consumo = {$data['consumoNumberEdit']}, hora_update = '{$data['hora_update']}' WHERE id = {$id};
+        ";
+
+        $participanteUpdate = mysqli_query($this->connect, $sql);
+        if(!$participanteUpdate){
+            return ['error' => mysqli_error($this->connect)];
+        }
+        
+        return $participanteUpdate;
+
+    }
+
 }

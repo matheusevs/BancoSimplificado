@@ -9,6 +9,7 @@ class Router
     private $method;
     private $route;
     public $url;
+    public $post;
     public $body;
     public $ItemController;
     public $ParticipanteController;
@@ -19,7 +20,8 @@ class Router
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->route = $_SERVER['REQUEST_URI'];
         $this->url = $_SERVER['HTTP_ORIGIN'];
-        $this->body = $_POST;
+        $this->post = $_POST;
+        $this->body = json_decode(file_get_contents('php://input'), true);
         $this->ItemController = new ItemController();
         $this->ParticipanteController = new ParticipanteController();
         
@@ -33,11 +35,10 @@ class Router
 
         switch($this->method){
 
-
             case 'POST':
                 if($this->route == '/cadastrarItens'){
                     
-                    $createItem = ItemController::saveItem($this->body);
+                    $createItem = ItemController::saveItem($this->post);
                     if(isset($createItem['error'])){
 
                         header('Location: '. $this->url .'?msg=error');
@@ -52,7 +53,7 @@ class Router
 
                 if($this->route == '/cadastrarParticipantes'){
 
-                    $createParticipante = ParticipanteController::saveParticipante($this->body);
+                    $createParticipante = ParticipanteController::saveParticipante($this->post);
                     if(isset($createParticipante['error'])){
 
                         header('Location: '. $this->url .'?msg=error');
@@ -116,7 +117,6 @@ class Router
 
                 }
 
-
                 if($this->route == '/'){
                     
                     if(!include_once('./index.php')){
@@ -129,6 +129,25 @@ class Router
                         include_once('./src/views/error.php');
                     }
 
+                }
+
+            break;
+
+            case 'PUT':
+
+                if(preg_match('/^\/editarParticipante\/(\d+)$/', $this->route, $matches)){
+                    
+                    $id = $matches[1];
+                    $updateParticipantesById = $this->ParticipanteController->updateParticipantesById($id, $this->body);
+                    
+                    if(isset($updateParticipantesById['error'])){
+
+                        echo json_encode($updateParticipantesById);
+
+                    }
+
+                    exit;
+                    
                 }
 
             break;
