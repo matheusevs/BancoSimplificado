@@ -141,6 +141,15 @@ class Router
 
                 }
 
+                if($this->route == '/login'){
+
+                    if(!include_once('./src/views/login.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
             break;
 
             case 'PUT':
