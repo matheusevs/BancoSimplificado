@@ -38,7 +38,7 @@ class Router
             case 'POST':
                 if($this->route == '/cadastrarItens'){
                     
-                    $createItem = ItemController::saveItem($this->post);
+                    $createItem = $this->ItemController->saveItem($this->post);
                     if(isset($createItem['error'])){
 
                         header('Location: '. $this->url .'?msg=error');
@@ -53,7 +53,7 @@ class Router
 
                 if($this->route == '/cadastrarParticipantes'){
 
-                    $createParticipante = ParticipanteController::saveParticipante($this->post);
+                    $createParticipante = $this->ParticipanteController->saveParticipante($this->post);
                     if(isset($createParticipante['error'])){
 
                         header('Location: '. $this->url .'?msg=error');
@@ -117,6 +117,16 @@ class Router
 
                 }
 
+                if(preg_match('/^\/itens\/(\d+)$/', $this->route, $matches)) {
+
+                    $id = $matches[1];
+                    $getItemById = $this->ItemController->getItemById($id);
+
+                    echo json_encode($getItemById);
+                    exit;
+
+                }
+
                 if($this->route == '/'){
                     
                     if(!include_once('./index.php')){
@@ -150,6 +160,21 @@ class Router
                     
                 }
 
+                if(preg_match('/^\/editarItem\/(\d+)$/', $this->route, $matches)){
+                    
+                    $id = $matches[1];
+                    $updateItensById = $this->ItemController->updateItensById($id, $this->body);
+                    
+                    if(isset($updateItensById['error'])){
+
+                        echo json_encode($updateItensById);
+
+                    }
+
+                    exit;
+                    
+                }
+
             break;
 
             case 'DELETE':
@@ -162,6 +187,21 @@ class Router
                     if(isset($deleteParticipantesById['error'])){
 
                         echo json_encode($deleteParticipantesById);
+
+                    }
+
+                    exit;
+                    
+                }
+
+                if(preg_match('/^\/deletarItem\/(\d+)$/', $this->route, $matches)){
+                    
+                    $id = $matches[1];
+                    $deleteItensById = $this->ItemController->deleteItensById($id, $this->body);
+                    
+                    if(isset($deleteItensById['error'])){
+
+                        echo json_encode($deleteItensById);
 
                     }
 

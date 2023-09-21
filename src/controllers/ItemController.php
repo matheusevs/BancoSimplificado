@@ -14,7 +14,7 @@ class ItemController
 
     }
 
-    public static function saveItem($body)
+    public function saveItem($body)
     {
 
         $validateFields = $this->validateFields($body, 'create');
@@ -74,27 +74,28 @@ class ItemController
 
     }
 
-    public function validateFields($body, $type){
+    public function validateFields(array $body, $type)
+    {
 
         if(empty($body)){
             return ['error' => 'O corpo da requisição não pode estar vazio.'];
         }
 
         if($type == 'edit'){
-            if(!isset($body['nomeTextEdit']) || empty($body['nomeTextEdit'])){
-                return ['error' => 'O campo de nome é obrigatório.'];
+            if(!isset($body['itemTextEdit']) || empty($body['itemTextEdit'])){
+                return ['error' => 'O campo de item é obrigatório.'];
             }
     
-            if(!isset($body['consumoNumberEdit']) || empty($body['consumoNumberEdit']) || !is_numeric($body['consumoNumberEdit'])){
-                return ['error' => 'O campo de consumo é obrigatório.'];
+            if(!isset($body['qtdItemNumberEdit']) || empty($body['qtdItemNumberEdit']) || !is_numeric($body['qtdItemNumberEdit'])){
+                return ['error' => 'O campo de quantidade é obrigatório.'];
             }
         } else {
-            if(!isset($body['nomeText']) || empty($body['nomeText'])){
-                return ['error' => 'O campo de nome é obrigatório.'];
+            if(!isset($body['itemText']) || empty($body['itemText'])){
+                return ['error' => 'O campo de item é obrigatório.'];
             }
     
-            if(!isset($body['consumoNumber']) || empty($body['consumoNumber']) || !is_numeric($body['consumoNumber'])){
-                return ['error' => 'O campo de consumo é obrigatório.'];
+            if(!isset($body['qtdItemNumber']) || empty($body['qtdItemNumber']) || !is_numeric($body['qtdItemNumber'])){
+                return ['error' => 'O campo de quantidade é obrigatório.'];
             }
         }
 

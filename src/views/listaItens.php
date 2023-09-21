@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <link type="text/css" rel="stylesheet" href="/src/views/css/normalize.css">
         <link type="text/css" rel="stylesheet" href="/src/views/css/estilo.css">
     </head>
@@ -23,7 +24,7 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <h1 class="display-4 text-center">Lista de participantes</h1>
+                    <h1 class="display-4 text-center">Lista de itens</h1>
                     <table id="tabela" class="table table-bordereds justify-content-center">
                         <thead>
                             <tr>
@@ -54,7 +55,7 @@
                                                 <th>' .$value['qtdItem']. '</th>
                                                 <th>' .$dataFormatada. '</th>
                                                 <td>
-                                                    <button class="btn btn-primary btn-edit" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarParticipanteModal"> <i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-primary btn-edit" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarItemModal"> <i class="fas fa-edit"></i></button>
                                                     <button class="btn btn-danger btn-delete" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#confirm-delete"><i class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
@@ -80,11 +81,11 @@
                                 <div>
                                     <div class="mb-3">
                                     <label for="item">Item</label>
-                                    <input required="required" class="form-control" type="text" id="item" placeholder="Digite seu item" name="itemTextEdit" maxlength="255">
+                                    <input required="required" class="form-control" type="text" id="itemEdit" placeholder="Digite seu item" name="itemTextEdit" maxlength="255">
                                     </div>
                                     <div class="mb-3">
                                         <label for="qtdItem">Quantidade</label>
-                                        <input required="required" class="form-control" type="number" id="qtdItem" placeholder="Digite o kg ou litros do item" name="qtdItemNumberEdit">
+                                        <input required="required" class="form-control" type="number" id="qtdItemEdit" placeholder="Digite o kg ou litros do item" name="qtdItemNumberEdit">
                                     </div>
                                 </div>
                             </div>
@@ -118,9 +119,11 @@
             </div>
         </section>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
         <script src="/src/views/js/itens.js"></script>
     </body>
 </html>

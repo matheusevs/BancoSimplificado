@@ -13,7 +13,7 @@ class ParticipanteController{
 
     }
 
-    public static function saveParticipante($body){
+    public function saveParticipante($body){
 
         $validateFields = $this->validateFields($body, 'create');
         if($validateFields['error']){

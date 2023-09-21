@@ -53,7 +53,7 @@ class ItemModel
 
     }
 
-    public function getItensById($id){
+    public function getItemById($id){
 
         $sql = "SELECT * FROM itens WHERE id = {$id};";
 
