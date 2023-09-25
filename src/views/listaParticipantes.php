@@ -27,7 +27,7 @@
                     <h1 class="display-4 text-center">Lista de participantes</h1>
                     <table id="tabela" class="table table-bordereds justify-content-center">
                         <thead>
-                            <tr>
+                            <tr class="cabecalho_table">
                                 <th>#</th>
                                 <th>Nome</th>
                                 <th>Quantidade que pretende consumir</th>

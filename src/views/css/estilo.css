@@ -1,6 +1,6 @@
-#fundo{
+body{
     background-color: #F0F8FF;
-    color: #59429d;
+    /* color: #59429d; */
 }
 
 #caixa_formulario{
@@ -8,8 +8,11 @@
     padding-bottom: 20px;
 }
 
-button#botao {
-    font-size: 14px;
+button#botao:hover {
+    /* font-size: 14px; */
+    background-color: #fff;
+    color: #007bff;
+    border-color: #007bff;
 }
 
 #formulario{
@@ -27,12 +30,12 @@ button#botao {
     margin-left: 5%;
 }
 
-h1{
+/* h1{
     font-weight: 900;
     letter-spacing: -0.05em;
     margin-bottom: 50px;
-    color: #59429d;
-}
+    color: black;
+} */
 
 nav.navbar{
     background: #59429d;
@@ -58,14 +61,19 @@ nav.navbar{
     color: #F0F8FF;
 }
 
+.btn-branco:hover{
+    background-color: #59429d;
+    color: #F0F8FF;
+}
+
 #formulario span.input-group-text{
     width: 42px; height: 38px;
     text-align: center;
 }
 
-tr:nth-of-type(1){
-    background-color: #59429d;
-    color: #F0F8FF;
+.cabecalho_table{
+    background: #808080;
+    color: #fff;
 }
 
 tr:nth-of-type(even){
