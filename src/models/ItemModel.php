@@ -21,7 +21,7 @@ class ItemModel
 
         $itemCreate = mysqli_query($this->connect, $sql);
         if(!$itemCreate){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         
         return $itemCreate;
@@ -36,7 +36,7 @@ class ItemModel
         
         $getItens = mysqli_query($this->connect, $sql);
         if(!$getItens){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
 
         if($getItens->num_rows == 0){
@@ -59,7 +59,7 @@ class ItemModel
 
         $buscaItens = mysqli_query($this->connect, $sql);
         if(!$buscaItens){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         if($buscaItens->num_rows == 0){
             return ['error' => 'Não foi identificado nenhum item com o id informado'];
@@ -77,7 +77,7 @@ class ItemModel
 
         $itemUpdate = mysqli_query($this->connect, $sql);
         if(!$itemUpdate){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         
         return $itemUpdate;
@@ -90,7 +90,7 @@ class ItemModel
 
         $itemDelete = mysqli_query($this->connect, $sql);
         if(!$itemDelete){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         
         return $itemDelete;

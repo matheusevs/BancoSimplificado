@@ -22,7 +22,7 @@ class ParticipanteModel{
 
         $participanteCreate = mysqli_query($this->connect, $sql);
         if(!$participanteCreate){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         
         return $participanteCreate;
@@ -37,7 +37,7 @@ class ParticipanteModel{
         
         $getParticipantes = mysqli_query($this->connect, $sql);
         if(!$getParticipantes){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
 
         if($getParticipantes->num_rows == 0){
@@ -60,7 +60,7 @@ class ParticipanteModel{
 
         $buscaParticipante = mysqli_query($this->connect, $sql);
         if(!$buscaParticipante){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         if($buscaParticipante->num_rows == 0){
             return ['error' => 'Não foi identificado nenhum participante com o id informado'];
@@ -78,7 +78,7 @@ class ParticipanteModel{
 
         $participanteUpdate = mysqli_query($this->connect, $sql);
         if(!$participanteUpdate){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         
         return $participanteUpdate;
@@ -91,7 +91,7 @@ class ParticipanteModel{
 
         $participanteDelete = mysqli_query($this->connect, $sql);
         if(!$participanteDelete){
-            return ['error' => mysqli_error($this->connect)];
+            return ['error' => mysqli_connect_error()];
         }
         
         return $participanteDelete;
