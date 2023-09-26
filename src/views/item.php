@@ -20,17 +20,17 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <form id="formularioItens" method="POST" action="/cadastrarItens">
-                        <h1 class="display-4 text-center col">LISTA DE DESEJOS</h1>
-                        <div class="form-group input-group">
-                            <label for="item"></label>
-                            <input required="required" class="form-control" type="text" id="item" placeholder="Digite seu item" name="itemText" maxlength="255">
+                    <form id="formularioItens" method="POST" action="/cadastrarItens" class="col-md-6">
+                        <h1 class="display-4 text-center mb-4">LISTA DE DESEJOS</h1>
+                        <div class="form-group">
+                            <label for="item">Item:</label>
+                            <input required="required" class="form-control" type="text" id="item" placeholder="Digite o item" name="itemText" maxlength="255">
                         </div>
-                        <div class="form-group input-group">
-                            <label for="qtdItem"></label>
-                            <input required="required" class="form-control" type="number" id="qtdItem" placeholder="Digite o kg ou litros do item" name="qtdItemNumber">
+                        <div class="form-group">
+                            <label for="qtdItem">Quantidade:</label>
+                            <input required="required" class="form-control" type="number" id="qtdItem" placeholder="Digite a quantidade" name="qtdItemNumber">
                         </div>
-                        <div id="botoes">
+                        <div id="botoes" class="text-center">
                             <button id="botao" class="btn btn-primary" type="submit" value="Salvar">SALVAR</button>
                         </div>        
                     </form>

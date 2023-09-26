@@ -20,17 +20,17 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <form id="formularioItens" method="POST" action="/cadastrarParticipantes">
-                        <h1 class="display-4 text-center col">LISTA DE PARTICIPANTES</h1>
-                        <div class="form-group input-group">
-                            <label for="nome"></label>
-                            <input required="required" class="form-control" type="text" id="nome" placeholder="Digite seu nome" name="nomeText" maxlength="255">
+                    <form id="formularioParticipantes" method="POST" action="/cadastrarParticipantes" class="col-md-6">
+                        <h1 class="display-4 text-center mb-4">LISTA DE PARTICIPANTES</h1>
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input required="required" class="form-control" type="text" id="nome" placeholder="Digite o nome" name="nomeText" maxlength="255">
                         </div>
-                        <div class="form-group input-group">
-                            <label for="qtdConsumo"></label>
-                            <input required="required" class="form-control" type="number" id="qtdConsumo" placeholder="Digite o kg ou litros que ira consumir" name="consumoNumber">
+                        <div class="form-group">
+                            <label for="qtdConsumo">Consumo (kg/litros):</label>
+                            <input required="required" class="form-control" type="number" id="qtdConsumo" placeholder="Digite a quantidade" name="consumoNumber">
                         </div>
-                        <div id="botoes">
+                        <div id="botoes" class="text-center">
                             <button id="botao" class="btn btn-primary" type="submit" value="Salvar">SALVAR</button>
                         </div>
                     </form>
