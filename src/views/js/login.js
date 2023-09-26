@@ -19,17 +19,21 @@ $(function(){
             success: res => {
 
                 res = JSON.parse(res);
-                document.cookie = 'Authorization=' + res.token + '; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/;';
-                overlay.style.display = 'none';
 
                 if(!res.error){
 
+                    let currentDate = new Date();
+                    let expirationDate = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
+                    let expires = "expires=" + expirationDate.toUTCString();
+                    document.cookie = 'Authorization=' + res.token + '; ' + expires + '; path=/;';
+                    overlay.style.display = 'none';
                     window.location.href = "/";
 
                 } else {
 
                     toastr.error(res.error,'Erro!');
-    
+                    overlay.style.display = 'none';
+                    
                 }
 
             }
@@ -50,6 +54,11 @@ jQuery(document).ready(function(){
 
     if(userCreate.includes('success')){
         toastr.success('Usuário cadastrado com sucesso!');
+        return;
+    }
+
+    if(userCreate.includes('errorToken')){
+        toastr.warning('Ocorreu um erro na validação do seu token, realize o login novamente por favor!');
         return;
     }
 

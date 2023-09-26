@@ -20,7 +20,7 @@
         <form id="formLogin">
             <div class="input-container">
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="email" required>
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="input-container">
                 <label for="password">Senha:</label>
