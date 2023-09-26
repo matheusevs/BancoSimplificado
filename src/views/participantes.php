@@ -31,7 +31,7 @@
                             <input required="required" class="form-control" type="number" id="qtdConsumo" placeholder="Digite o kg ou litros que ira consumir" name="consumoNumber">
                         </div>
                         <div id="botoes">
-                            <button id="botao" class="btn btn-custom btn-branco" type="submit" value="Salvar">SALVAR</button>
+                            <button id="botao" class="btn btn-primary" type="submit" value="Salvar">SALVAR</button>
                         </div>
                     </form>
                 </div>
