@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
-    <link type="text/css" rel="stylesheet" href="/src/views/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="/src/views/css/login.css">
 </head>
 <body>
 
@@ -28,11 +29,21 @@
             </div>
             <div class="input-container">
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required>
+                <div class="password-container">
+                    <input type="password" id="senha" name="senha" required>
+                    <span class="toggle-password" id="togglePassword">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
             </div>
             <div class="input-container">
                 <label for="confirmar_senha">Confirmar Senha:</label>
-                <input type="password" id="confirmar_senha" name="confirmar_senha" required>
+                <div class="password-container">
+                    <input type="password" id="confirmar_senha" name="confirmar_senha" required>
+                    <span class="toggle-password" id="togglePasswordConfirm">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
                 <span class="error-message" id="password-error"></span>
             </div>
             <button type="submit" class="btn-login">Cadastrar</button>

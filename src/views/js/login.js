@@ -26,11 +26,11 @@ $(function(){
                     let expirationDate = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
                     let expires = "expires=" + expirationDate.toUTCString();
                     document.cookie = 'Authorization=' + res.token + '; ' + expires + '; path=/;';
-                    overlay.style.display = 'none';
                     window.location.href = "/";
 
                 } else {
 
+                    $('#password').val('');
                     toastr.error(res.error,'Erro!');
                     overlay.style.display = 'none';
                     
@@ -47,6 +47,19 @@ $(function(){
 
     });
 
+    $('#togglePassword').click(function () {
+        let senhaInput = $('#password');
+        let tipo = senhaInput.attr('type');
+
+        if(tipo === 'password'){
+            senhaInput.attr('type', 'text');
+            senhaInput.parent().addClass('password-visible');
+        } else {
+            senhaInput.attr('type', 'password');
+            senhaInput.parent().removeClass('password-visible');
+        }
+    });
+
     document.getElementById('logoutButton').addEventListener('click', e => {
         e.preventDefault();
         $('#logoutModal').modal('show');
@@ -54,6 +67,9 @@ $(function(){
 
     document.getElementById('logout').addEventListener('click', e => {
         e.preventDefault();
+
+        let overlay = document.querySelector('.overlay');
+        overlay.style.display = 'flex';
 
         $.ajax({
             type: "POST",
@@ -68,6 +84,11 @@ $(function(){
 
             }
 
+        });
+
+        overlay.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
         });
 
     })

@@ -29,7 +29,6 @@ $(function(){
             success: res => {
 
                 res = JSON.parse(res);
-                overlay.style.display = 'none';
 
                 if(!res.error){
 
@@ -37,6 +36,7 @@ $(function(){
 
                 } else {
 
+                    overlay.style.display = 'none';
                     toastr.error(res.error,'Erro!');
     
                 }
@@ -54,6 +54,30 @@ $(function(){
 
     });
 
-    
+    $('#togglePassword').click(function () {
+        let senhaInput = $('#senha');
+        let tipo = senhaInput.attr('type');
+
+        if(tipo === 'password'){
+            senhaInput.attr('type', 'text');
+            senhaInput.parent().addClass('password-visible');
+        } else {
+            senhaInput.attr('type', 'password');
+            senhaInput.parent().removeClass('password-visible');
+        }
+    });
+
+    $('#togglePasswordConfirm').click(function () {
+        let senhaInput = $('#confirmar_senha');
+        let tipo = senhaInput.attr('type');
+
+        if(tipo === 'password'){
+            senhaInput.attr('type', 'text');
+            senhaInput.parent().addClass('password-visible');
+        } else {
+            senhaInput.attr('type', 'password');
+            senhaInput.parent().removeClass('password-visible');
+        }
+    });
 
 });

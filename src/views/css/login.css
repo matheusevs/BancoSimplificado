@@ -116,3 +116,23 @@ input.error {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Estilo para o ícone de olho */
+.toggle-password {
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.password-visible .toggle-password {
+    color: #007bff;
+}
