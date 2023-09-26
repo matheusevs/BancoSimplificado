@@ -18,3 +18,15 @@ CREATE TABLE IF NOT EXISTS participantes
     hora_registro   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     hora_update     TIMESTAMP NULL DEFAULT NULL
 );
+
+CREATE TABLE IF NOT EXISTS users
+(
+
+    id              int unsigned not null primary key auto_increment,
+    name            varchar(255) not null,
+    email           varchar(255) not null,
+    password        varchar(255) not null,
+    hora_registro   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    hora_update     TIMESTAMP NULL DEFAULT NULL
+
+);
