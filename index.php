@@ -38,6 +38,12 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
     </div>
 </nav>
 
+<div class="overlay">
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+</div>
+
 <div class="container mt-5">
     <h1 class="text-center mb-4">Página de Administração</h1>
     <div class="row">
