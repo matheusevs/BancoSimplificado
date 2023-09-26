@@ -291,9 +291,19 @@ class Router
     }
 
     public function validateToken(){
+
         if(empty($this->token)){
             header('Location: '. $this->url .'/login');
             exit;
+        } else {
+
+            $validateToken = $this->UserController->validateToken($this->token);
+            if($validateToken->num_rows == 0){
+                setcookie("Authorization", "", time() - 3600, "/");
+                header('Location: '. $this->url .'/login?userCreate=errorToken');
+                exit;
+            }
+
         }
     }
 
