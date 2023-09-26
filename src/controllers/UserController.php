@@ -57,6 +57,37 @@
             return $findUser;
 
         }
+        
+        public function updateUserById($body, $id, $type){
+
+            $validateFields = $this->validateFields($body, $type);
+            if($validateFields['error']){
+                return $validateFields;
+            }
+
+            $set = $this->mountSet($validateFields);
+
+            return $body;
+            if(!$this->userModel->updateUser($set, $id)){
+                return ['error' => 'Não foi possível editar o usuário.'];
+            }
+
+        }
+
+        public function mountSet($set){
+
+            $array = array();
+
+            $set['hora_update'] = date('Y-m-d H:i:s');
+            
+            foreach ($set as $key => $value) {
+                $array[] = "$key = '$value'";
+            }
+            
+            $stringSet = implode(',', $array);
+            return $stringSet;
+
+        }
 
         public function validateToken($token, $haveAdmin = null){
             
@@ -74,36 +105,64 @@
 
         public function validateFields($body, $type = null){
 
-            if(empty($body)){
-                return ['error' => 'O corpo da requisição não pode estar vazio.'];
-            }
+            if($type == 'updateAdmin'){
 
-            if(!isset($body['email']) || empty($body['email'])){
-                return ['error' => 'O campo de email é obrigatório.'];
-            }
+                if(empty($body)){
+                    return ['error' => 'O corpo da requisição não pode estar vazio.'];
+                }
 
-            if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
-                return ['error' => 'O campo de email não está em um formato válido.'];
-            }
+                if(!empty($body['id'])){
+                    unset($body['id']);
+                }
 
-            if(!isset($body['nome']) || empty($body['nome'])){
-                return ['error' => 'O campo de nome é obrigatório.'];
-            }
-
-            if(!isset($body['senha']) || empty($body['senha'])){
-                return ['error' => 'O campo de senha é obrigatório.'];
-            }
-
-            if($type != 'createAdmin'){
-                if(!isset($body['confirmar_senha']) || empty($body['confirmar_senha'])){
-                    return ['error' => 'O campo de confirmar senha é obrigatório.'];
+                if(empty($body['nome'])){
+                    unset($body['nome']);
                 }
     
-                if($body['senha'] != $body['confirmar_senha']){
-                    return ['error' => 'Senhas não correspondem'];
+                if(empty($body['email'])){
+                    unset($body['email']);
+                } else {
+                    if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
+                        return ['error' => 'O campo de email não está em um formato válido.'];
+                    }
+                }
+
+                if(empty($body['roles'])){
+                    unset($body['roles']);
+                }
+    
+                return $body;
+
+            } else {
+                if(empty($body)){
+                    return ['error' => 'O corpo da requisição não pode estar vazio.'];
+                }
+    
+                if(!isset($body['email']) || empty($body['email'])){
+                    return ['error' => 'O campo de email é obrigatório.'];
+                }
+    
+                if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
+                    return ['error' => 'O campo de email não está em um formato válido.'];
+                }
+    
+                if(!isset($body['nome']) || empty($body['nome'])){
+                    return ['error' => 'O campo de nome é obrigatório.'];
+                }
+    
+                if(!isset($body['senha']) || empty($body['senha'])){
+                    return ['error' => 'O campo de senha é obrigatório.'];
+                }
+    
+                if($type != 'createAdmin'){
+                    if(!isset($body['confirmar_senha']) || empty($body['confirmar_senha'])){
+                        return ['error' => 'O campo de confirmar senha é obrigatório.'];
+                    }
+        
+                    if($body['senha'] != $body['confirmar_senha']){
+                        return ['error' => 'Senhas não correspondem'];
+                    }
                 }
             }
-
         }
-
     }

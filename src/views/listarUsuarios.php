@@ -64,7 +64,7 @@ $UserController = new UserController();
                                         <th>' .$roles. '</th>
                                         <th>' .$dataFormatada. '</th>
                                         <td class="d-flex">
-                                            <button class="btn btn-primary btn-edit mr-2" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarItemModal"> <i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-primary btn-edit mr-2" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#editarUsuarioModal"> <i class="fas fa-edit"></i></button>
                                             <button class="btn btn-danger btn-delete" style="display: inline;" value="' .$value['id'] .'"  data-bs-toggle="modal" data-bs-target="#confirm-delete"><i class="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
@@ -78,23 +78,30 @@ $UserController = new UserController();
             </div>
         </div>
 
-        <div class="modal fade" id="editarItemModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ModalLabel">Editar item</h1>
+                        <h1 class="modal-title fs-5" id="ModalLabel">Editar usuário</h1>
                     </div>
                     <form id="formEdit">
                         <input type="hidden" id="id" name="id"/>
                         <div class="modal-body">
                             <div>
                                 <div class="mb-3">
-                                    <label for="item">Item</label>
-                                    <input required="required" class="form-control" type="text" id="itemEdit" placeholder="Digite seu item" name="itemTextEdit" maxlength="255">
+                                    <label for="usuario">Usuario</label>
+                                    <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="nome" maxlength="255">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="qtdItem">Quantidade</label>
-                                    <input required="required" class="form-control" type="number" id="qtdItemEdit" placeholder="Digite o kg ou litros do item" name="qtdItemNumberEdit">
+                                    <label for="email">Email</label>
+                                    <input required="required" class="form-control" type="email" id="emailEdit" placeholder="Digite o email do usuário" name="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="roles">Roles</label>
+                                    <select class="form-control" id="roles" name="roles">
+                                        <option value="participant">Participante</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -297,6 +297,23 @@ class Router
                     
                 }
 
+                if(preg_match('/^\/editarUsuario\/(\d+)$/', $this->route, $matches)){
+
+                    $this->validateToken(true);
+                    
+                    $id = $matches[1];
+                    $updateUserById = $this->UserController->updateUserById($this->body, $id, 'updateAdmin');
+                    
+                    // if(isset($updateUserById['error'])){
+
+                        echo json_encode($updateUserById);
+
+                    // }
+
+                    exit;
+                    
+                }
+
             break;
 
             case 'DELETE':

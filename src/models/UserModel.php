@@ -82,7 +82,7 @@
 
             $sql = "
                 SELECT
-                    *
+                    id, name, email, roles
                 FROM
                     users
                 WHERE 
@@ -98,6 +98,24 @@
             }
 
             return mysqli_fetch_array($findUser, MYSQLI_ASSOC);
+
+        }
+
+        public function updateUser($set, $id){
+
+            $sql = "
+                UPDATE users
+                SET $set
+                WHERE id = $id;
+            ";
+
+            $updateUser = mysqli_query($this->connect, $sql);
+            if(!$updateUser){
+                return ['error' => mysqli_error($this->connect)];
+            }
+            
+            return $updateUser;
+            
 
         }
 
