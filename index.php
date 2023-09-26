@@ -94,6 +94,37 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
             </div>
         </div>
     </div>
+    
+    <?php if($user['roles'] == 'admin'){ ?>
+
+        <h1 class="text-center mb-4">Administração de usuários</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Cadastrar Usuários</h5>
+                        <p class="card-text">Clique abaixo para cadastrar novos usuários.</p>
+                        <form method="GET" action="/cadastrarUsuarios">
+                            <button id="botao" class="btn btn-primary" type="submit">Cadastrar Usuários</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Listar Usuários</h5>
+                        <p class="card-text">Clique abaixo para listar, editar ou excluir usuários existentes.</p>
+                        <form method="GET" action="/listarUsuarios">
+                            <button id="botao" class="btn btn-primary" type="submit">Listar Usuários</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <?php } ?>
 </div>
 
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
