@@ -32,7 +32,7 @@ $(function(){
 
                 if(!res.error){
 
-                    window.location.href = "/login" + '?userCreate=success';
+                    window.location.href = "/login" + '?userCreate=successCadastro';
 
                 } else {
 

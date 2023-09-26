@@ -8,6 +8,14 @@ body{
     padding-bottom: 20px;
 }
 
+.btn-back {
+    margin-bottom: 20px;
+}
+
+#botoes {
+    margin-top: 20px;
+}
+
 button#botao:hover {
     /* font-size: 14px; */
     background-color: #fff;
@@ -181,4 +189,23 @@ tr:nth-of-type(even){
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.toggle-password {
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    right: 24px;
+    top: 80%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.password-visible .toggle-password {
+    color: #007bff;
 }

@@ -98,7 +98,7 @@ $(function(){
 jQuery(document).ready(function(){
     var userCreate = window.location.href;
 
-    if(userCreate.includes('success')){
+    if(userCreate.includes('successCadastro')){
         toastr.success('Usuário cadastrado com sucesso!');
         return;
     }

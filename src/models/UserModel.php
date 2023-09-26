@@ -50,7 +50,63 @@
 
         }
 
-        public function validateToken($user){
+        public function getUsers(){
+            $arrayUsers = [];
+
+            $sql = "
+                SELECT
+                    *
+                FROM
+                    users;
+            ";
+
+            $getUsers = mysqli_query($this->connect, $sql);
+            if(!$getUsers){
+                return ['error' => mysqli_error($this->connect)];
+            }
+            if($getUsers->num_rows == 0){
+                return ['error' => 'Não foi nenhum usuário.'];
+            }
+
+            while($row = mysqli_fetch_array($getUsers, MYSQLI_ASSOC)){
+      
+                array_push($arrayUsers, $row);
+            
+            }
+
+            return $arrayUsers;
+
+        }
+
+        public function findUserById($id){
+
+            $sql = "
+                SELECT
+                    *
+                FROM
+                    users
+                WHERE 
+                    id = $id;
+            ";
+
+            $findUser = mysqli_query($this->connect, $sql);
+            if(!$findUser){
+                return ['error' => mysqli_error($this->connect)];
+            }
+            if($findUser->num_rows == 0){
+                return ['error' => 'Não foi identificado nenhum usuário com o id informado'];
+            }
+
+            return mysqli_fetch_array($findUser, MYSQLI_ASSOC);
+
+        }
+
+        public function validateToken($user, $haveAdmin = null){
+
+            $where = '';
+            if($haveAdmin){
+                $where = " AND roles = 'admin'";
+            }
 
             $sql = "
                 SELECT 
@@ -61,7 +117,8 @@
                     id = $user->id
                     AND name = '$user->name'
                     AND email = '$user->email'
-                    AND password = '$user->password';
+                    AND password = '$user->password'
+                    $where;
             ";
 
             $user = mysqli_query($this->connect, $sql);

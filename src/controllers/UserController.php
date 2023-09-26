@@ -14,10 +14,9 @@
             
         }
 
-        public function saveUser($body){
+        public function saveUser($body, $type = null){
 
-            
-            $validateFields = $this->validateFields($body);
+            $validateFields = $this->validateFields($body, $type);
             if($validateFields['error']){
                 return $validateFields;
             }
@@ -37,7 +36,29 @@
 
         }
 
-        public function validateToken($token){
+        public function getUsers(){
+
+            $getUsers = $this->userModel->getUsers();
+            if($getUsers['error']){
+                return $getUsers;
+            }
+
+            return $getUsers;
+
+        }
+
+        public function getUserById($id){
+
+            if(empty($id) || !is_numeric($id) || intval($id) <= 0){
+                return ['error' => 'O ID informado é inválido.'];
+    	    }
+            
+            $findUser = $this->userModel->findUserById($id);
+            return $findUser;
+
+        }
+
+        public function validateToken($token, $haveAdmin = null){
             
             if(empty($token)){
                 return ['error' => 'Não foi recebido nenhum token.'];
@@ -46,12 +67,12 @@
             $user = base64_decode($token, true);
             $user = unserialize($user);
             $objUser = json_decode(json_encode($user), false);
-            $userLogged = $this->userModel->validateToken($objUser);
+            $userLogged = $this->userModel->validateToken($objUser, $haveAdmin);
 
             return $userLogged;
         }
 
-        public function validateFields($body){
+        public function validateFields($body, $type = null){
 
             if(empty($body)){
                 return ['error' => 'O corpo da requisição não pode estar vazio.'];
@@ -73,12 +94,14 @@
                 return ['error' => 'O campo de senha é obrigatório.'];
             }
 
-            if(!isset($body['confirmar_senha']) || empty($body['confirmar_senha'])){
-                return ['error' => 'O campo de confirmar senha é obrigatório.'];
-            }
-
-            if($body['senha'] != $body['confirmar_senha']){
-                return ['error' => 'Senhas não correspondem'];
+            if($type != 'createAdmin'){
+                if(!isset($body['confirmar_senha']) || empty($body['confirmar_senha'])){
+                    return ['error' => 'O campo de confirmar senha é obrigatório.'];
+                }
+    
+                if($body['senha'] != $body['confirmar_senha']){
+                    return ['error' => 'Senhas não correspondem'];
+                }
             }
 
         }
