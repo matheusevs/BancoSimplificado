@@ -3,6 +3,7 @@ date_default_timezone_set('America/Sao_Paulo');
 define('RELATIVE_PATH', dirname(__FILE__));
 require_once('./src/routes/Routes.php');
 $router = new Router();
+$user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +18,25 @@ $router = new Router();
     <title>Página de Administração</title>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Seu Site</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="nav-link">Seja bem-vindo, <?php echo $user['name'];?></span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" id="logoutButton">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Página de Administração</h1>
@@ -70,10 +90,31 @@ $router = new Router();
     </div>
 </div>
 
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Confirmar Logout</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem certeza de que deseja sair da sua conta?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a href="" id="logout" class="btn btn-primary">Sair</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="/src/views/js/login.js"></script>
 </body>
 </html>
 

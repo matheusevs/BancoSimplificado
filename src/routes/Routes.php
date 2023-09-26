@@ -53,6 +53,16 @@ class Router
 
                 }
 
+                if($this->route == '/logout'){
+
+                    $this->validateToken();
+
+                    setcookie("Authorization", "", time() - 3600, "/");
+                    echo json_encode(true);
+                    exit;
+
+                }
+
                 if($this->route == '/createUser'){
 
                     $userCreate = $this->UserController->saveUser($this->body);                        
@@ -303,6 +313,8 @@ class Router
                 header('Location: '. $this->url .'/login?userCreate=errorToken');
                 exit;
             }
+
+            return $validateToken;
 
         }
     }

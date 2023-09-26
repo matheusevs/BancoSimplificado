@@ -47,6 +47,31 @@ $(function(){
 
     });
 
+    document.getElementById('logoutButton').addEventListener('click', e => {
+        e.preventDefault();
+        $('#logoutModal').modal('show');
+    });
+
+    document.getElementById('logout').addEventListener('click', e => {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: `/logout`,
+            contentType: 'application/json',
+            success: res => {
+
+                res = JSON.parse(res);
+                if(res){
+                    window.location.href = "/login" + '?userCreate=logoutSuccess';
+                }
+
+            }
+
+        });
+
+    })
+
 });
 
 jQuery(document).ready(function(){
@@ -54,6 +79,11 @@ jQuery(document).ready(function(){
 
     if(userCreate.includes('success')){
         toastr.success('Usuário cadastrado com sucesso!');
+        return;
+    }
+
+    if(userCreate.includes('logoutSuccess')){
+        toastr.success('Logout realizado com sucesso');
         return;
     }
 
