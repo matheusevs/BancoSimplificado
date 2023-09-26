@@ -1,5 +1,7 @@
 <?php 
 
+require_once(RELATIVE_PATH . '/src/controllers/LoginController.php');
+require_once(RELATIVE_PATH . '/src/controllers/UserController.php');
 require_once(RELATIVE_PATH . '/src/controllers/ItemController.php');
 require_once(RELATIVE_PATH . '/src/controllers/ParticipanteController.php');
 
@@ -11,6 +13,9 @@ class Router
     public $url;
     public $post;
     public $body;
+    public $token;
+    public $LoginController;
+    public $UserController;
     public $ItemController;
     public $ParticipanteController;
     
@@ -22,9 +27,12 @@ class Router
         $this->url = $_SERVER['HTTP_ORIGIN'];
         $this->post = $_POST;
         $this->body = json_decode(file_get_contents('php://input'), true);
+        $this->token = $_COOKIE['Authorization'];
+        $this->LoginController = new LoginController();
+        $this->UserController = new UserController();
         $this->ItemController = new ItemController();
         $this->ParticipanteController = new ParticipanteController();
-        
+
         $this->route = $this->validateRouteUrl($this->route);
         $this->routes();
 
@@ -36,7 +44,26 @@ class Router
         switch($this->method){
 
             case 'POST':
+
+                if($this->route == '/login'){
+
+                    $login = $this->LoginController->login($this->body);
+                    echo json_encode($login);
+                    exit;
+
+                }
+
+                if($this->route == '/createUser'){
+
+                    $userCreate = $this->UserController->saveUser($this->body);                        
+                    echo json_encode($userCreate);
+                    exit;
+
+                }
+
                 if($this->route == '/cadastrarItens'){
+
+                    $this->validateToken();
                     
                     $createItem = $this->ItemController->saveItem($this->post);
                     if(isset($createItem['error'])){
@@ -52,6 +79,8 @@ class Router
                 }
 
                 if($this->route == '/cadastrarParticipantes'){
+
+                    $this->validateToken();
 
                     $createParticipante = $this->ParticipanteController->saveParticipante($this->post);
                     if(isset($createParticipante['error'])){
@@ -72,6 +101,8 @@ class Router
             case 'GET':
 
                 if($this->route == '/item'){
+
+                    $this->validateToken();
                     
                     if(!include_once('./src/views/item.php')){
                         include_once('./src/views/error.php');
@@ -81,6 +112,8 @@ class Router
                 }
 
                 if($this->route == '/participantes'){
+
+                    $this->validateToken();
                     
                     if(!include_once('./src/views/participantes.php')){
                         include_once('./src/views/error.php');
@@ -90,6 +123,8 @@ class Router
                 }
 
                 if($this->route == '/listaItens'){
+
+                    $this->validateToken();
                     
                     if(!include_once('./src/views/listaItens.php')){
                         include_once('./src/views/error.php');
@@ -99,6 +134,8 @@ class Router
                 }
 
                 if($this->route == '/listaParticipantes'){
+
+                    $this->validateToken();
                     
                     if(!include_once('./src/views/listaParticipantes.php')){
                         include_once('./src/views/error.php');
@@ -109,6 +146,8 @@ class Router
 
                 if(preg_match('/^\/participantes\/(\d+)$/', $this->route, $matches)) {
 
+                    $this->validateToken();
+
                     $id = $matches[1];
                     $getParticipanteById = $this->ParticipanteController->getParticipanteById($id);
 
@@ -118,6 +157,8 @@ class Router
                 }
 
                 if(preg_match('/^\/itens\/(\d+)$/', $this->route, $matches)) {
+
+                    $this->validateToken();
 
                     $id = $matches[1];
                     $getItemById = $this->ItemController->getItemById($id);
@@ -136,7 +177,18 @@ class Router
 
                 }
 
+                if($this->route == '/cadastrar'){
+                    
+                    if(!include_once('./src/views/cadastrar.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
                 if($this->route == '/'){
+
+                    $this->validateToken();
                     
                     if(!include_once('./index.php')){
                         include_once('./src/views/error.php');
@@ -146,13 +198,15 @@ class Router
 
                     if($this->route){
                         include_once('./src/views/error.php');
+                        exit;
                     }
-                    exit;
                 }
                 
             break;
 
             case 'PUT':
+
+                $this->validateToken();
 
                 if(preg_match('/^\/editarParticipante\/(\d+)$/', $this->route, $matches)){
                     
@@ -187,6 +241,8 @@ class Router
             break;
 
             case 'DELETE':
+
+                $this->validateToken();
 
                 if(preg_match('/^\/deletarParticipante\/(\d+)$/', $this->route, $matches)){
                     
@@ -232,6 +288,13 @@ class Router
             return $url;
         }
 
+    }
+
+    public function validateToken(){
+        if(empty($this->token)){
+            header('Location: '. $this->url .'/login');
+            exit;
+        }
     }
 
 }
