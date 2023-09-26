@@ -16,6 +16,43 @@
 
         public function saveUser($body){
 
+            
+            $validateFields = $this->validateFields($body);
+            if($validateFields['error']){
+                return $validateFields;
+            }
+
+            $userModel = new UserModel();
+
+            $findUser = $userModel->findUser($body['email']);
+            if($findUser->num_rows > 0){
+                return ['error' => 'O usuário já existe.'];
+            }
+
+            if(!$userModel->createNewUser($body)){
+                return ['error' => 'Não foi possível criar o novo usuário.'];
+            }
+
+            return ['message' => 'Usuário criado com sucesso'];
+
+        }
+
+        public function validateToken($token){
+            
+            if(empty($token)){
+                return ['error' => 'Não foi recebido nenhum token.'];
+            }
+
+            $user = base64_decode($token, true);
+            $user = unserialize($user);
+            $objUser = json_decode(json_encode($user), false);
+            $userLogged = $this->userModel->validateToken($objUser);
+
+            return $userLogged;
+        }
+
+        public function validateFields($body){
+
             if(empty($body)){
                 return ['error' => 'O corpo da requisição não pode estar vazio.'];
             }
@@ -40,34 +77,10 @@
                 return ['error' => 'O campo de confirmar senha é obrigatório.'];
             }
 
-            $userModel = new UserModel();
-
-            $findUser = $userModel->findUser($body['email']);
-            if($findUser->num_rows > 0){
-                return ['error' => 'O usuário já existe.'];
+            if($body['senha'] != $body['confirmar_senha']){
+                return ['error' => 'Senhas não correspondem'];
             }
 
-            if(!$userModel->createNewUser($body)){
-                return ['error' => 'Não foi possível criar o novo usuário.'];
-            }
-
-            return ['message' => 'Usuário criado com sucesso'];
-
-        }
-
-        public function validateToken($token){
-            
-            if(empty($token)){
-                return ['error' => 'Não foi recebido nenhum token.'];
-            }
-
-            $token = explode('Bearer ', $token);
-            $user = base64_decode($token[1], true);
-            $user = unserialize($user);
-            $objUser = json_decode(json_encode($user), false);
-            $userLogged = $this->userModel->validateToken($objUser);
-
-            return $userLogged;
         }
 
     }

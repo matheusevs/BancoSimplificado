@@ -23,7 +23,7 @@
 
             $createUser = mysqli_query($this->connect, $sql);
             if(!$createUser){
-                return ['error' => mysqli_error($this->connect)];
+                return ['error' => mysqli_connect_error()];
             }
             
             return $createUser;
@@ -43,7 +43,7 @@
 
             $findUser = mysqli_query($this->connect, $sql);
             if(!$findUser){
-                return ['error' => mysqli_error($this->connect)];
+                return ['error' => mysqli_connect_error()];
             }
 
             return $findUser;
@@ -66,7 +66,7 @@
 
             $user = mysqli_query($this->connect, $sql);
             if(!$user){
-                return ['error' => mysqli_error($this->connect)];
+                return ['error' => mysqli_connect_error()];
             }
 
             return $user;

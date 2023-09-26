@@ -11,7 +11,7 @@ $(function(){
 
         if(form.senha != form.confirmar_senha){
             document.getElementById("confirmar_senha").classList.add("error");
-            document.getElementById("password-error").textContent = "Senha incorreta. Tente novamente.";
+            document.getElementById("password-error").textContent = "Senhas não correspondem";
             return;
         }
 
