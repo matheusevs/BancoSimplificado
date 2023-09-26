@@ -71,6 +71,22 @@ class Router
 
                 }
 
+                if($this->route == '/cadastrarUsuario'){
+
+                    $this->validateToken(true);
+                    $cadastrarUsuario = $this->UserController->saveUser($this->post, 'createAdmin');
+                    if(isset($cadastrarUsuario['error'])){
+
+                        header('Location: '. $this->url .'?msg=error');
+                        exit;
+
+                    }
+
+                    header('Location: '. $this->url .'?msg=success');
+                    exit;
+
+                }
+
                 if($this->route == '/cadastrarItens'){
 
                     $this->validateToken();
@@ -154,6 +170,46 @@ class Router
 
                 }
 
+                if($this->route == '/login'){
+
+                    if(!include_once('./src/views/login.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+                if($this->route == '/cadastrar'){
+                    
+                    if(!include_once('./src/views/cadastrar.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+                if($this->route == '/cadastrarUsuarios'){
+
+                    $this->validateToken(true);
+                    
+                    if(!include_once('./src/views/cadastrarUsuarios.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+                if($this->route == '/listarUsuarios'){
+
+                    $this->validateToken(true);
+                    
+                    if(!include_once('./src/views/listarUsuarios.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
                 if(preg_match('/^\/participantes\/(\d+)$/', $this->route, $matches)) {
 
                     $this->validateToken();
@@ -178,20 +234,13 @@ class Router
 
                 }
 
-                if($this->route == '/login'){
+                if(preg_match('/^\/usuarios\/(\d+)$/', $this->route, $matches)) {
 
-                    if(!include_once('./src/views/login.php')){
-                        include_once('./src/views/error.php');
-                    }
-                    exit;
+                    $this->validateToken(true);
 
-                }
-
-                if($this->route == '/cadastrar'){
-                    
-                    if(!include_once('./src/views/cadastrar.php')){
-                        include_once('./src/views/error.php');
-                    }
+                    $id = $matches[1];
+                    $getUserById = $this->UserController->getUserById($id);
+                    echo json_encode($getUserById);
                     exit;
 
                 }
@@ -300,14 +349,14 @@ class Router
 
     }
 
-    public function validateToken(){
+    public function validateToken($haveAdmin = null){
 
         if(empty($this->token)){
             header('Location: '. $this->url .'/login');
             exit;
         } else {
 
-            $validateToken = $this->UserController->validateToken($this->token);
+            $validateToken = $this->UserController->validateToken($this->token, $haveAdmin);
             if($validateToken->num_rows == 0){
                 setcookie("Authorization", "", time() - 3600, "/");
                 header('Location: '. $this->url .'/login?userCreate=errorToken');
