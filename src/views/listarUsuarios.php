@@ -8,11 +8,10 @@ $UserController = new UserController();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link type="text/css" rel="stylesheet" href="/src/views/css/normalize.css">
     <link type="text/css" rel="stylesheet" href="/src/views/css/estilo.css">
-    <link type="text/css" rel="stylesheet" href="/src/views/css/custom.css">
 </head>
 <body id="fundo">
     <section id="home">
@@ -27,7 +26,7 @@ $UserController = new UserController();
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <h1 class="display-4 text-center">Lista de usuários</h1>
-                    <table id="tabela" class="table table-bordered">
+                    <table id="tabela" class="table table-bordereds justify-content-center">
                         <thead>
                             <tr class="cabecalho_table">
                                 <th>#</th>
@@ -90,7 +89,7 @@ $UserController = new UserController();
                             <div>
                                 <div class="mb-3">
                                     <label for="usuario">Usuario</label>
-                                    <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="nome" maxlength="255">
+                                    <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="name" maxlength="255">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email">Email</label>

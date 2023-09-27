@@ -24,18 +24,21 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <h1 class="display-4 text-center">Lista de itens</h1>
-                    <table id="tabela" class="table table-bordereds justify-content-center">
-                        <thead>
-                            <tr class="cabecalho_table">
-                                <th>#</th>
-                                <th>Item</th>
-                                <th>Quantidade</th>
-                                <th>Última atualização</th>
-                                <th>Ações</th>
-                            </tr>
-                            <tbody class="table table-bordereds justify-content-center">
-                            <?php 
+                    <div class="col-md-10">
+                        <h1 class="display-4 text-center">Lista de itens</h1>
+                        <table id="tabela" class="table table-bordereds justify-content-center">
+                            <thead>
+                                <tr class="cabecalho_table">
+                                    <th>#</th>
+                                    <th>Item</th>
+                                    <th>Quantidade</th>
+                                    <th>Última atualização</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php 
                                 $itens = $ItemController->getItens();
                                 if(!$itens['error']){
                                     foreach($itens as $key => $value){
@@ -62,10 +65,10 @@
                                         ';
                                     }
                                 }
-                            ?>
+                                ?>
                             </tbody>
-                        </thead>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
 

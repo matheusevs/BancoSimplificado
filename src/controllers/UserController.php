@@ -67,7 +67,6 @@
 
             $set = $this->mountSet($validateFields);
 
-            return $body;
             if(!$this->userModel->updateUser($set, $id)){
                 return ['error' => 'Não foi possível editar o usuário.'];
             }
@@ -115,8 +114,8 @@
                     unset($body['id']);
                 }
 
-                if(empty($body['nome'])){
-                    unset($body['nome']);
+                if(empty($body['name'])){
+                    unset($body['name']);
                 }
     
                 if(empty($body['email'])){

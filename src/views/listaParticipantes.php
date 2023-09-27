@@ -24,31 +24,33 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <h1 class="display-4 text-center">Lista de participantes</h1>
-                    <table id="tabela" class="table table-bordereds justify-content-center">
-                        <thead>
-                            <tr class="cabecalho_table">
-                                <th>#</th>
-                                <th>Nome</th>
-                                <th>Quantidade que pretende consumir</th>
-                                <th>Última atualização</th>
-                                <th>Ações</th>
-                            </tr>
-                            <tbody class="table table-bordereds justify-content-center">
-                            <?php 
+                    <div class="col-md-10">
+                        <h1 class="display-4 text-center">Lista de participantes</h1>
+                        <table id="tabela" class="table table-bordereds justify-content-center">
+                            <thead>
+                                <tr class="cabecalho_table">
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>Quantidade que pretende consumir</th>
+                                    <th>Última atualização</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
                                 $participantes = $ParticipanteController->getParticipantes();
-                               
+                                
                                 if(!$participantes['error']){
                                     foreach($participantes as $key => $value){
-    
+
                                         $dateTime = new DateTime($value['hora_registro']);
                                         $dataFormatada = $dateTime->format("d/m/Y H:i:s");
-    
+
                                         if($value['hora_update']){
                                             $dateTime = new DateTime($value['hora_update']);
                                             $dataFormatada = $dateTime->format("d/m/Y H:i:s");
                                         }
-    
+
                                         echo '
                                             <tr>
                                                 <th>' .$value['id']. '</th>
@@ -63,10 +65,10 @@
                                         ';
                                     }
                                 }
-                            ?>
+                                ?>
                             </tbody>
-                        </thead>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
 

@@ -11,13 +11,12 @@ $(function(){
             success: res => {
 
                 res = JSON.parse(res);
-                console.log(res);
 
                 if(!res.error){
 
                     $('#id').val(res.id);
-                    $('#nome').val(res.name);
-                    $('#email').val(res.email);
+                    $('#nomeEdit').val(res.name);
+                    $('#emailEdit').val(res.email);
                     $('#roles').val(res.roles);
 
                 } else {
@@ -45,21 +44,17 @@ $(function(){
             contentType: 'application/json',
             success: res => {
 
-                console.log(res);
+                $("#fecharEditar").click();
 
-                // $("#fecharEditar").click();
+                if(!res.error){
 
-                // if(!res.error){
+                    window.location.reload();
 
-                //     toastr.success(res.message,'Sucesso!');
-                //     window.location.reload();
+                } else {
 
+                    toastr.error(res.error,'Erro!');
 
-                // } else {
-
-                //     toastr.error(res.error,'Erro!');
-
-                // }
+                }
 
             }
 

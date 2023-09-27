@@ -1,4 +1,6 @@
 <?php 
+error_reporting(E_ALL & ~E_NOTICE);
+
 date_default_timezone_set('America/Sao_Paulo');
 define('RELATIVE_PATH', dirname(__FILE__));
 require_once('./src/routes/Routes.php');
