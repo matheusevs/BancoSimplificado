@@ -78,6 +78,7 @@ $(function(){
             success: res => {
 
                 res = JSON.parse(res);
+                
                 if(res){
                     window.location.href = "/login" + '?userCreate=logoutSuccess';
                 }

@@ -51,10 +51,15 @@
 
         }
 
-        public function deleteUser($id){
+        public function deleteUser($id, $token){
 
             if(empty($id)){
                 return ['error' => 'Id não informado'];
+            }
+
+            $convertToken = $this->convertToken($token);
+            if($id == $convertToken->id){
+                return ['error' => 'Você não pode estar logado para apagar seu usuário!'];
             }
     
             if(!$this->userModel->delete($id)){
@@ -100,15 +105,21 @@
 
         }
 
+        public function convertToken($token){
+
+            $user = base64_decode($token, true);
+            $user = unserialize($user);
+            return json_decode(json_encode($user), false);
+
+        }
+
         public function validateToken($token, $haveAdmin = null){
             
             if(empty($token)){
                 return ['error' => 'Não foi recebido nenhum token.'];
             }
 
-            $user = base64_decode($token, true);
-            $user = unserialize($user);
-            $objUser = json_decode(json_encode($user), false);
+            $objUser = $this->convertToken($token);
             $userLogged = $this->userModel->validateToken($objUser, $haveAdmin);
 
             return $userLogged;

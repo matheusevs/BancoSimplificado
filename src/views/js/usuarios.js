@@ -44,6 +44,8 @@ $(function(){
             contentType: 'application/json',
             success: res => {
 
+                res = JSON.parse(res);
+
                 $("#fecharEditar").click();
 
                 if(!res.error){
@@ -81,6 +83,8 @@ $(function(){
             url: `/deletarUsuario/${id}`,
             contentType: 'application/json',
             success: res => {
+
+                res = JSON.parse(res);
 
                 $("#fecharDeletar").click();
 

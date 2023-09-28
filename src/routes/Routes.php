@@ -184,7 +184,7 @@ class Router
 
                     $id = $matches[1];
                     $deleteUser = $this->UserController->deleteUser($id, $this->token);
-                    
+
                     if(isset($deleteUser['error'])){
 
                         echo json_encode($deleteUser);
