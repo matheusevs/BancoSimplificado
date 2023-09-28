@@ -14,7 +14,7 @@ class ConnectDb{
         $this->host = 'localhost'; // host do seu banco de dados
         $this->user = 'root'; // user do seu banco de dados
         $this->pass = ''; // password do seu banco de dados
-        $this->data = 'OSI8'; // nome do database, conforme criado em migration
+        $this->data = 'UserHub'; // nome do database, conforme criado em migration
 
 
     }

@@ -62,15 +62,23 @@ $(function(){
 
     });
 
+    $(document).on('click', '.btn-delete', function() {
+        
+        let id = $(this).val();
+        let btnConfirmDelete = document.getElementById("btn-confirm-delete");
+        btnConfirmDelete.setAttribute("data-id", id);
+        
+    });
+
     $("#formDelete").on("submit", event => {
 
         event.preventDefault();
-
-        const id = $('.btn-delete').val();
+        let btnConfirmDelete = document.getElementById("btn-confirm-delete");
+        let id = btnConfirmDelete.getAttribute("data-id");
 
         $.ajax({
             type: "DELETE",
-            url: `/deletarItem/${id}`,
+            url: `/deletarUsuario/${id}`,
             contentType: 'application/json',
             success: res => {
 
@@ -78,9 +86,7 @@ $(function(){
 
                 if(!res.error){
 
-                    toastr.success(res.message,'Sucesso!');
                     window.location.reload();
-
 
                 } else {
 

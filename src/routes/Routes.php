@@ -2,8 +2,6 @@
 
 require_once(RELATIVE_PATH . '/src/controllers/LoginController.php');
 require_once(RELATIVE_PATH . '/src/controllers/UserController.php');
-require_once(RELATIVE_PATH . '/src/controllers/ItemController.php');
-require_once(RELATIVE_PATH . '/src/controllers/ParticipanteController.php');
 
 class Router
 {
@@ -16,8 +14,6 @@ class Router
     public $token;
     public $LoginController;
     public $UserController;
-    public $ItemController;
-    public $ParticipanteController;
     
     public function __construct()
     {
@@ -30,8 +26,6 @@ class Router
         $this->token = $_COOKIE['Authorization'];
         $this->LoginController = new LoginController();
         $this->UserController = new UserController();
-        $this->ItemController = new ItemController();
-        $this->ParticipanteController = new ParticipanteController();
 
         $this->route = $this->validateRouteUrl($this->route);
         $this->routes();
@@ -65,7 +59,7 @@ class Router
 
                 if($this->route == '/createUser'){
 
-                    $userCreate = $this->UserController->saveUser($this->body);                        
+                    $userCreate = $this->UserController->insertUser($this->body);                        
                     echo json_encode($userCreate);
                     exit;
 
@@ -74,7 +68,7 @@ class Router
                 if($this->route == '/cadastrarUsuario'){
 
                     $this->validateToken(true);
-                    $cadastrarUsuario = $this->UserController->saveUser($this->post, 'createAdmin');
+                    $cadastrarUsuario = $this->UserController->insertUser($this->post, 'createAdmin');
                     if(isset($cadastrarUsuario['error'])){
 
                         header('Location: '. $this->url .'?msg=error');
@@ -87,88 +81,9 @@ class Router
 
                 }
 
-                if($this->route == '/cadastrarItens'){
-
-                    $this->validateToken();
-                    
-                    $createItem = $this->ItemController->saveItem($this->post);
-                    if(isset($createItem['error'])){
-
-                        header('Location: '. $this->url .'?msg=error');
-                        exit;
-
-                    }
-
-                    header('Location: '. $this->url .'?msg=success');
-                    exit;
-                
-                }
-
-                if($this->route == '/cadastrarParticipantes'){
-
-                    $this->validateToken();
-
-                    $createParticipante = $this->ParticipanteController->saveParticipante($this->post);
-                    if(isset($createParticipante['error'])){
-
-                        header('Location: '. $this->url .'?msg=error');
-                        exit;
-
-                    }
-
-                    header('Location: '. $this->url .'?msg=success');
-                    exit;
-                
-
-                }
-
             break;
             
             case 'GET':
-
-                if($this->route == '/item'){
-
-                    $this->validateToken();
-                    
-                    if(!include_once('./src/views/item.php')){
-                        include_once('./src/views/error.php');
-                    }
-                    exit;
-
-                }
-
-                if($this->route == '/participantes'){
-
-                    $this->validateToken();
-                    
-                    if(!include_once('./src/views/participantes.php')){
-                        include_once('./src/views/error.php');
-                    }
-                    exit;
-
-                }
-
-                if($this->route == '/listaItens'){
-
-                    $this->validateToken();
-                    
-                    if(!include_once('./src/views/listaItens.php')){
-                        include_once('./src/views/error.php');
-                    }
-                    exit;
-
-                }
-
-                if($this->route == '/listaParticipantes'){
-
-                    $this->validateToken();
-                    
-                    if(!include_once('./src/views/listaParticipantes.php')){
-                        include_once('./src/views/error.php');
-                    }
-                    exit;
-
-                }
 
                 if($this->route == '/login'){
 
@@ -210,30 +125,6 @@ class Router
 
                 }
 
-                if(preg_match('/^\/participantes\/(\d+)$/', $this->route, $matches)) {
-
-                    $this->validateToken();
-
-                    $id = $matches[1];
-                    $getParticipanteById = $this->ParticipanteController->getParticipanteById($id);
-
-                    echo json_encode($getParticipanteById);
-                    exit;
-
-                }
-
-                if(preg_match('/^\/itens\/(\d+)$/', $this->route, $matches)) {
-
-                    $this->validateToken();
-
-                    $id = $matches[1];
-                    $getItemById = $this->ItemController->getItemById($id);
-
-                    echo json_encode($getItemById);
-                    exit;
-
-                }
-
                 if(preg_match('/^\/usuarios\/(\d+)$/', $this->route, $matches)) {
 
                     $this->validateToken(true);
@@ -265,50 +156,18 @@ class Router
 
             case 'PUT':
 
-                $this->validateToken();
-
-                if(preg_match('/^\/editarParticipante\/(\d+)$/', $this->route, $matches)){
-                    
-                    $id = $matches[1];
-                    $updateParticipantesById = $this->ParticipanteController->updateParticipantesById($id, $this->body);
-                    
-                    if(isset($updateParticipantesById['error'])){
-
-                        echo json_encode($updateParticipantesById);
-
-                    }
-
-                    exit;
-                    
-                }
-
-                if(preg_match('/^\/editarItem\/(\d+)$/', $this->route, $matches)){
-                    
-                    $id = $matches[1];
-                    $updateItensById = $this->ItemController->updateItensById($id, $this->body);
-                    
-                    if(isset($updateItensById['error'])){
-
-                        echo json_encode($updateItensById);
-
-                    }
-
-                    exit;
-                    
-                }
-
                 if(preg_match('/^\/editarUsuario\/(\d+)$/', $this->route, $matches)){
 
                     $this->validateToken(true);
                     
                     $id = $matches[1];
-                    $updateUserById = $this->UserController->updateUserById($this->body, $id, 'updateAdmin');
+                    $updateUser = $this->UserController->updateUser($this->body, $id, 'updateAdmin');
                     
-                    // if(isset($updateUserById['error'])){
+                    if(isset($updateUser['error'])){
 
-                        echo json_encode($updateUserById);
+                        echo json_encode($updateUser);
 
-                    // }
+                    }
 
                     exit;
                     
@@ -318,16 +177,17 @@ class Router
 
             case 'DELETE':
 
-                $this->validateToken();
 
-                if(preg_match('/^\/deletarParticipante\/(\d+)$/', $this->route, $matches)){
-                    
+                if(preg_match('/^\/deletarUsuario\/(\d+)$/', $this->route, $matches)){
+
+                    $this->validateToken(true);
+
                     $id = $matches[1];
-                    $deleteParticipantesById = $this->ParticipanteController->deleteParticipantesById($id, $this->body);
+                    $deleteUser = $this->UserController->deleteUser($id, $this->token);
                     
-                    if(isset($deleteParticipantesById['error'])){
+                    if(isset($deleteUser['error'])){
 
-                        echo json_encode($deleteParticipantesById);
+                        echo json_encode($deleteUser);
 
                     }
 
@@ -335,20 +195,6 @@ class Router
                     
                 }
 
-                if(preg_match('/^\/deletarItem\/(\d+)$/', $this->route, $matches)){
-                    
-                    $id = $matches[1];
-                    $deleteItensById = $this->ItemController->deleteItensById($id, $this->body);
-                    
-                    if(isset($deleteItensById['error'])){
-
-                        echo json_encode($deleteItensById);
-
-                    }
-
-                    exit;
-                    
-                }
 
             break;
 

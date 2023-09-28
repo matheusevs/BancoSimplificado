@@ -14,7 +14,7 @@
             
         }
 
-        public function saveUser($body, $type = null){
+        public function insertUser($body, $type = null){
 
             $validateFields = $this->validateFields($body, $type);
             if($validateFields['error']){
@@ -28,11 +28,38 @@
                 return ['error' => 'O usuário já existe.'];
             }
 
-            if(!$userModel->createNewUser($body)){
+            if(!$userModel->insert($body)){
                 return ['error' => 'Não foi possível criar o novo usuário.'];
             }
 
             return ['message' => 'Usuário criado com sucesso'];
+
+        }
+
+        public function updateUser($body, $id, $type){
+
+            $validateFields = $this->validateFields($body, $type);
+            if($validateFields['error']){
+                return $validateFields;
+            }
+
+            $set = $this->mountSet($validateFields);
+
+            if(!$this->userModel->update($set, $id)){
+                return ['error' => 'Não foi possível editar o usuário.'];
+            }
+
+        }
+
+        public function deleteUser($id){
+
+            if(empty($id)){
+                return ['error' => 'Id não informado'];
+            }
+    
+            if(!$this->userModel->delete($id)){
+                return ['error' => 'Não foi possível deletar o participante.'];
+            }
 
         }
 
@@ -55,21 +82,6 @@
             
             $findUser = $this->userModel->findUserById($id);
             return $findUser;
-
-        }
-        
-        public function updateUserById($body, $id, $type){
-
-            $validateFields = $this->validateFields($body, $type);
-            if($validateFields['error']){
-                return $validateFields;
-            }
-
-            $set = $this->mountSet($validateFields);
-
-            if(!$this->userModel->updateUser($set, $id)){
-                return ['error' => 'Não foi possível editar o usuário.'];
-            }
 
         }
 

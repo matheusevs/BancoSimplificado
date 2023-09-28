@@ -47,59 +47,10 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
 </div>
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Página de Administração</h1>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Cadastrar Itens</h5>
-                    <p class="card-text">Clique abaixo para cadastrar novos itens.</p>
-                    <form method="GET" action="/item">
-                        <button id="botao" class="btn btn-primary" type="submit">Cadastrar Itens</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Cadastrar Participantes</h5>
-                    <p class="card-text">Clique abaixo para cadastrar novos participantes.</p>
-                    <form method="GET" action="/participantes">
-                        <button id="botao" class="btn btn-primary" type="submit">Cadastrar Participantes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Listar Itens</h5>
-                    <p class="card-text">Clique abaixo para listar, editar ou excluir itens existentes.</p>
-                    <form method="GET" action="/listaItens">
-                        <button id="botao" class="btn btn-primary" type="submit">Listar Itens</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Listar Participantes</h5>
-                    <p class="card-text">Clique abaixo para listar, editar ou excluir participantes existentes.</p>
-                    <form method="GET" action="/listaParticipantes">
-                        <button id="botao" class="btn btn-primary" type="submit">Listar participantes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <?php if($user['roles'] == 'admin'){ ?>
-
-        <h1 class="text-center mb-4">Administração de usuários</h1>
+        
+        <h1 class="text-center mb-4">Página de Administração</h1>
 
         <div class="row">
             <div class="col-md-6">
@@ -161,10 +112,6 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
     jQuery(document).ready(function(){
         var msg = window.location.href;
 
-        if(msg.includes('warning')){
-            toastr.warning('Número de cadastrados atingido!');
-            return
-        }
         if(msg.includes('success')){
             toastr.success('Cadastrado realizado com sucesso!');
             return;

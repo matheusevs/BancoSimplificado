@@ -124,9 +124,9 @@ $UserController = new UserController();
                     </div>
                     <div class="modal-footer">
                         <form id="formDelete" style="display: inline;">
-                            <input type="hidden" id="id" name="id"/>
+                            <!-- <input type="hidden" id="id" name="id"/> -->
                             <button type="button" id="fecharDeletar" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button id="delete" type="submit" id="btn-confirm-delete" class="btn btn-danger">Excluir</a>
+                            <button id="btn-confirm-delete" class="btn btn-danger">Excluir</a>
                         </form>
                     </div>
                 </div>

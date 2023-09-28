@@ -14,7 +14,7 @@
 
         }
 
-        public function createNewUser($user){
+        public function insert($user){
 
             $sql = "
                 INSERT INTO users (name, email, password)
@@ -101,7 +101,7 @@
 
         }
 
-        public function updateUser($set, $id){
+        public function update($set, $id){
 
             $sql = "
                 UPDATE users
@@ -109,12 +109,25 @@
                 WHERE id = {$id};
             ";
 
-            $updateUser = mysqli_query($this->connect, $sql);
-            if(!$updateUser){
+            $update = mysqli_query($this->connect, $sql);
+            if(!$update){
                 return ['error' => mysqli_error($this->connect)];
             }
 
-            return $updateUser;
+            return $update;
+        }
+
+        public function delete($id){
+
+            $sql = "DELETE FROM users WHERE id = {$id}";
+
+            $userDelete = mysqli_query($this->connect, $sql);
+            if(!$userDelete){
+                return ['error' => mysqli_connect_error()];
+            }
+
+            return $userDelete;
+
         }
 
         public function validateToken($user, $haveAdmin = null){
