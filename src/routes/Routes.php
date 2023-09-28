@@ -68,7 +68,7 @@ class Router
                 if($this->route == '/cadastrarUsuario'){
 
                     $this->validateToken(true);
-                    $cadastrarUsuario = $this->UserController->insertUser($this->post, 'createAdmin');
+                    $cadastrarUsuario = $this->UserController->insertUser($this->post, 'createAdmin', $this->token);
                     if(isset($cadastrarUsuario['error'])){
 
                         header('Location: '. $this->url .'?msg=error');
@@ -160,7 +160,7 @@ class Router
 
                     $this->validateToken(true);
                     $id = $matches[1];
-                    $updateUser = $this->UserController->updateUser($this->body, $id, 'updateAdmin');
+                    $updateUser = $this->UserController->updateUser($this->body, $id, 'updateAdmin', $this->token);
                     echo json_encode($updateUser);
                     exit;
                     

@@ -14,7 +14,7 @@
             
         }
 
-        public function insertUser($body, $type = null){
+        public function insertUser($body, $type = null, $token = null){
 
             $validateFields = $this->validateFields($body, $type);
             if($validateFields['error']){
@@ -24,19 +24,26 @@
             $userModel = new UserModel();
 
             $findUser = $userModel->findUser($body['email']);
-            if($findUser->num_rows > 0){
-                return ['error' => 'O usuário já existe.'];
+            if($findUser['error']){
+                return $findUser;
             }
 
             if(!$userModel->insert($body)){
                 return ['error' => 'Não foi possível criar o novo usuário.'];
             }
 
+            if($token){
+                $objUser = $this->convertToken($token);
+                if(!$this->userModel->registerLogUser($objUser->id, "cadastrarUsuario", "Usuário {$body['email']} criado.")){
+                    return ['message' => 'Usuário criado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                }
+            }
+
             return ['message' => 'Usuário criado com sucesso'];
 
         }
 
-        public function updateUser($body, $id, $type){
+        public function updateUser($body, $id, $type = null, $token = null){
 
             $validateFields = $this->validateFields($body, $type);
             if($validateFields['error']){
@@ -49,6 +56,13 @@
                 return ['error' => 'Não foi possível editar o usuário.'];
             }
 
+            if($token){
+                $objUser = $this->convertToken($token);
+                if(!$this->userModel->registerLogUser($objUser->id, "editarUsuario", "Usuário {$body['email']} atualizado.")){
+                    return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                }
+            }
+
             return ['message' => 'Usuário atualizado com sucesso.'];
 
         }
@@ -59,13 +73,25 @@
                 return ['error' => 'Id não informado'];
             }
 
-            $convertToken = $this->convertToken($token);
-            if($id == $convertToken->id){
+            $objUser = $this->convertToken($token);
+            if($id == $objUser->id){
                 return ['error' => 'Você não pode estar logado para apagar seu usuário!'];
+            }
+
+            $getUserById = $this->getUserById($id);
+            if(!$getUserById){
+                return ['error' => 'Usuário não existe na base da dados.'];
             }
     
             if(!$this->userModel->delete($id)){
-                return ['error' => 'Não foi possível deletar o participante.'];
+                return ['error' => 'Não foi possível deletar o usuário.'];
+            }
+
+            if($token){
+                $objUser = $this->convertToken($token);
+                if(!$this->userModel->registerLogUser($objUser->id, "deletarUsuario", "Usuário {$getUserById['email']} deletado.")){
+                    return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                }
             }
 
             return ['message' => 'Usuário deletado com sucesso.'];
@@ -74,12 +100,7 @@
 
         public function getUsers(){
 
-            $getUsers = $this->userModel->getUsers();
-            if($getUsers['error']){
-                return $getUsers;
-            }
-
-            return $getUsers;
+            return $this->userModel->getUsers();
 
         }
 

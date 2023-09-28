@@ -45,6 +45,9 @@
             if(!$findUser){
                 return ['error' => mysqli_connect_error()];
             }
+            if($findUser->num_rows > 0){
+                return ['error' => 'O usuário já existe.'];
+            }
 
             return $findUser;
 
@@ -65,7 +68,7 @@
                 return ['error' => mysqli_error($this->connect)];
             }
             if($getUsers->num_rows == 0){
-                return ['error' => 'Não foi nenhum usuário.'];
+                return ['error' => 'Não foi encontrado nenhum usuário.'];
             }
 
             while($row = mysqli_fetch_array($getUsers, MYSQLI_ASSOC)){
@@ -143,6 +146,37 @@
             }
             
             return $createLog;
+
+        }
+
+        public function getLogsUsers(){
+
+            $arrLogs = [];
+
+            $sql = "
+                SELECT 
+                    ul.id, u.name, action, obs, u.roles, ul.hora_registro, ul.hora_update
+                FROM 
+                    users_logs ul
+                INNER JOIN 
+                    users u ON ul.user_id = u.id;
+            ";
+
+            $getLogs = mysqli_query($this->connect, $sql);
+            if(!$getLogs){
+                return ['error' => mysqli_error($this->connect)];
+            }
+            if($getLogs->num_rows == 0){
+                return ['error' => 'Não foi encontrado nenhum log registrado.'];
+            }
+
+            while($row = mysqli_fetch_array($getLogs, MYSQLI_ASSOC)){
+      
+                array_push($arrLogs, $row);
+            
+            }
+
+            return $arrLogs;
 
         }
 
