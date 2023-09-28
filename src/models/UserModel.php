@@ -130,6 +130,22 @@
 
         }
 
+        public function registerLogUser($user_id, $action, $obs){
+
+            $sql = "
+                INSERT INTO users_logs (user_id, action, obs)
+                VALUES ({$user_id}, '{$action}', '{$obs}');
+            ";
+
+            $createLog = mysqli_query($this->connect, $sql);
+            if(!$createLog){
+                return ['error' => mysqli_connect_error()];
+            }
+            
+            return $createLog;
+
+        }
+
         public function validateToken($user, $haveAdmin = null){
 
             $where = '';

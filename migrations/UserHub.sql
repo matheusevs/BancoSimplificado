@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS users_logs
 (
     id              INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id         INT UNSIGNED NOT NULL,
+    action          TEXT NOT NULL,
+    obs             TEXT NOT NULL,
     hora_registro   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     hora_update     TIMESTAMP NULL DEFAULT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
