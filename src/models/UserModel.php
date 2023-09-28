@@ -155,7 +155,7 @@
 
             $sql = "
                 SELECT 
-                    ul.id, u.name, action, obs, u.roles, ul.hora_registro, ul.hora_update
+                    ul.id, u.name, action, obs, ul.hora_registro, ul.hora_update
                 FROM 
                     users_logs ul
                 INNER JOIN 

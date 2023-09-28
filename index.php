@@ -76,6 +76,19 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Listar logs</h5>
+                        <p class="card-text">Clique abaixo para listar os logs existentes.</p>
+                        <form method="GET" action="/listarLogs">
+                            <button id="botao" class="btn btn-primary" type="submit">Listar Logs</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     <?php } ?>
 </div>

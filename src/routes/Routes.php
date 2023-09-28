@@ -125,6 +125,17 @@ class Router
 
                 }
 
+                if($this->route == '/listarLogs'){
+
+                    $this->validateToken(true);
+                    
+                    if(!include_once('./src/views/listarLogs.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
                 if(preg_match('/^\/usuarios\/(\d+)$/', $this->route, $matches)) {
 
                     $this->validateToken(true);

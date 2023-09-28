@@ -104,6 +104,12 @@
 
         }
 
+        public function getLogsUsers(){
+            
+            return $this->userModel->getLogsUsers();
+
+        }
+
         public function getUserById($id){
 
             if(empty($id) || !is_numeric($id) || intval($id) <= 0){
