@@ -49,6 +49,8 @@
                 return ['error' => 'Não foi possível editar o usuário.'];
             }
 
+            return ['message' => 'Usuário atualizado com sucesso.'];
+
         }
 
         public function deleteUser($id, $token){
@@ -65,6 +67,8 @@
             if(!$this->userModel->delete($id)){
                 return ['error' => 'Não foi possível deletar o participante.'];
             }
+
+            return ['message' => 'Usuário deletado com sucesso.'];
 
         }
 

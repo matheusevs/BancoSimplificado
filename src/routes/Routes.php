@@ -159,16 +159,9 @@ class Router
                 if(preg_match('/^\/editarUsuario\/(\d+)$/', $this->route, $matches)){
 
                     $this->validateToken(true);
-                    
                     $id = $matches[1];
                     $updateUser = $this->UserController->updateUser($this->body, $id, 'updateAdmin');
-                    
-                    if(isset($updateUser['error'])){
-
-                        echo json_encode($updateUser);
-
-                    }
-
+                    echo json_encode($updateUser);
                     exit;
                     
                 }
@@ -181,20 +174,12 @@ class Router
                 if(preg_match('/^\/deletarUsuario\/(\d+)$/', $this->route, $matches)){
 
                     $this->validateToken(true);
-
                     $id = $matches[1];
                     $deleteUser = $this->UserController->deleteUser($id, $this->token);
-
-                    if(isset($deleteUser['error'])){
-
-                        echo json_encode($deleteUser);
-
-                    }
-
+                    echo json_encode($deleteUser);
                     exit;
                     
                 }
-
 
             break;
 

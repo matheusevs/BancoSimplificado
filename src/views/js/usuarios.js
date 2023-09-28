@@ -50,7 +50,7 @@ $(function(){
 
                 if(!res.error){
 
-                    window.location.reload();
+                    window.location.href = "/listarUsuarios" + '?user=successUpdate';
 
                 } else {
 
@@ -90,7 +90,7 @@ $(function(){
 
                 if(!res.error){
 
-                    window.location.reload();
+                    window.location.href = "/listarUsuarios" + '?user=successDelete';
 
                 } else {
 
@@ -105,3 +105,18 @@ $(function(){
     });
 
 });
+
+jQuery(document).ready(function(){
+    var user = window.location.href;
+
+    if(user.includes('successUpdate')){
+        toastr.success('Usuário atualizado com sucesso!');
+        return;
+    }
+
+    if(user.includes('successDelete')){
+        toastr.success('Usuário excluído com sucesso!');
+        return;
+    }
+
+})
