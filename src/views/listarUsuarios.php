@@ -79,7 +79,10 @@ $UserController = new UserController();
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ModalLabel">Editar usuário</h1>
+                        <h5 class="modal-title fs-5" id="ModalLabel">Editar usuário</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <form id="formEdit">
                         <input type="hidden" id="id" name="id"/>
@@ -116,6 +119,9 @@ $UserController = new UserController();
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalLabel">Confirmação de exclusão</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         Tem certeza que deseja excluir esse usuário?

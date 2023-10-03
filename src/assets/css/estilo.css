@@ -13,7 +13,7 @@ body{
     margin: 20px;
 }
 
-.btn-edit, .btn-delete {
+.btn-edit, .btn-delete, .btn-alterPassword {
     border: none;
     border-radius: 5px;
     padding: 8px 16px;
@@ -37,6 +37,15 @@ body{
 
 .btn-delete:hover {
     background-color: #c9302c; 
+}
+
+.btn-alterPassword { 
+    background-color: #ff9800;
+    color: #fff;
+}
+
+.btn-alterPassword:hover {
+    background-color: #f57c00; 
 }
 
 #botoes {

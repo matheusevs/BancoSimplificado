@@ -64,62 +64,6 @@ $UserController = new UserController();
                 </div>
             </div>
         </div>
-
-        <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ModalLabel">Editar usuário</h1>
-                    </div>
-                    <form id="formEdit">
-                        <input type="hidden" id="id" name="id"/>
-                        <div class="modal-body">
-                            <div>
-                                <div class="mb-3">
-                                    <label for="usuario">Usuario</label>
-                                    <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="name" maxlength="255">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email">Email</label>
-                                    <input required="required" class="form-control" type="email" id="emailEdit" placeholder="Digite o email do usuário" name="email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="roles">Roles</label>
-                                    <select class="form-control" id="roles" name="roles">
-                                        <option value="participant">Participante</option>
-                                        <option value="admin">Administrador</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="fecharEditar" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button id="save" type="submit" class="btn btn-primary">Salvar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">Confirmação de exclusão</h5>
-                    </div>
-                    <div class="modal-body">
-                        Tem certeza que deseja excluir esse usuário?
-                    </div>
-                    <div class="modal-footer">
-                        <form id="formDelete" style="display: inline;">
-                            <!-- <input type="hidden" id="id" name="id"/> -->
-                            <button type="button" id="fecharDeletar" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button id="btn-confirm-delete" class="btn btn-danger">Excluir</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
