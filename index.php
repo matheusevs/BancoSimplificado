@@ -30,7 +30,7 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <span class="nav-link">Seja bem-vindo, <?php echo $user['name'];?></span>
+                    <a href="editarMeuUsuario" class="nav-link">Seja bem-vindo, <?php echo $user['name'];?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="" id="logoutButton">Logout</a>
