@@ -89,25 +89,35 @@ if($user['roles'] == 'admin'){
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Formulário de Alteração de Senha -->
                     <form id="formAlterarSenha">
                         <div class="form-group">
                             <label for="senhaAtual">Senha Atual</label>
-                            <input type="password" class="form-control" id="senhaAtual" required>
+                            <div class="password-container">
+                                <input type="password" class="form-control" id="senhaAtual" name="passwordCurrent" required>
+                                <span class="toggle-password toggleAlterPassword" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="novaSenha">Nova Senha</label>
-                            <input type="password" class="form-control" id="novaSenha" required>
+                            <div class="password-container">
+                                <input type="password" class="form-control" id="novaSenha" name="passwordNew" required>
+                                <span class="toggle-password toggleAlterPassword" id="togglePasswordConfirm">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="confirmarSenha">Confirmar Nova Senha</label>
-                            <input type="password" class="form-control" id="confirmarSenha" required>
+                            <input type="password" class="form-control" id="confirmarSenha" name="passwordNewConfirm" required>
+                            <span class="error-message" id="password-error"></span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary" id="btnSalvarSenha">Salvar</button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" id="btnSalvarSenha">Salvar</button>
                 </div>
             </div>
         </div>

@@ -63,4 +63,75 @@ jQuery(document).ready(function(){
         });
 
     });
+
+    $("#formAlterarSenha").on("submit", event => {
+
+        event.preventDefault();
+
+        const formulario = document.getElementById("formAlterarSenha");
+        const formData = new FormData(formulario);
+        const form = Object.fromEntries(new URLSearchParams(formData).entries());
+
+        let id = $('.btn-alterPassword').val();
+
+        if(form.passwordNew != form.passwordNewConfirm){
+            document.getElementById("confirmarSenha").classList.add("error");
+            document.getElementById("password-error").textContent = "Senhas não correspondem";
+            return;
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: `/editarSenha/${id}`,
+            data: JSON.stringify(form),
+            contentType: 'application/json',
+            success: res => {
+
+                res = JSON.parse(res);
+
+                console.log(res)
+
+                // $("#fecharEditar").click();
+
+                // if(!res.error){
+
+                //     window.location.href = "/listarUsuarios" + '?user=successUpdate';
+
+                // } else {
+
+                //     toastr.error(res.error,'Erro!');
+
+                // }
+
+            }
+
+        });
+
+    });
+
+    $('#togglePassword').click(function () {
+        let senhaInput = $('#senhaAtual');
+        let tipo = senhaInput.attr('type');
+
+        if(tipo === 'password'){
+            senhaInput.attr('type', 'text');
+            senhaInput.parent().addClass('password-visible');
+        } else {
+            senhaInput.attr('type', 'password');
+            senhaInput.parent().removeClass('password-visible');
+        }
+    });
+
+    $('#togglePasswordConfirm').click(function () {
+        let senhaInput = $('#novaSenha');
+        let tipo = senhaInput.attr('type');
+
+        if(tipo === 'password'){
+            senhaInput.attr('type', 'text');
+            senhaInput.parent().addClass('password-visible');
+        } else {
+            senhaInput.attr('type', 'password');
+            senhaInput.parent().removeClass('password-visible');
+        }
+    });
 })

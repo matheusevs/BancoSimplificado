@@ -188,6 +188,16 @@ class Router
                     
                 }
 
+                if(preg_match('/^\/editarSenha\/(\d+)$/', $this->route, $matches)){
+
+                    $this->validateToken();
+                    $id = $matches[1];
+                    $updatePassword = $this->UserController->updatePassword($id, $this->token, $this->body);
+                    echo json_encode($updatePassword);
+                    exit;
+                    
+                }
+
             break;
 
             case 'DELETE':

@@ -98,6 +98,26 @@
 
         }
 
+        public function updatePassword($id, $token, $passwords){
+
+            if(empty($id)){
+                return ['error' => 'Id não informado'];
+            }
+
+            $objUser = $this->convertToken($token);
+            if($id != $objUser->id){
+                return ['error' => 'Você não pode alterar a senha de outro usuário!!!!'];
+            }
+
+            $getUserById = $this->getUserById($id);
+            if(!$getUserById){
+                return ['error' => 'Usuário não existe na base da dados.'];
+            }
+
+            return $passwords;
+
+        }
+
         public function getUsers(){
 
             return $this->userModel->getUsers();

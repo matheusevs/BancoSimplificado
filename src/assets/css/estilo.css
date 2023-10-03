@@ -233,6 +233,17 @@ tr:nth-of-type(even){
     padding: 20px;
 }
 
+input.error {
+    border: 1px solid red;
+}
+
+.error-message {
+    font-size: 14px; 
+    color: red;
+    display: block;
+    margin-top: 4px;
+}
+
 #dados-usuario{
     text-align: center;
 }
@@ -250,6 +261,11 @@ tr:nth-of-type(even){
     top: 80%;
     transform: translateY(-50%);
     z-index: 1;
+}
+
+.toggleAlterPassword { 
+    right: 8px; 
+    top: 52%;
 }
 
 .password-visible .toggle-password {
