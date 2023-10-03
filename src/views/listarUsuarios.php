@@ -14,12 +14,13 @@ $UserController = new UserController();
     <link type="text/css" rel="stylesheet" href="/src/views/css/estilo.css">
 </head>
 <body id="fundo">
+
+    <a href="/" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+    
     <section id="home">
         <div id="caixa_formulario" class="container">
-            <a href="/" class="btn btn-back">
-                <i class="fas fa-arrow-left"></i> Voltar
-            </a>
-
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <h1 class="display-4 text-center">Lista de usuários</h1>

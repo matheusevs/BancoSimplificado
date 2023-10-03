@@ -9,12 +9,13 @@
     <link type="text/css" rel="stylesheet" href="/src/views/css/estilo.css">
 </head>
 <body id="fundo">
+
+    <a href="/" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
     <section id="home">
         <div id="caixa_formulario" class="container">
-            <a href="/" class="btn btn-back">
-                <i class="fas fa-arrow-left"></i> Voltar
-            </a>
-
             <div class="row justify-content-center">
                 <form id="formularioUsuario" method="POST" action="/cadastrarUsuario" class="col-md-6">
                     <h1 class="display-5 text-center mb-4">Cadastrar Usuário</h1>

@@ -47,6 +47,20 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
 </div>
 
 <div class="container mt-5">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                <h5 class="card-title">Editar meu usuário</h5>
+                <p class="card-text">Clique abaixo para editar seu usuário.</p>
+                <form method="GET" action="/editarMeuUsuario">
+                    <button id="botao" class="btn btn-primary" type="submit">Editar Usuário</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <?php if($user['roles'] == 'admin'){ ?>
         

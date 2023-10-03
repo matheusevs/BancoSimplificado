@@ -125,6 +125,17 @@ class Router
 
                 }
 
+                if($this->route == '/editarMeuUsuario'){
+
+                    $this->validateToken();
+
+                    if(!include_once('./src/views/editarUsuario.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
                 if($this->route == '/listarLogs'){
 
                     $this->validateToken(true);
