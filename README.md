@@ -8,9 +8,13 @@ O UserHub é uma plataforma de gerenciamento de usuários desenvolvida para faci
 
 - **Login e Token de Sessão:** Os usuários podem fazer login em suas contas com segurança usando seu endereço de e-mail e senha. Um token de sessão é gerado após o login e permanece válido por 24 horas, oferecendo acesso contínuo às funcionalidades exclusivas.
 
+- **Integração de Autenticação Social:** Possibilidade de realizar o login ou registrar-se usando contas de redes sociais populares, como Facebook, Google ou Twitter. - Funcionalidade em desenvolvimento
+
+- **Recuperação de Senha:** Permite que os usuários redefinam suas senhas caso as esqueçam. Realizando o envio de um e-mail com um link para redefinir a senha. - Funcionalidade em desenvolvimento
+
 - **Gestão de Usuários:** Os usuários autenticados podem visualizar, editar e excluir suas próprias informações de perfil, proporcionando controle sobre seus dados pessoais. - Funcionalidade em desenvolvimento
 
-- **Histórico de Atividades:** Registro de atividades dos usuários, incluindo datas de registro, datas de modificações e outras ações importantes.
+- **Histórico de Atividades:** A funcionalidade de histórico de atividades é útil para acompanhar e registrar as ações realizadas pelos usuários no sistema.
 
 - **Usuários Administradores:** Os administradores têm privilégios estendidos, incluindo a capacidade de editar informações de outros usuários e, quando necessário, excluir contas de usuário.
 
