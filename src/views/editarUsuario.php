@@ -18,7 +18,7 @@ if($user['roles'] == 'admin'){
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <title>Dados do Usuário</title>
 </head>
-<body>
+<body id="fundo">
 
     <a href="/" class="btn btn-back">
         <i class="fas fa-arrow-left"></i> Voltar
@@ -29,10 +29,54 @@ if($user['roles'] == 'admin'){
             <div class="user-avatar">
                 <img src="src/assets/img/avatar.jpg" alt="Foto de Perfil">
             </div>
-            <div class="user-name"><?php echo $user['name']; ?></div>
-            <div class="user-email"><?php echo $user['email']; ?></div>
-            <div class="user-roles"><?php echo $roles; ?></div>
+            <div class="user-name">
+                <span id="name"><?php echo $user['name']; ?></span>
+            </div>
+            <div class="user-email">
+                <span id="email"><?php echo $user['email']; ?></span>
+            </div>
+            <div class="user-roles">
+                <span id="roles"><?php echo $roles; ?></span>
+            </div>
+        </div>
+        <div id="botoes">
+            <button class="btn-edit" value="<?php echo $user['id']; ?>" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal"><i class="fas fa-pencil-alt"></i> Editar</button>
+            <button class="btn-delete"><i class="fas fa-trash-alt"></i> Deletar</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ModalLabel">Editar usuário</h1>
+                </div>
+                <form id="formEdit">
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="modal-body">
+                        <p><strong>Atenção:</strong> Ao alterar seu usuário, você será automaticamente desconectado e precisará fazer login novamente.</p>
+                        <div>
+                            <div class="mb-3">
+                                <label for="usuario">Usuario</label>
+                                <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="name" maxlength="255">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email">Email</label>
+                                <input required="required" class="form-control" type="email" id="emailEdit" placeholder="Digite o email do usuário" name="email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="fecharEditar" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button id="save" type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+<script src="/src/assets/js/editarUsuario.js"></script>
