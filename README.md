@@ -10,6 +10,8 @@ O UserHub é uma plataforma de gerenciamento de usuários desenvolvida para faci
 
 - **Gestão de Usuários:** Os usuários autenticados podem visualizar, editar e excluir suas próprias informações de perfil, proporcionando controle sobre seus dados pessoais. - Funcionalidade em desenvolvimento
 
+- **Histórico de Atividades:** Registro de atividades dos usuários, incluindo datas de registro, datas de modificações e outras ações importantes.
+
 - **Usuários Administradores:** Os administradores têm privilégios estendidos, incluindo a capacidade de editar informações de outros usuários e, quando necessário, excluir contas de usuário.
 
 - **Proteção de Acesso:** O UserHub garante que apenas os administradores tenham acesso às funcionalidades de edição e exclusão de usuários, mantendo a segurança e a integridade do sistema.
