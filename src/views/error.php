@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Erro</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="/src/views/css/error.css">
+    <link rel="stylesheet" href="/src/assets/css/error.css">
 </head>
 <body>
 

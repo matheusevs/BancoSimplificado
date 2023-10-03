@@ -14,8 +14,8 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="/src/views/css/normalize.css">
-    <link type="text/css" rel="stylesheet" href="/src/views/css/estilo.css">
+    <link type="text/css" rel="stylesheet" href="/src/assets/css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="/src/assets/css/estilo.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
     <title>Página de Administração</title>
 </head>
@@ -131,7 +131,7 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="/src/views/js/login.js"></script>
+<script src="/src/assets/js/login.js"></script>
 </body>
 </html>
 

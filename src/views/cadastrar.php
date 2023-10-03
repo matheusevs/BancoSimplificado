@@ -6,7 +6,7 @@
     <title>Cadastro de Usuário</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/src/views/css/login.css">
+    <link type="text/css" rel="stylesheet" href="/src/assets/css/login.css">
 </head>
 <body>
 
@@ -53,6 +53,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="/src/views/js/cadastro.js"></script>
+    <script src="/src/assets/js/cadastro.js"></script>
 </body>
 </html>
