@@ -34,7 +34,7 @@
 
             if($token){
                 $objUser = $this->convertToken($token);
-                if(!$this->userModel->registerLogUser($objUser->id, "cadastrarUsuario", "Usuário {$body['email']} criado.")){
+                if(!$this->userModel->registerLogUser($objUser->id, "cadastrarUsuario", "Usuário {$body['email']} criado. IP: {$_SERVER['REMOTE_ADDR']}")){
                     return ['message' => 'Usuário criado com sucesso, contudo, ocorreu um erro na criação do log.'];
                 }
             }
@@ -58,7 +58,7 @@
 
             if($token){
                 $objUser = $this->convertToken($token);
-                if(!$this->userModel->registerLogUser($objUser->id, "editarUsuario", "Usuário {$body['email']} atualizado.")){
+                if(!$this->userModel->registerLogUser($objUser->id, "editarUsuario", "Usuário {$body['email']} atualizado. IP: {$_SERVER['REMOTE_ADDR']}")){
                     return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
                 }
             }
@@ -89,7 +89,7 @@
 
             if($token){
                 $objUser = $this->convertToken($token);
-                if(!$this->userModel->registerLogUser($objUser->id, "deletarUsuario", "Usuário {$getUserById['email']} deletado.")){
+                if(!$this->userModel->registerLogUser($objUser->id, "deletarUsuario", "Usuário {$getUserById['email']} deletado. IP: {$_SERVER['REMOTE_ADDR']}")){
                     return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
                 }
             }
