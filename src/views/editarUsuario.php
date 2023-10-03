@@ -27,7 +27,7 @@ if($user['roles'] == 'admin'){
         <h1 id="dados-usuario">Dados do Usuário</h1>
         <div class="user-info">
             <div class="user-avatar">
-                <img src="src/assets/avatar.jpg" alt="Foto de Perfil">
+                <img src="src/assets/img/avatar.jpg" alt="Foto de Perfil">
             </div>
             <div class="user-name"><?php echo $user['name']; ?></div>
             <div class="user-email"><?php echo $user['email']; ?></div>
