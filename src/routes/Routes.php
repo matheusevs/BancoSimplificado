@@ -158,6 +158,17 @@ class Router
 
                 }
 
+                if(preg_match('/^\/MeuUsuario\/(\d+)$/', $this->route, $matches)) {
+
+                    $this->validateToken();
+
+                    $id = $matches[1];
+                    $getUserById = $this->UserController->getUserById($id, $this->token);
+                    echo json_encode($getUserById);
+                    exit;
+
+                }
+
                 if($this->route == '/'){
 
                     $this->validateToken();
@@ -177,6 +188,16 @@ class Router
             break;
 
             case 'PUT':
+
+                if(preg_match('/^\/editarMeuUsuario\/(\d+)$/', $this->route, $matches)){
+
+                    $this->validateToken();
+                    $id = $matches[1];
+                    $updateUser = $this->UserController->updateUser($this->body, $id, 'updateMyUser', $this->token, true);
+                    echo json_encode($updateUser);
+                    exit;
+                    
+                }
 
                 if(preg_match('/^\/editarUsuario\/(\d+)$/', $this->route, $matches)){
 

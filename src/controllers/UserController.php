@@ -43,11 +43,19 @@
 
         }
 
-        public function updateUser($body, $id, $type = null, $token = null){
+        public function updateUser($body, $id, $type = null, $token = null, $updateMyUser = null){
 
             $validateFields = $this->validateFields($body, $type);
+
             if($validateFields['error']){
                 return $validateFields;
+            }
+
+            if($updateMyUser){
+                $objUser = $this->convertToken($token);
+                if($id != $objUser->id){
+                    return ['error' => 'Você não pode atualizar outro usuário!!!!'];
+                }
             }
 
             $set = $this->mountSet($validateFields);
@@ -130,11 +138,16 @@
 
         }
 
-        public function getUserById($id){
+        public function getUserById($id, $token = null){
 
             if(empty($id) || !is_numeric($id) || intval($id) <= 0){
                 return ['error' => 'O ID informado é inválido.'];
     	    }
+
+            $objUser = $this->convertToken($token);
+            if($id != $objUser->id){
+                return ['error' => 'Você não pode buscar os dados de outro usuário!!!!'];
+            }
             
             $findUser = $this->userModel->findUserById($id);
             return $findUser;
@@ -204,6 +217,30 @@
                     unset($body['roles']);
                 }
     
+                return $body;
+
+            } else if($type == 'updateMyUser'){
+
+                if(empty($body)){
+                    return ['error' => 'O corpo da requisição não pode estar vazio.'];
+                }
+
+                if(!empty($body['id'])){
+                    unset($body['id']);
+                }
+
+                if(empty($body['name'])){
+                    unset($body['name']);
+                }
+
+                if(empty($body['email'])){
+                    unset($body['email']);
+                } else {
+                    if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
+                        return ['error' => 'O campo de email não está em um formato válido.'];
+                    }
+                }
+
                 return $body;
 
             } else {

@@ -1,5 +1,6 @@
 
 jQuery(document).ready(function(){
+    let user = window.location.href;
 
     $(document).on('click', '.btn-edit', function() {
         
@@ -7,7 +8,7 @@ jQuery(document).ready(function(){
         
         $.ajax({
             type: "GET",
-            url: `/usuarios/${id}`,
+            url: `/MeuUsuario/${id}`,
             contentType: 'application/json',
             success: res => {
 
@@ -39,18 +40,17 @@ jQuery(document).ready(function(){
 
         $.ajax({
             type: "PUT",
-            url: `/editarUsuario/${form.id}`,
+            url: `/editarMeuUsuario/${form.id}`,
             data: JSON.stringify(form),
             contentType: 'application/json',
             success: res => {
 
                 res = JSON.parse(res);
-
                 $("#fecharEditar").click();
 
                 if(!res.error){
 
-                    window.location.href = "/listarUsuarios" + '?user=successUpdate';
+                    window.location.href = "/editarMeuUsuario" + '?myUser=successUpdateMyUser';
 
                 } else {
 
@@ -134,4 +134,9 @@ jQuery(document).ready(function(){
             senhaInput.parent().removeClass('password-visible');
         }
     });
+
+    if(user.includes('successUpdateMyUser')){
+        toastr.success('Usuário atualizado com sucesso!');
+        return;
+    }
 })
