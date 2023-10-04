@@ -49,7 +49,7 @@
                 return ['error' => 'O usuário já existe.'];
             }
 
-            return $findUser;
+            return mysqli_fetch_array($findUser, MYSQLI_ASSOC);
 
         }
 
