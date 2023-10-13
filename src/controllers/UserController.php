@@ -75,7 +75,7 @@
 
         }
 
-        public function deleteUser($id, $token){
+        public function deleteUser($id, $token, $isAdmin){
 
             if(empty($id)){
                 return ['error' => 'Id não informado'];
@@ -86,9 +86,9 @@
                 return ['error' => 'Você não pode estar logado para apagar seu usuário!'];
             }
 
-            $getUserById = $this->getUserById($id);
-            if(!$getUserById){
-                return ['error' => 'Usuário não existe na base da dados.'];
+            $getUserById = $this->getUserById($id, $token, $isAdmin);
+            if($getUserById['error']){
+                return $getUserById;
             }
     
             if(!$this->userModel->delete($id)){
@@ -117,12 +117,31 @@
                 return ['error' => 'Você não pode alterar a senha de outro usuário!!!!'];
             }
 
-            $getUserById = $this->getUserById($id);
-            if(!$getUserById){
-                return ['error' => 'Usuário não existe na base da dados.'];
+            $getUserById = $this->getUserById($id, $token);
+            if($getUserById['error']){
+                return $getUserById;
             }
 
-            return $passwords;
+            if(sha1($passwords['passwordCurrent']) != $objUser->password){
+                return ['error' => 'A senha atual informada está incorreta.'];
+            }
+
+            if($passwords['passwordNewConfirm'] != $passwords['passwordNew']){
+                return ['error' => 'Senhas não correspondem'];
+            }
+
+            if(!$this->userModel->updatePassword($id, $passwords['passwordCurrent'], $passwords['passwordNewConfirm'])){
+                return ['error' => 'Não foi possível alterar sua senha.'];
+            }
+
+            if($token){
+                $objUser = $this->convertToken($token);
+                if(!$this->userModel->registerLogUser($objUser->id, "editarSenha", "Usuário {$getUserById['email']} alterou sua senha. IP: {$_SERVER['REMOTE_ADDR']}")){
+                    return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                }
+            }
+
+            return ['message' => 'Senha alterada com sucesso.'];
 
         }
 

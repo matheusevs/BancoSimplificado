@@ -228,7 +228,7 @@ class Router
 
                     $this->validateToken(true);
                     $id = $matches[1];
-                    $deleteUser = $this->UserController->deleteUser($id, $this->token);
+                    $deleteUser = $this->UserController->deleteUser($id, $this->token, true);
                     echo json_encode($deleteUser);
                     exit;
                     

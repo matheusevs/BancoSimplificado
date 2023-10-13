@@ -88,20 +88,16 @@ jQuery(document).ready(function(){
             success: res => {
 
                 res = JSON.parse(res);
+                
+                if(!res.error){
 
-                console.log(res)
+                    window.location.href = "/login";
 
-                // $("#fecharEditar").click();
+                } else {
 
-                // if(!res.error){
+                    toastr.error(res.error,'Erro!');
 
-                //     window.location.href = "/listarUsuarios" + '?user=successUpdate';
-
-                // } else {
-
-                //     toastr.error(res.error,'Erro!');
-
-                // }
+                }
 
             }
 

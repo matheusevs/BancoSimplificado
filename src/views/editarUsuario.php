@@ -90,6 +90,7 @@ if($user['roles'] == 'admin'){
                     </button>
                 </div>
                 <div class="modal-body">
+                    <p><strong>Atenção:</strong> Ao alterar sua senha, você será automaticamente desconectado e precisará fazer login novamente.</p>
                     <form id="formAlterarSenha">
                         <div class="form-group">
                             <label for="senhaAtual">Senha Atual</label>

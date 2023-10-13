@@ -133,6 +133,24 @@
 
         }
 
+        public function updatePassword($id, $passwordCurrent, $passwordNew){
+
+            $date = date('Y-m-d H:i:s');
+
+            $sql = "
+                UPDATE users
+                SET password = sha1('{$passwordNew}'), hora_update = '{$date}'
+                WHERE id = {$id} AND password = sha1('{$passwordCurrent}');
+            ";
+
+            $updatePassword = mysqli_query($this->connect, $sql);
+            if(!$updatePassword){
+                return ['error' => mysqli_error($this->connect)];
+            }
+
+            return $updatePassword;
+        }
+
         public function registerLogUser($user_id, $action, $obs){
 
             $sql = "
