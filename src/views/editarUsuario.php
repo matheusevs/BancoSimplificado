@@ -59,7 +59,7 @@ if($user['roles'] == 'admin'){
                 <form id="formEdit">
                     <input type="hidden" id="id" name="id"/>
                     <div class="modal-body">
-                        <p><strong>Atenção:</strong> Ao alterar seu usuário, você será automaticamente desconectado e precisará fazer login novamente.</p>
+                        <p><strong>Atenção:</strong> Ao alterar seu e-mail, você será automaticamente desconectado e precisará fazer login novamente.</p>
                         <div>
                             <div class="mb-3">
                                 <label for="usuario">Usuario</label>

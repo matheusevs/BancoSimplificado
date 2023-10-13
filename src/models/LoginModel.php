@@ -19,7 +19,7 @@ class LoginModel
 
         $sql = "
             SELECT 
-                *
+                id, email, password
             FROM 
                 users
             WHERE 

@@ -194,7 +194,6 @@
                     users
                 WHERE 
                     id = $user->id
-                    AND name = '$user->name'
                     AND email = '$user->email'
                     AND password = '$user->password'
                     $where;
