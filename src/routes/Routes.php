@@ -152,7 +152,7 @@ class Router
                     $this->validateToken(true);
 
                     $id = $matches[1];
-                    $getUserById = $this->UserController->getUserById($id);
+                    $getUserById = $this->UserController->getUserById($id, $this->token, true);
                     echo json_encode($getUserById);
                     exit;
 

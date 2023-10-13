@@ -138,14 +138,14 @@
 
         }
 
-        public function getUserById($id, $token = null){
+        public function getUserById($id, $token = null, $isAdmin = false){
 
             if(empty($id) || !is_numeric($id) || intval($id) <= 0){
                 return ['error' => 'O ID informado é inválido.'];
     	    }
 
             $objUser = $this->convertToken($token);
-            if($id != $objUser->id){
+            if(!$isAdmin && $id != $objUser->id){
                 return ['error' => 'Você não pode buscar os dados de outro usuário!!!!'];
             }
             
@@ -173,7 +173,7 @@
 
             $user = base64_decode($token, true);
             $user = unserialize($user);
-            return json_decode(json_encode($user), false);
+            return json_decode(json_encode($user));
 
         }
 
