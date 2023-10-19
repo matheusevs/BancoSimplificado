@@ -10,7 +10,7 @@ O Banco Simplificado é uma plataforma de gerenciamento de usuários desenvolvid
 
 - **Recuperação de Senha:** Permite que os usuários redefinam suas senhas caso as esqueçam. Realizando o envio de um e-mail com um link para redefinir a senha. - Funcionalidade em desenvolvimento
 
-- **Gestão de Usuários:** Os usuários autenticados podem visualizar, editar e excluir suas próprias informações de perfil, proporcionando controle sobre seus dados pessoais. - Funcionalidade em desenvolvimento
+- **Gestão de Usuários:** Os usuários autenticados podem visualizar, editar e excluir suas próprias informações de perfil, proporcionando controle sobre seus dados pessoais.
 
 - **Histórico de Atividades:** A funcionalidade de histórico de atividades é útil para acompanhar e registrar as ações realizadas pelos usuários no sistema.
 
