@@ -15,9 +15,10 @@ $(function(){
                 if(!res.error){
 
                     $('#id').val(res.id);
-                    $('#nomeEdit').val(res.name);
+                    $('#nomeEdit').val(res.full_name);
+                    $('#cpfCnpjEdit').val(res.cpf_cnpj);
                     $('#emailEdit').val(res.email);
-                    $('#roles').val(res.roles);
+                    $('#user_type').val(res.user_type);
 
                 } else {
 
@@ -102,6 +103,30 @@ $(function(){
 
         });
     
+    });
+
+    function formatCnpjCpf(input) {
+        const value = input.value;
+        const cnpjCpf = value.replace(/\D/g, '');
+        const maxLength = 14;
+      
+        if(cnpjCpf.length > maxLength){
+
+            input.value = cnpjCpf.slice(0, maxLength);
+
+        } else {
+
+            if(cnpjCpf.length === 11){
+                input.value = cnpjCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+            } else {
+                input.value = cnpjCpf.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "$1.$2.$3/$4-$5");
+            }
+
+        }
+    }
+      
+    $('#cpfCnpjEdit').on('input', function() {
+        formatCnpjCpf(this);
     });
 
 });

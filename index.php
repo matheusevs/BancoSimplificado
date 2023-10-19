@@ -30,7 +30,7 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="editarMeuUsuario" class="nav-link">Seja bem-vindo, <?php echo $user['name'];?></a>
+                    <a href="editarMeuUsuario" class="nav-link">Seja bem-vindo, <?php echo $user['full_name'];?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="" id="logoutButton">Logout</a>
@@ -62,7 +62,7 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
         </div>
     </div>
     
-    <?php if($user['roles'] == 'admin'){ ?>
+    <?php if($user['user_type'] == 'admin'){ ?>
         
         <h1 class="text-center mb-4">Página de Administração</h1>
 
@@ -145,6 +145,10 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
         }
         if(msg.includes('error')){
             toastr.error('Erro ao cadastrar!');
+            return;
+        }
+        if(msg.includes('userExists')){
+            toastr.error('O usuário já existe.');
             return;
         }
     })

@@ -258,7 +258,7 @@ input.error {
     user-select: none;
     position: absolute;
     right: 24px;
-    top: 80%;
+    top: 71%;
     transform: translateY(-50%);
     z-index: 1;
 }

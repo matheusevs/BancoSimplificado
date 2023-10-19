@@ -114,4 +114,9 @@ jQuery(document).ready(function(){
         return;
     }
 
+    if(userCreate.includes('successPassword')){
+        toastr.success('Senha alterada com sucesso!');
+        return;
+    }
+
 })

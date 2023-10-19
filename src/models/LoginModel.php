@@ -19,7 +19,7 @@ class LoginModel
 
         $sql = "
             SELECT 
-                id, email, password
+                id, cpf_cnpj, email, password
             FROM 
                 users
             WHERE 
@@ -29,7 +29,7 @@ class LoginModel
 
         $loginUser = mysqli_query($this->connect, $sql);
         if(!$loginUser){
-            return ['error' => mysqli_connect_error()];
+            return ['error' => mysqli_error($this->connect)];
         }
         if($loginUser->num_rows == 0){
             return ['error' => 'O usuário não existe ou a senha é inválida'];

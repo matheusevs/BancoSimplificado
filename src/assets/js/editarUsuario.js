@@ -17,7 +17,8 @@ jQuery(document).ready(function(){
                 if(!res.error){
 
                     $('#id').val(res.id);
-                    $('#nomeEdit').val(res.name);
+                    $('#nomeEdit').val(res.full_name);
+                    $('#cpfCnpjEdit').val(res.cpf_cnpj);
                     $('#emailEdit').val(res.email);
 
                 } else {
@@ -91,7 +92,7 @@ jQuery(document).ready(function(){
                 
                 if(!res.error){
 
-                    window.location.href = "/login";
+                    window.location.href = "/login" + '?myUser=successPassword';
 
                 } else {
 
@@ -103,6 +104,45 @@ jQuery(document).ready(function(){
 
         });
 
+    });
+
+    $(document).on('click', '.btn-delete', function() {
+        
+        let id = $(this).val();
+        let btnConfirmDelete = document.getElementById("btn-confirm-delete");
+        btnConfirmDelete.setAttribute("data-id", id);
+        
+    });
+
+    $("#formDelete").on("submit", event => {
+
+        event.preventDefault();
+        let btnConfirmDelete = document.getElementById("btn-confirm-delete");
+        let id = btnConfirmDelete.getAttribute("data-id");
+
+        $.ajax({
+            type: "DELETE",
+            url: `/deletarMeuUsuario/${id}`,
+            contentType: 'application/json',
+            success: res => {
+
+                res = JSON.parse(res);
+                $("#fecharDeletar").click();
+
+                if(!res.error){
+
+                    window.location.href = "/login";
+
+                } else {
+
+                    toastr.error(res.error,'Erro!');
+
+                }
+
+            }
+
+        });
+    
     });
 
     $('#togglePassword').click(function () {
@@ -135,4 +175,28 @@ jQuery(document).ready(function(){
         toastr.success('Usuário atualizado com sucesso!');
         return;
     }
+
+    function formatCnpjCpf(input) {
+        const value = input.value;
+        const cnpjCpf = value.replace(/\D/g, '');
+        const maxLength = 14;
+      
+        if(cnpjCpf.length > maxLength){
+  
+          input.value = cnpjCpf.slice(0, maxLength);
+  
+        } else {
+  
+          if(cnpjCpf.length === 11){
+            input.value = cnpjCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+          } else {
+            input.value = cnpjCpf.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "$1.$2.$3/$4-$5");
+          }
+  
+        }
+      }
+      
+      $('#cpfCnpjEdit').on('input', function() {
+        formatCnpjCpf(this);
+      });
 })

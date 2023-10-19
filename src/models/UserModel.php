@@ -17,20 +17,20 @@
         public function insert($user){
 
             $sql = "
-                INSERT INTO users (name, email, password)
-                VALUES ('{$user['nome']}', '{$user['email']}', sha1('{$user['senha']}'));
+                INSERT INTO users (full_name, cpf_cnpj, email, password, user_type)
+                VALUES ('{$user['nome']}', '{$user['cpfcnpj']}', '{$user['email']}', sha1('{$user['senha']}'), '{$user['usertype']}');
             ";
 
             $createUser = mysqli_query($this->connect, $sql);
             if(!$createUser){
-                return ['error' => mysqli_connect_error()];
+                return ['error' => mysqli_error($this->connect)];
             }
             
             return $createUser;
 
         }
 
-        public function findUser($email){
+        public function findUser($email, $cpfCnpj){
 
             $sql = "
                 SELECT
@@ -38,12 +38,12 @@
                 FROM
                     users
                 WHERE
-                    email = '$email';
+                    email = '$email' OR cpf_cnpj = '$cpfCnpj';
             ";
 
             $findUser = mysqli_query($this->connect, $sql);
             if(!$findUser){
-                return ['error' => mysqli_connect_error()];
+                return ['error' => mysqli_error($this->connect)];
             }
             if($findUser->num_rows > 0){
                 return ['error' => 'O usuário já existe.'];
@@ -85,7 +85,7 @@
 
             $sql = "
                 SELECT
-                    id, name, email, roles
+                    id, full_name, cpf_cnpj, email, user_type
                 FROM
                     users
                 WHERE 
@@ -126,7 +126,20 @@
 
             $userDelete = mysqli_query($this->connect, $sql);
             if(!$userDelete){
-                return ['error' => mysqli_connect_error()];
+                return ['error' => mysqli_error($this->connect)];
+            }
+
+            return $userDelete;
+
+        }
+
+        public function deleteUserLogs($id){
+
+            $sql = "DELETE FROM users_logs WHERE user_id = {$id}";
+
+            $userDelete = mysqli_query($this->connect, $sql);
+            if(!$userDelete){
+                return ['error' => mysqli_error($this->connect)];
             }
 
             return $userDelete;
@@ -139,7 +152,7 @@
 
             $sql = "
                 UPDATE users
-                SET password = sha1('{$passwordNew}'), hora_update = '{$date}'
+                SET password = sha1('{$passwordNew}'), update_time = '{$date}'
                 WHERE id = {$id} AND password = sha1('{$passwordCurrent}');
             ";
 
@@ -160,7 +173,7 @@
 
             $createLog = mysqli_query($this->connect, $sql);
             if(!$createLog){
-                return ['error' => mysqli_connect_error()];
+                return ['error' => mysqli_error($this->connect)];
             }
             
             return $createLog;
@@ -173,7 +186,7 @@
 
             $sql = "
                 SELECT 
-                    ul.id, u.name, action, obs, ul.hora_registro, ul.hora_update
+                    ul.id, u.full_name, action, obs, ul.registration_time, ul.update_time
                 FROM 
                     users_logs ul
                 INNER JOIN 
@@ -199,10 +212,9 @@
         }
 
         public function validateToken($user, $haveAdmin = null){
-
             $where = '';
             if($haveAdmin){
-                $where = " AND roles = 'admin'";
+                $where = " AND user_type = 'admin'";
             }
 
             $sql = "
@@ -212,6 +224,7 @@
                     users
                 WHERE 
                     id = $user->id
+                    AND cpf_cnpj = '$user->cpf_cnpj'
                     AND email = '$user->email'
                     AND password = '$user->password'
                     $where;
@@ -219,7 +232,7 @@
 
             $user = mysqli_query($this->connect, $sql);
             if(!$user){
-                return ['error' => mysqli_connect_error()];
+                return ['error' => mysqli_error($this->connect)];
             }
 
             return $user;

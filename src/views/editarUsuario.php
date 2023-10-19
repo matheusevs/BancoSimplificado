@@ -1,9 +1,9 @@
 <?php 
 $UserController = new UserController();
 $user = mysqli_fetch_array($UserController->validateToken($_COOKIE['Authorization']), MYSQLI_ASSOC);
-$roles = 'Participante';
-if($user['roles'] == 'admin'){
-    $roles = 'Administrador';
+$roles = 'Administrador';
+if($user['user_type'] != 'admin'){
+    $roles = ucfirst($user['user_type']);
 }
 ?>
 
@@ -31,19 +31,19 @@ if($user['roles'] == 'admin'){
                 <img src="src/assets/img/avatar.jpg" alt="Foto de Perfil">
             </div>
             <div class="user-name">
-                <span id="name"><?php echo $user['name']; ?></span>
+                <span id="name"><?php echo $user['full_name']; ?></span>
             </div>
             <div class="user-email">
                 <span id="email"><?php echo $user['email']; ?></span>
             </div>
             <div class="user-roles">
-                <span id="roles"><?php echo $roles; ?></span>
+                <span id="roles">Usuário <?php echo $roles; ?></span>
             </div>
         </div>
         <div id="botoes">
             <button class="btn-edit" value="<?php echo $user['id']; ?>" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal"><i class="fas fa-pencil-alt"></i> Editar</button>
             <button class="btn-alterPassword" value="<?php echo $user['id']; ?>" data-bs-toggle="modal" data-bs-target="#alterarSenhaModal"><i class="fas fa-lock"></i> Alterar senha</button>
-            <button class="btn-delete"><i class="fas fa-trash-alt"></i> Deletar</button>
+            <button class="btn btn-danger btn-delete" style="display: inline;" value="<?php echo $user['id'] ?>"  data-bs-toggle="modal" data-bs-target="#confirm-delete"><i class="fas fa-trash-alt"></i> Deletar</button>
         </div>
     </div>
 
@@ -59,11 +59,15 @@ if($user['roles'] == 'admin'){
                 <form id="formEdit">
                     <input type="hidden" id="id" name="id"/>
                     <div class="modal-body">
-                        <p><strong>Atenção:</strong> Ao alterar seu e-mail, você será automaticamente desconectado e precisará fazer login novamente.</p>
+                        <p><strong>Atenção:</strong> Ao alterar seu CPF/CNPJ ou e-mail, você será automaticamente desconectado e precisará fazer login novamente.</p>
                         <div>
                             <div class="mb-3">
-                                <label for="usuario">Usuario</label>
-                                <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="name" maxlength="255">
+                                <label for="usuario">Nome</label>
+                                <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="full_name" maxlength="255">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cpfcnpj">CPF/CNPJ</label>
+                                <input required="required" class="form-control" type="text" id="cpfCnpjEdit" placeholder="Digite o nome do usuário" name="cpf_cnpj">
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email</label>
@@ -119,6 +123,28 @@ if($user['roles'] == 'admin'){
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             <button type="submit" class="btn btn-primary" id="btnSalvarSenha">Salvar</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Confirmação de exclusão</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir seu usuário?
+                </div>
+                <div class="modal-footer">
+                    <form id="formDelete" style="display: inline;">
+                        <button type="button" id="fecharDeletar" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button id="btn-confirm-delete" class="btn btn-danger">Excluir</a>
                     </form>
                 </div>
             </div>

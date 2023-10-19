@@ -126,7 +126,7 @@ input.error {
     cursor: pointer;
     user-select: none;
     position: absolute;
-    right: -12px;
+    right: 6px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
@@ -134,4 +134,8 @@ input.error {
 
 .password-visible .toggle-password {
     color: #007bff;
+}
+
+#formLogin #togglePassword{
+    right: -12px;
 }

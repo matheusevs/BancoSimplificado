@@ -29,8 +29,9 @@ $UserController = new UserController();
                             <tr class="cabecalho_table">
                                 <th>#</th>
                                 <th>Nome</th>
+                                <th>CPF/CNPJ</th>
                                 <th>Email</th>
-                                <th>Roles</th>
+                                <th>Tipo Usuário</th>
                                 <th>Última atualização</th>
                                 <th>Ações</th>
                             </tr>
@@ -40,23 +41,24 @@ $UserController = new UserController();
                             $users = $UserController->getUsers();
                             if (!$users['error']) {
                                 foreach ($users as $key => $value) {
-                                    $dateTime = new DateTime($value['hora_registro']);
+                                    $dateTime = new DateTime($value['registration_time']);
                                     $dataFormatada = $dateTime->format("d/m/Y H:i:s");
 
-                                    if($value['hora_update']){
-                                        $dateTime = new DateTime($value['hora_update']);
+                                    if($value['update_time']){
+                                        $dateTime = new DateTime($value['update_time']);
                                         $dataFormatada = $dateTime->format("d/m/Y H:i:s");
                                     }
 
-                                    $roles = 'Participante';
-                                    if($value['roles'] == 'admin'){
-                                        $roles = 'Administrador';
+                                    $roles = 'Administrador';
+                                    if($value['user_type'] != 'admin'){
+                                        $roles = ucfirst($value['user_type']);
                                     }
 
                                     echo '
                                     <tr>
                                         <th>' .$value['id']. '</th>
-                                        <th>' .$value['name']. '</th>
+                                        <th>' .$value['full_name']. '</th>
+                                        <th>' .$value['cpf_cnpj']. '</th>
                                         <th>' .$value['email']. '</th>
                                         <th>' .$roles. '</th>
                                         <th>' .$dataFormatada. '</th>
@@ -89,17 +91,22 @@ $UserController = new UserController();
                         <div class="modal-body">
                             <div>
                                 <div class="mb-3">
-                                    <label for="usuario">Usuario</label>
-                                    <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="name" maxlength="255">
+                                    <label for="usuario">Nome do Usuário</label>
+                                    <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="full_name" maxlength="255">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="usuario">CPF/CNPJ</label>
+                                    <input required="required" class="form-control" type="text" id="cpfCnpjEdit" placeholder="Digite o CPF/CNPJ do usuário" name="cpf_cnpj">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email">Email</label>
                                     <input required="required" class="form-control" type="email" id="emailEdit" placeholder="Digite o email do usuário" name="email">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="roles">Roles</label>
-                                    <select class="form-control" id="roles" name="roles">
-                                        <option value="participant">Participante</option>
+                                    <label for="user_type">Tipo Usuário</label>
+                                    <select class="form-control" id="user_type" name="user_type">
+                                        <option value="comum">Usuário Comum</option>
+                                        <option value="lojista">Usuário Lojista</option>
                                         <option value="admin">Administrador</option>
                                     </select>
                                 </div>
@@ -128,7 +135,6 @@ $UserController = new UserController();
                     </div>
                     <div class="modal-footer">
                         <form id="formDelete" style="display: inline;">
-                            <!-- <input type="hidden" id="id" name="id"/> -->
                             <button type="button" id="fecharDeletar" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button id="btn-confirm-delete" class="btn btn-danger">Excluir</a>
                         </form>

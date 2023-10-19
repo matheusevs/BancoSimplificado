@@ -59,7 +59,7 @@ class Router
 
                 if($this->route == '/createUser'){
 
-                    $userCreate = $this->UserController->insertUser($this->body);                        
+                    $userCreate = $this->UserController->insertUser($this->body);     
                     echo json_encode($userCreate);
                     exit;
 
@@ -69,9 +69,14 @@ class Router
 
                     $this->validateToken(true);
                     $cadastrarUsuario = $this->UserController->insertUser($this->post, 'createAdmin', $this->token);
-                    if(isset($cadastrarUsuario['error'])){
+                    $error = 'error';
+                    
+                    if($cadastrarUsuario['error'] == 'O usuário já existe.'){
+                        $error = 'userExists';
+                    }
 
-                        header('Location: '. $this->url .'?msg=error');
+                    if(isset($cadastrarUsuario['error'])){
+                        header("Location: {$this->url}?msg={$error}");
                         exit;
 
                     }
@@ -232,6 +237,16 @@ class Router
                     echo json_encode($deleteUser);
                     exit;
                     
+                }
+
+                if(preg_match('/^\/deletarMeuUsuario\/(\d+)$/', $this->route, $matches)){
+
+                    $this->validateToken();
+                    $id = $matches[1];
+                    $deleteMyUser = $this->UserController->deleteUser($id, $this->token, false, true);
+                    echo json_encode($deleteMyUser);
+                    exit;
+
                 }
 
             break;

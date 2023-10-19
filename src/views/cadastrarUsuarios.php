@@ -24,6 +24,10 @@
                         <input required="required" class="form-control" type="text" id="nome" placeholder="Digite o nome" name="nome" maxlength="255">
                     </div>
                     <div class="form-group">
+                        <label for="cpfcnpj">CPF/CNPJ:</label>
+                        <input required="required" class="form-control" type="text" id="cpfcnpj" placeholder="Digite o CPF ou CNPJ" name="cpfcnpj">
+                    </div>
+                    <div class="form-group">
                         <label for="email">Email:</label>
                         <input required="required" class="form-control" type="email" id="email" placeholder="Digite o email" name="email" maxlength="255">
                     </div>
@@ -33,6 +37,13 @@
                         <span class="toggle-password" id="togglePassword">
                             <i class="fas fa-eye"></i>
                         </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="usertype">Tipo de usuário:</label>
+                        <select class="form-control" id="usertype" name="usertype">
+                            <option value="comum">Usuário Comum</option>
+                            <option value="lojista">Usuário Lojista</option>
+                        </select>
                     </div>
                     <div id="botoes" class="text-center">
                         <button id="botao" class="btn btn-primary" type="submit" value="Salvar">SALVAR</button>

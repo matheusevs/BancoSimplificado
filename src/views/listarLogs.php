@@ -23,7 +23,7 @@ $UserController = new UserController();
         <div id="caixa_formulario" class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <h1 class="display-4 text-center">Lista de usuários</h1>
+                    <h1 class="display-4 text-center">Lista de logs</h1>
                     <table id="tabela" class="table table-bordereds justify-content-center">
                         <thead>
                             <tr class="cabecalho_table">
@@ -39,18 +39,18 @@ $UserController = new UserController();
                             $usersLogs = $UserController->getLogsUsers();
                             if (!$usersLogs['error']) {
                                 foreach ($usersLogs as $key => $value) {
-                                    $dateTime = new DateTime($value['hora_registro']);
+                                    $dateTime = new DateTime($value['registration_time']);
                                     $dataFormatada = $dateTime->format("d/m/Y H:i:s");
 
-                                    if($value['hora_update']){
-                                        $dateTime = new DateTime($value['hora_update']);
+                                    if($value['update_time']){
+                                        $dateTime = new DateTime($value['update_time']);
                                         $dataFormatada = $dateTime->format("d/m/Y H:i:s");
                                     }
 
                                     echo '
                                     <tr>
                                         <th>' .$value['id']. '</th>
-                                        <th>' .$value['name']. '</th>
+                                        <th>' .$value['full_name']. '</th>
                                         <th>' .$value['action']. '</th>
                                         <th>' .$value['obs']. '</th>
                                         <th>' .$dataFormatada. '</th>

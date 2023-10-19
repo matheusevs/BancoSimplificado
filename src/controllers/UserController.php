@@ -23,19 +23,21 @@
 
             $userModel = new UserModel();
 
-            $findUser = $userModel->findUser($body['email']);
+            $findUser = $userModel->findUser($body['email'], $body['cpfcnpj']);
             if($findUser['error']){
                 return $findUser;
             }
 
-            if(!$userModel->insert($body)){
-                return ['error' => 'Não foi possível criar o novo usuário.'];
+            $insertUser = $userModel->insert($body);
+            if(isset($insertUser['error'])){
+                return ['error' => "Não foi possível criar o novo usuário. Erro: {$insertUser['error']}"];
             }
 
             if($token){
                 $objUser = $this->convertToken($token);
-                if(!$this->userModel->registerLogUser($objUser->id, "cadastrarUsuario", "Usuário {$body['email']} criado. IP: {$_SERVER['REMOTE_ADDR']}")){
-                    return ['message' => 'Usuário criado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                $userLogRegister = $this->userModel->registerLogUser($objUser->id, "cadastrarUsuario", "Usuário {$body['email']} criado. IP: {$_SERVER['REMOTE_ADDR']}");
+                if(isset($userLogRegister['error'])){
+                    return ['error' => "Usuário criado com sucesso, contudo, ocorreu um erro na criação do log. Erro: {$userLogRegister['error']}"];
                 }
             }
 
@@ -60,14 +62,16 @@
 
             $set = $this->mountSet($validateFields);
 
-            if(!$this->userModel->update($set, $id)){
-                return ['error' => 'Não foi possível editar o usuário.'];
+            $updateUser = $this->userModel->update($set, $id);
+            if(isset($updateUser['error'])){
+                return ['error' => "Não foi possível editar o usuário. Erro: {$updateUser['error']}"];
             }
 
             if($token){
                 $objUser = $this->convertToken($token);
-                if(!$this->userModel->registerLogUser($objUser->id, "editarUsuario", "Usuário {$body['email']} atualizado. IP: {$_SERVER['REMOTE_ADDR']}")){
-                    return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                $userLogRegister = $this->userModel->registerLogUser($objUser->id, "editarUsuario", "Usuário {$body['email']} atualizado. IP: {$_SERVER['REMOTE_ADDR']}");
+                if(isset($userLogRegister['error'])){
+                    return ['message' => "Usuário criado com sucesso, contudo, ocorreu um erro na criação do log. Erro: {$userLogRegister['error']}"];
                 }
             }
 
@@ -75,30 +79,51 @@
 
         }
 
-        public function deleteUser($id, $token, $isAdmin){
+        public function deleteUser($id, $token, $isAdmin = null, $deleteMyUser = null){
 
             if(empty($id)){
                 return ['error' => 'Id não informado'];
-            }
-
-            $objUser = $this->convertToken($token);
-            if($id == $objUser->id){
-                return ['error' => 'Você não pode estar logado para apagar seu usuário!'];
             }
 
             $getUserById = $this->getUserById($id, $token, $isAdmin);
             if($getUserById['error']){
                 return $getUserById;
             }
-    
-            if(!$this->userModel->delete($id)){
-                return ['error' => 'Não foi possível deletar o usuário.'];
+
+            $objUser = $this->convertToken($token);
+            if($deleteMyUser){
+                
+                if($id != $objUser->id){
+                    return ['error' => 'Você não pode deletar outro usuário!!!!'];
+                }
+
+                if($getUserById['user_type'] == 'admin'){
+                    return ['error' => 'Você é um usuário administrador, não é possível realizar a exclusão via interface.'];
+                }
+
+            } else {
+
+                if($id == $objUser->id){
+                    return ['error' => 'Você não pode estar logado para apagar seu usuário!'];
+                }
+
+            }
+
+            $deleteUserLogs = $this->userModel->deleteUserLogs($id);
+            if(isset($deleteUserLogs['error'])){
+                return ['error' => "Não foi possível deletar os logs do usuário. Erro: {$deleteUserLogs['error']}"];
+            }
+
+            $deleteUser = $this->userModel->delete($id);
+            if(isset($deleteUser['error'])){
+                return ['error' => "Não foi possível deletar o usuário. Erro: {$deleteUser['error']}"];
             }
 
             if($token){
                 $objUser = $this->convertToken($token);
-                if(!$this->userModel->registerLogUser($objUser->id, "deletarUsuario", "Usuário {$getUserById['email']} deletado. IP: {$_SERVER['REMOTE_ADDR']}")){
-                    return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                $userLogRegister = $this->userModel->registerLogUser($objUser->id, "deletarUsuario", "Usuário {$getUserById['email']} deletado. IP: {$_SERVER['REMOTE_ADDR']}");
+                if(isset($userLogRegister['error'])){
+                    return ['message' => "Usuário criado com sucesso, contudo, ocorreu um erro na criação do log. Erro: {$userLogRegister['error']}"];
                 }
             }
 
@@ -130,14 +155,16 @@
                 return ['error' => 'Senhas não correspondem'];
             }
 
-            if(!$this->userModel->updatePassword($id, $passwords['passwordCurrent'], $passwords['passwordNewConfirm'])){
-                return ['error' => 'Não foi possível alterar sua senha.'];
+            $updatePasswordUser = $this->userModel->updatePassword($id, $passwords['passwordCurrent'], $passwords['passwordNewConfirm']);
+            if(isset($updatePasswordUser['error'])){
+                return ['error' => "Não foi possível alterar sua senha. Erro: {$updatePasswordUser['error']}"];
             }
 
             if($token){
                 $objUser = $this->convertToken($token);
-                if(!$this->userModel->registerLogUser($objUser->id, "editarSenha", "Usuário {$getUserById['email']} alterou sua senha. IP: {$_SERVER['REMOTE_ADDR']}")){
-                    return ['message' => 'Usuário atualizado com sucesso, contudo, ocorreu um erro na criação do log.'];
+                $userLogRegister = $this->userModel->registerLogUser($objUser->id, "editarSenha", "Usuário {$getUserById['email']} alterou sua senha. IP: {$_SERVER['REMOTE_ADDR']}");
+                if(isset($userLogRegister['error'])){
+                    return ['message' => "Senha atualizada com sucesso, contudo, ocorreu um erro na criação do log. Erro: {$userLogRegister['error']}"];
                 }
             }
 
@@ -177,7 +204,7 @@
 
             $array = array();
 
-            $set['hora_update'] = date('Y-m-d H:i:s');
+            $set['update_time'] = date('Y-m-d H:i:s');
             
             foreach ($set as $key => $value) {
                 $array[] = "$key = '$value'";
@@ -210,7 +237,7 @@
 
         public function validateFields($body, $type = null){
 
-            if($type == 'updateAdmin'){
+            if($type == 'updateAdmin' || $type == 'updateMyUser'){
 
                 if(empty($body)){
                     return ['error' => 'O corpo da requisição não pode estar vazio.'];
@@ -220,8 +247,12 @@
                     unset($body['id']);
                 }
 
-                if(empty($body['name'])){
-                    unset($body['name']);
+                if(empty($body['full_name'])){
+                    unset($body['full_name']);
+                }
+
+                if(empty($body['cpf_cnpj'])){
+                    unset($body['cpf_cnpj']);
                 }
     
                 if(empty($body['email'])){
@@ -232,39 +263,23 @@
                     }
                 }
 
-                if(empty($body['roles'])){
-                    unset($body['roles']);
+                if(empty($body['user_type'])){
+                    unset($body['user_type']);
                 }
     
-                return $body;
-
-            } else if($type == 'updateMyUser'){
-
-                if(empty($body)){
-                    return ['error' => 'O corpo da requisição não pode estar vazio.'];
-                }
-
-                if(!empty($body['id'])){
-                    unset($body['id']);
-                }
-
-                if(empty($body['name'])){
-                    unset($body['name']);
-                }
-
-                if(empty($body['email'])){
-                    unset($body['email']);
-                } else {
-                    if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
-                        return ['error' => 'O campo de email não está em um formato válido.'];
-                    }
-                }
-
                 return $body;
 
             } else {
                 if(empty($body)){
                     return ['error' => 'O corpo da requisição não pode estar vazio.'];
+                }
+
+                if(!isset($body['nome']) || empty($body['nome'])){
+                    return ['error' => 'O campo de nome é obrigatório.'];
+                }
+
+                if(!isset($body['cpfcnpj']) || empty($body['cpfcnpj'])){
+                    return ['error' => 'O campo de CPF/CNPJ é obrigatório.'];
                 }
     
                 if(!isset($body['email']) || empty($body['email'])){
@@ -273,10 +288,6 @@
     
                 if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
                     return ['error' => 'O campo de email não está em um formato válido.'];
-                }
-    
-                if(!isset($body['nome']) || empty($body['nome'])){
-                    return ['error' => 'O campo de nome é obrigatório.'];
                 }
     
                 if(!isset($body['senha']) || empty($body['senha'])){
