@@ -1,4 +1,4 @@
-# UserHub - Plataforma de Gerenciamento de Usuários
+# Banco Simplificado - Plataforma de Gerenciamento de contas
 
 O UserHub é uma plataforma de gerenciamento de usuários desenvolvida para facilitar o registro, edição e exclusão de usuários em uma aplicação web. Este projeto é ideal para administradores que desejam controlar a base de usuários com eficiência e garantir a segurança dos dados.
 
