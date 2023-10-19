@@ -16,7 +16,7 @@
         </a>
         <h1>Saldo Bancário</h1>
         <p class="saldo">Saldo Disponível: R$ 5,000.00</p>
-        <a href="#" class="btn btn-transferencia">Realizar Transferência</a>
+        <a href="/transferencia" class="btn btn-transferencia">Realizar Transferência</a>
     </div>
 </body>
 </html>

@@ -24,4 +24,26 @@ CREATE TABLE IF NOT EXISTS users_logs
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE IF NOT EXISTS user_wallet
+(
+    id                  INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id             INT UNSIGNED NOT NULL,
+    balance             DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS transfers
+(
+    id                  INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    payer_id            INT UNSIGNED NOT NULL,
+    payee_id            INT UNSIGNED NOT NULL,
+    value               DECIMAL(10, 2) NOT NULL,
+    registration_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_time         TIMESTAMP NULL DEFAULT NULL
+    FOREIGN KEY (payer_id) REFERENCES user_wallet(id),
+    FOREIGN KEY (payee_id) REFERENCES user_wallet(id)
+);
+
+
 INSERT INTO users (full_name, cpf_cnpj, email, password, user_type) VALUES ('Administrador', '000.000.000-00', 'admin@admin.com.br', sha1('admin'), 'admin');
