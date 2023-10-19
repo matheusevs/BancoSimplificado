@@ -4,7 +4,7 @@ O Banco Simplificado é uma plataforma de gerenciamento de usuários desenvolvid
 
 ## Funcionalidades do Sistema
 
-- **Registro de Usuários:** Permite que novos usuários se cadastrem fornecendo informações como nome, CPF, endereço de e-mail e senha. O sistema garante que CPF e endereço de e-mail sejam únicos, permitindo apenas um cadastro por CPF ou e-mail. - Funcionalidade em desenvolvimento
+- **Registro de Usuários:** Permite que novos usuários se cadastrem fornecendo informações como nome, CPF, endereço de e-mail e senha. O sistema garante que CPF e endereço de e-mail sejam únicos, permitindo apenas um cadastro por CPF ou e-mail.
 
 - **Login e Token de Sessão:** Os usuários podem fazer login em suas contas com segurança usando seu endereço de e-mail e senha. Um token de sessão é gerado após o login e permanece válido por 24 horas, oferecendo acesso contínuo às funcionalidades exclusivas.
 
