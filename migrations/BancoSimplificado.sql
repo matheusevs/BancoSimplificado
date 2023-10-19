@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS transfers
     payee_id            INT UNSIGNED NOT NULL,
     value               DECIMAL(10, 2) NOT NULL,
     registration_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    update_time         TIMESTAMP NULL DEFAULT NULL
+    update_time         TIMESTAMP NULL DEFAULT NULL,
     FOREIGN KEY (payer_id) REFERENCES user_wallet(id),
     FOREIGN KEY (payee_id) REFERENCES user_wallet(id)
 );
