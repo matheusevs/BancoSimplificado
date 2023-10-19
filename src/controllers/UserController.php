@@ -33,6 +33,13 @@
                 return ['error' => "Não foi possível criar o novo usuário. Erro: {$insertUser['error']}"];
             }
 
+            if(is_numeric($insertUser)){
+                $insertWallet = $userModel->insertUserWallet($insertUser);
+                if(isset($insertWallet['error'])){
+                    return ['error' => "Não foi possível criar a carteira do usuário. Erro: {$insertWallet['error']}"];
+                }
+            }
+
             if($token){
                 $objUser = $this->convertToken($token);
                 $userLogRegister = $this->userModel->registerLogUser($objUser->id, "cadastrarUsuario", "Usuário {$body['email']} criado. IP: {$_SERVER['REMOTE_ADDR']}");

@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS user_wallet
 (
     id                  INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id             INT UNSIGNED NOT NULL,
-    balance             DECIMAL(10, 2) NOT NULL,
+    balance             DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    registration_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_time         TIMESTAMP NULL DEFAULT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

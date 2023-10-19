@@ -26,7 +26,22 @@
                 return ['error' => mysqli_error($this->connect)];
             }
             
-            return $createUser;
+            return mysqli_insert_id($this->connect);
+
+        }
+
+        public function insertUserWallet($userId){
+
+            $sql = "
+                INSERT INTO user_wallet (user_id) VALUES ({$userId});
+            ";
+
+            $createWallet = mysqli_query($this->connect, $sql);
+            if(!$createWallet){
+                return ['error' => mysqli_error($this->connect)];
+            }
+            
+            return $createWallet;
 
         }
 
