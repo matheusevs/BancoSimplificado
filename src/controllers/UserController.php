@@ -211,6 +211,12 @@
 
         }
 
+        public function getBankBalance($id){
+            
+            return $this->userModel->getBankBalance($id);
+
+        }
+
         public function getLogsUsers(){
             
             return $this->userModel->getLogsUsers();

@@ -1,3 +1,9 @@
+<?php 
+$UserController = new UserController();
+$user = mysqli_fetch_array($UserController->validateToken($_COOKIE['Authorization']), MYSQLI_ASSOC);
+$userWallet = $UserController->getBankBalance($user['id']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +21,8 @@
             <i class="fas fa-arrow-left"></i> Voltar
         </a>
         <h1>Saldo Bancário</h1>
-        <p class="saldo">Saldo Disponível: R$ 5,000.00</p>
+        <p>Número da Conta: <span class="account-number"><?php echo $userWallet['idConta'] ?></span></p>
+        <p>Saldo Disponível:<span class="balance"> R$ <?php echo $userWallet['valorConta'] ?></span></p>
         <a href="/transferencia" class="btn btn-transferencia">Realizar Transferência</a>
     </div>
 </body>
