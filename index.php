@@ -23,7 +23,7 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">UserHub</a>
+        <a class="navbar-brand" href="#">Banco Simplificado</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -60,7 +60,37 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                <h5 class="card-title">Saldo</h5>
+                <p class="card-text">Clique abaixo para verificar seu saldo bancário.</p>
+                <form method="GET" action="/saldo">
+                    <button id="botao" class="btn btn-primary" type="submit">Verificar Saldo</button>
+                </form>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <?php if($user['user_type'] == 'comum'){ ?>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                    <h5 class="card-title">Transferências</h5>
+                    <p class="card-text">Clique abaixo para realizar transferências.</p>
+                    <form method="GET" action="/transferencia">
+                        <button id="botao" class="btn btn-primary" type="submit">Realizar transferência</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <?php } ?>
     
     <?php if($user['user_type'] == 'admin'){ ?>
         

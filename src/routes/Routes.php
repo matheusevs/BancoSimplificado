@@ -152,6 +152,28 @@ class Router
 
                 }
 
+                if($this->route == '/transferencia'){
+
+                    $this->validateToken();
+                    
+                    if(!include_once('./src/views/transferencia.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
+                if($this->route == '/saldo'){
+
+                    $this->validateToken();
+                    
+                    if(!include_once('./src/views/saldo.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
                 if(preg_match('/^\/usuarios\/(\d+)$/', $this->route, $matches)) {
 
                     $this->validateToken(true);

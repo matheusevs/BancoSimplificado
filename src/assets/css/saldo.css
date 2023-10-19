@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.saldo {
+    font-size: 24px;
+    text-align: center;
+    color: #007BFF;
+}
+
+.btn-transferencia {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-transferencia:hover {
+    background-color: #0056b3;
+}
+
+.btn-back {
+    color: #007bff;
+}
+
+.btn-back:hover {
+    color: #00346B;
+}
