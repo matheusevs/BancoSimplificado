@@ -30,7 +30,11 @@
 
         }
 
-        public function findUser($email, $cpfCnpj){
+        public function findUser($body = null, $where = null){
+
+            if($body && !$where){
+                $where = "email = '{$body['email']}' OR cpf_cnpj = '{$body['cpfcnpj']}'";
+            }
 
             $sql = "
                 SELECT
@@ -38,7 +42,7 @@
                 FROM
                     users
                 WHERE
-                    email = '$email' OR cpf_cnpj = '$cpfCnpj';
+                    $where;
             ";
 
             $findUser = mysqli_query($this->connect, $sql);

@@ -23,7 +23,7 @@
 
             $userModel = new UserModel();
 
-            $findUser = $userModel->findUser($body['email'], $body['cpfcnpj']);
+            $findUser = $userModel->findUser($body);
             if($findUser['error']){
                 return $findUser;
             }
@@ -59,6 +59,12 @@
                     return ['error' => 'Você não pode atualizar outro usuário!!!!'];
                 }
             }
+
+            $where = $this->findUserExists($body, $id);
+            $findUser = $this->userModel->findUser(null, $where);
+            if($findUser['error']){
+                return $findUser;
+            }           
 
             $set = $this->mountSet($validateFields);
 
@@ -169,6 +175,26 @@
             }
 
             return ['message' => 'Senha alterada com sucesso.'];
+
+        }
+
+        public function findUserExists($body, $id){
+
+            $where = null;
+
+            if($body['cpf_cnpj']){
+                $where = "cpf_cnpj = '{$body['cpf_cnpj']}' AND id != {$id}";
+            }
+
+            if($body['email']){
+                $where = "email = '{$body['email']}' AND id != {$id}";
+            }
+
+            if($body['cpf_cnpj'] && $body['email']){
+                $where = "(cpf_cnpj = '{$body['cpf_cnpj']}' OR email = '{$body['email']}') AND id != {$id}";
+            }
+
+            return $where;
 
         }
 
