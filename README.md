@@ -18,15 +18,17 @@ O Banco Simplificado é uma plataforma de gerenciamento de usuários desenvolvid
 
 - **Proteção de Acesso:** O Banco Simplificado garante que apenas os administradores tenham acesso às funcionalidades de edição e exclusão de usuários, mantendo a segurança e a integridade do sistema.
 
-- **Transferência de Dinheiro:** Usuários têm a capacidade de enviar dinheiro, realizando transferências entre si ou para lojistas. - Funcionalidade em desenvolvimento
+- **Transferência de Dinheiro:** Usuários têm a capacidade de enviar dinheiro, realizando transferências entre si ou para lojistas.
 
-- **Recebimento de Dinheiro por Lojistas:** Lojistas podem receber transferências de dinheiro, mas não têm a capacidade de enviar dinheiro a terceiros. - Funcionalidade em desenvolvimento
+- **Recebimento de Dinheiro por Lojistas:** Lojistas podem receber transferências de dinheiro, mas não têm a capacidade de enviar dinheiro a terceiros.
 
-- **Validação de Saldo:** Antes de completar qualquer transferência, o sistema valida se o usuário tem saldo suficiente para realizar a transação. - Funcionalidade em desenvolvimento
+- **Validação de Saldo:** Antes de completar qualquer transferência, o sistema valida se o usuário tem saldo suficiente para realizar a transação.
 
-- **Verificação Externa da Transferência:** Antes de finalizar uma transferência, o sistema consulta um serviço autorizador externo, utilizando um mock para simulação. Isso garante que a transação seja consistente. - Funcionalidade em desenvolvimento
+- **Verificação Externa da Transferência:** Antes de finalizar uma transferência, o sistema consulta um serviço autorizador externo, utilizando um mock para simulação(https://run.mocky.io/v3/6aa9fe11-bc36-4168-b9fd-8dfd4452e7b9). Isso garante que a transação seja consistente.
 
-- **Transações Reversíveis:** Todas as transferências são tratadas como transações, o que significa que, em caso de qualquer inconsistência, o dinheiro é reembolsado para a conta do usuário remetente. - Funcionalidade em desenvolvimento
+- **Transações Reversíveis:** Todas as transferências são tratadas como transações, o que significa que, em caso de qualquer inconsistência, o dinheiro é reembolsado para a conta do usuário remetente.
+
+- **Acompanhar Transações:** O extrato fornece um registro completo de todas as transações, incluindo depósitos, retiradas, transferências e pagamentos. Isso oferece total transparência sobre o fluxo de dinheiro em suas contas.
 
 - **Notificações de Pagamento:** Tanto usuários quanto lojistas recebem notificações de pagamento por meio de serviços de terceiros. O sistema utiliza um mock para simular o envio de notificações, com a consideração de que o serviço de terceiros pode estar indisponível em alguns momentos. - Funcionalidade em desenvolvimento
 
