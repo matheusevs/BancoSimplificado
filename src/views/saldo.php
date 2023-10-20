@@ -1,7 +1,8 @@
 <?php 
 $UserController = new UserController();
+$TransactionController = new TransactionController();
 $user = mysqli_fetch_array($UserController->validateToken($_COOKIE['Authorization']), MYSQLI_ASSOC);
-$userWallet = $UserController->getBankBalance($user['id']);
+$userWallet = $TransactionController->getBankBalance($user['id']);
 ?>
 
 <!DOCTYPE html>

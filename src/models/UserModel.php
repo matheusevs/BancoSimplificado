@@ -100,32 +100,6 @@
 
         }
 
-        public function getBankBalance($id){
-
-            $sql = "
-                SELECT 
-                    uw.id as idConta,
-                    uw.balance as valorConta
-                FROM 
-                    users u
-                INNER JOIN 
-                    user_wallet uw ON u.id = uw.user_id
-                WHERE
-                    u.id = {$id};
-            ";
-
-            $userWallet = mysqli_query($this->connect, $sql);
-            if(!$userWallet){
-                return ['error' => mysqli_error($this->connect)];
-            }
-            if($userWallet->num_rows == 0){
-                return ['error' => 'Não foi identificado nenhum usuário com o id informado'];
-            }
-
-            return mysqli_fetch_array($userWallet, MYSQLI_ASSOC);
-
-        }
-
         public function findUserById($id){
 
             $sql = "
