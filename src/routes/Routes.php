@@ -2,6 +2,7 @@
 
 require_once(RELATIVE_PATH . '/src/controllers/LoginController.php');
 require_once(RELATIVE_PATH . '/src/controllers/UserController.php');
+require_once(RELATIVE_PATH . '/src/controllers/TransactionController.php');
 
 class Router
 {
@@ -14,6 +15,7 @@ class Router
     public $token;
     public $LoginController;
     public $UserController;
+    public $TransactionController;
     
     public function __construct()
     {
@@ -26,6 +28,7 @@ class Router
         $this->token = $_COOKIE['Authorization'];
         $this->LoginController = new LoginController();
         $this->UserController = new UserController();
+        $this->TransactionController = new TransactionController();
 
         $this->route = $this->validateRouteUrl($this->route);
         $this->routes();
@@ -82,6 +85,15 @@ class Router
                     }
 
                     header('Location: '. $this->url .'?msg=success');
+                    exit;
+
+                }
+
+                if($this->route == '/transaction'){
+
+                    $this->validateToken();
+                    $transaction = $this->TransactionController->makeTransfer($this->body, $this->token);
+                    echo json_encode($transaction);
                     exit;
 
                 }
