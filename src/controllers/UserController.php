@@ -122,11 +122,6 @@
 
             }
 
-            $deleteUserLogs = $this->userModel->deleteUserLogs($id);
-            if(isset($deleteUserLogs['error'])){
-                return ['error' => "Não foi possível deletar os logs do usuário. Erro: {$deleteUserLogs['error']}"];
-            }
-
             $deleteUser = $this->userModel->delete($id);
             if(isset($deleteUser['error'])){
                 return ['error' => "Não foi possível deletar o usuário. Erro: {$deleteUser['error']}"];

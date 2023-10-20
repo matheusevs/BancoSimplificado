@@ -152,19 +152,6 @@
 
         }
 
-        public function deleteUserLogs($id){
-
-            $sql = "DELETE FROM users_logs WHERE user_id = {$id}";
-
-            $userDelete = mysqli_query($this->connect, $sql);
-            if(!$userDelete){
-                return ['error' => mysqli_error($this->connect)];
-            }
-
-            return $userDelete;
-
-        }
-
         public function updatePassword($id, $passwordCurrent, $passwordNew){
 
             $date = date('Y-m-d H:i:s');
