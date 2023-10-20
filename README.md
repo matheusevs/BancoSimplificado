@@ -28,6 +28,8 @@ O Banco Simplificado é uma plataforma de gerenciamento de usuários desenvolvid
 
 - **Transações Reversíveis:** Todas as transferências são tratadas como transações, o que significa que, em caso de qualquer inconsistência, o dinheiro é reembolsado para a conta do usuário remetente.
 
+- **Acompanhar Transações:** O extrato fornece um registro completo de todas as transações, incluindo depósitos, retiradas, transferências e pagamentos. Isso oferece total transparência sobre o fluxo de dinheiro em suas contas.
+
 - **Notificações de Pagamento:** Tanto usuários quanto lojistas recebem notificações de pagamento por meio de serviços de terceiros. O sistema utiliza um mock para simular o envio de notificações, com a consideração de que o serviço de terceiros pode estar indisponível em alguns momentos. - Funcionalidade em desenvolvimento
 
 - **Serviço RESTFul:** O sistema é construído como um serviço RESTFul, permitindo a integração fácil com outros sistemas e aplicativos. - Funcionalidade em desenvolvimento 
