@@ -186,6 +186,17 @@ class Router
 
                 }
 
+                if($this->route == '/extrato'){
+
+                    $this->validateToken();
+                    
+                    if(!include_once('./src/views/extrato.php')){
+                        include_once('./src/views/error.php');
+                    }
+                    exit;
+
+                }
+
                 if(preg_match('/^\/usuarios\/(\d+)$/', $this->route, $matches)) {
 
                     $this->validateToken(true);

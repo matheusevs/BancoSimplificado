@@ -76,9 +76,9 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
         <?php } ?>
     </div>
 
-    <?php if($user['user_type'] == 'comum'){ ?>
+    <div class="row">
 
-        <div class="row">
+        <?php if($user['user_type'] == 'comum'){ ?>
             <div class="col-md-6">
                 <div class="card mb-4">
                     <div class="card-body">
@@ -90,9 +90,20 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
                     </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
 
-    <?php } ?>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                <h5 class="card-title">Extrato</h5>
+                <p class="card-text">Clique abaixo para verificar o extrato das transferências.</p>
+                <form method="GET" action="/extrato">
+                    <button id="botao" class="btn btn-primary" type="submit">Extrato Bancário</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <?php if($user['user_type'] == 'admin'){ ?>
         

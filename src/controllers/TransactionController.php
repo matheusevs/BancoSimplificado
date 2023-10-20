@@ -78,6 +78,12 @@ class TransactionController
 
     }
 
+    public function getExtract($id){
+
+        return $this->TransactionModel->getExtract($id);
+
+    }
+
     public function transfer($value, $balance, $balanceDestionation, $payerId, $payeeId){
 
         $currentBalanceDestionation = ($balanceDestionation + $value);

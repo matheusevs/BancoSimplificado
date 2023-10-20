@@ -1,5 +1,6 @@
 body {
-    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
 }
 .container {
     padding: 20px;
@@ -24,6 +25,7 @@ label {
 }
 
 .btn-back {
+    margin: 20px;
     color: #007bff;
 }
 

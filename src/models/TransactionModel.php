@@ -41,6 +41,41 @@ class TransactionModel
 
     }
 
+    public function getExtract($id){
+        
+        $arrExtracts = [];
+
+        $sql = "
+            SELECT
+                CASE
+                    WHEN payer_id = {$id} THEN 'Transferência Enviada'
+                    WHEN payee_id = {$id} THEN 'Transferência Recebida'
+                END AS tipo,
+                value,
+                registration_time,
+                update_time
+            FROM transfers
+            WHERE payer_id = {$id} OR payee_id = {$id};
+        ";
+
+        $getExtract = mysqli_query($this->connect, $sql);
+        if(!$getExtract){
+            return ['error' => mysqli_error($this->connect)];
+        }
+        if($getExtract->num_rows == 0){
+            return ['error' => 'Nenhuma transferência realizada.'];
+        }
+
+        while($row = mysqli_fetch_array($getExtract, MYSQLI_ASSOC)){
+    
+            array_push($arrExtracts, $row);
+        
+        }
+
+        return $arrExtracts;
+
+    }
+
     public function destinationAccount($id){
         
         $sql = "

@@ -27,11 +27,11 @@ if(isset($userWallet['error']) || $user['user_type'] == 'lojista'){
             <div class="spinner"></div>
         </div>
     </div>
-
+    
+    <a href="/" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
     <div class="container">
-        <a href="/" class="btn btn-back">
-            <i class="fas fa-arrow-left"></i> Voltar
-        </a>
         <h1 class="my-4">Transferência Bancária</h1>
         <div class="row">
             <div class="col-md-6">

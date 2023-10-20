@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.btn-back{
+    margin: 20px;
+    color: #007bff;
+}
+
+.btn-back:hover {
+    color: #00346B;
+}

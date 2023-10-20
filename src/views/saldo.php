@@ -21,10 +21,10 @@ if(isset($userWallet['error'])){
     <link type="text/css" rel="stylesheet" href="/src/assets/css/saldo.css">
 </head>
 <body>
+    <a href="/" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
     <div class="container">
-        <a href="/" class="btn btn-back">
-            <i class="fas fa-arrow-left"></i> Voltar
-        </a>
         <h1>Saldo Bancário</h1>
         <p>Número da Conta: <span class="account-number"><?php echo $userWallet['idConta'] ?></span></p>
         <p>Saldo Disponível:<span class="balance"> R$ <?php echo $userWallet['valorConta'] ?></span></p>
