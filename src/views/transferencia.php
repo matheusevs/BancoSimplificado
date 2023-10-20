@@ -3,6 +3,10 @@ $UserController = new UserController();
 $TransactionController = new TransactionController();
 $user = mysqli_fetch_array($UserController->validateToken($_COOKIE['Authorization']), MYSQLI_ASSOC);
 $userWallet = $TransactionController->getBankAccount($user['id']);
+if(isset($userWallet['error']) || $user['user_type'] == 'lojista'){
+    header('Location: /');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

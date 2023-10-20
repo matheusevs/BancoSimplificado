@@ -3,6 +3,10 @@ $UserController = new UserController();
 $TransactionController = new TransactionController();
 $user = mysqli_fetch_array($UserController->validateToken($_COOKIE['Authorization']), MYSQLI_ASSOC);
 $userWallet = $TransactionController->getBankAccount($user['id']);
+if(isset($userWallet['error'])){
+    header('Location: /');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +28,9 @@ $userWallet = $TransactionController->getBankAccount($user['id']);
         <h1>Saldo Bancário</h1>
         <p>Número da Conta: <span class="account-number"><?php echo $userWallet['idConta'] ?></span></p>
         <p>Saldo Disponível:<span class="balance"> R$ <?php echo $userWallet['valorConta'] ?></span></p>
-        <a href="/transferencia" class="btn btn-transferencia">Realizar Transferência</a>
+        <?php if($user['user_type'] == 'comum') { ?>
+            <a href="/transferencia" class="btn btn-transferencia">Realizar Transferência</a>
+        <?php } ?>
     </div>
 </body>
 </html>

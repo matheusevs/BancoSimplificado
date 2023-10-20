@@ -17,7 +17,7 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
     <link type="text/css" rel="stylesheet" href="/src/assets/css/normalize.css">
     <link type="text/css" rel="stylesheet" href="/src/assets/css/estilo.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
-    <title>Página de Administração</title>
+    <title>Banco Simplificado</title>
 </head>
 <body>
 
@@ -61,17 +61,19 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-body">
-                <h5 class="card-title">Saldo</h5>
-                <p class="card-text">Clique abaixo para verificar seu saldo bancário.</p>
-                <form method="GET" action="/saldo">
-                    <button id="botao" class="btn btn-primary" type="submit">Verificar Saldo</button>
-                </form>
+        <?php if($user['user_type'] != 'admin'){ ?>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                    <h5 class="card-title">Saldo</h5>
+                    <p class="card-text">Clique abaixo para verificar seu saldo bancário.</p>
+                    <form method="GET" action="/saldo">
+                        <button id="botao" class="btn btn-primary" type="submit">Verificar Saldo</button>
+                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
 
     <?php if($user['user_type'] == 'comum'){ ?>
