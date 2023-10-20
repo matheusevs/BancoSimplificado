@@ -16,35 +16,34 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS users_logs
 (
     id                  INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_id             INT UNSIGNED NOT NULL,
+    user_id             INT UNSIGNED,
     action              TEXT NOT NULL,
     obs                 TEXT NOT NULL,
     registration_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_time         TIMESTAMP NULL DEFAULT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_wallet
 (
     id                  INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_id             INT UNSIGNED NOT NULL,
+    user_id             INT UNSIGNED,
     balance             DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     registration_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_time         TIMESTAMP NULL DEFAULT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
-
 
 CREATE TABLE IF NOT EXISTS transfers
 (
     id                  INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    payer_id            INT UNSIGNED NOT NULL,
-    payee_id            INT UNSIGNED NOT NULL,
+    payer_id            INT UNSIGNED,
+    payee_id            INT UNSIGNED,
     value               DECIMAL(10, 2) NOT NULL,
     registration_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_time         TIMESTAMP NULL DEFAULT NULL,
-    FOREIGN KEY (payer_id) REFERENCES user_wallet(id),
-    FOREIGN KEY (payee_id) REFERENCES user_wallet(id)
+    FOREIGN KEY (payer_id) REFERENCES user_wallet(id) ON DELETE SET NULL,
+    FOREIGN KEY (payee_id) REFERENCES user_wallet(id) ON DELETE SET NULL
 );
 
 
