@@ -81,6 +81,13 @@ jQuery(document).ready(function(){
             return;
         }
 
+        const isStrongPass = isStrongPassword(form.passwordNewConfirm);
+        if(isStrongPass.error){
+            document.getElementById("confirmarSenha").classList.add("error");
+            document.getElementById("password-error").textContent = isStrongPass.error;
+            return;
+        }
+
         $.ajax({
             type: "PUT",
             url: `/editarSenha/${id}`,
@@ -183,18 +190,33 @@ jQuery(document).ready(function(){
       
         if(cnpjCpf.length > maxLength){
   
-          input.value = cnpjCpf.slice(0, maxLength);
+            input.value = cnpjCpf.slice(0, maxLength);
   
         } else {
   
-          if(cnpjCpf.length === 11){
-            input.value = cnpjCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
-          } else {
-            input.value = cnpjCpf.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "$1.$2.$3/$4-$5");
-          }
+            if(cnpjCpf.length === 11){
+                input.value = cnpjCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+            } else {
+                input.value = cnpjCpf.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "$1.$2.$3/$4-$5");
+            }
   
         }
-      }
+    }
+
+      function isStrongPassword(password) {
+        if(password.length < 8){
+            return { error: 'A senha deve possuir mais de 8 dígitos' };
+        }
+    
+        if (!/[A-Z]/.test(password) ||
+            !/[a-z]/.test(password) ||
+            !/\d/.test(password) ||
+            !/[!@#\$%]/.test(password)) {
+            return { error: 'A senha deve conter pelo menos um caractere especial, uma letra maiúscula e um número' };
+        }
+    
+        return true;
+    }
       
       $('#cpfCnpjEdit').on('input', function() {
         formatCnpjCpf(this);

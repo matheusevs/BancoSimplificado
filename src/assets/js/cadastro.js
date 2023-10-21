@@ -8,10 +8,16 @@ $(function(){
         const formData = new FormData(formulario);
         const form = Object.fromEntries(new URLSearchParams(formData).entries());
 
-
         if(form.senha != form.confirmar_senha){
             document.getElementById("confirmar_senha").classList.add("error");
             document.getElementById("password-error").textContent = "Senhas não correspondem";
+            return;
+        }
+
+        const isStrongPass = isStrongPassword(form.confirmar_senha, form.nome);
+        if(isStrongPass.error){
+            document.getElementById("confirmar_senha").classList.add("error");
+            document.getElementById("password-error").textContent = isStrongPass.error;
             return;
         }
 
@@ -96,6 +102,25 @@ $(function(){
         }
 
       }
+    }
+
+    function isStrongPassword(password, name) {
+        if(password.length < 8){
+            return { error: 'A senha deve possuir mais de 8 dígitos' };
+        }
+    
+        if(!/[A-Z]/.test(password) ||
+            !/[a-z]/.test(password) ||
+            !/\d/.test(password) ||
+            !/[!@#\$%]/.test(password)) {
+            return { error: 'A senha deve conter pelo menos um caractere especial, uma letra maiúscula e um número' };
+        }
+    
+        if(password.toLowerCase().includes(name.toLowerCase())){
+            return { error: 'Por razões de segurança, evite usar seu próprio nome como senha.' };
+        }
+    
+        return true;
     }
     
     $('#cpfcnpj').on('input', function() {
