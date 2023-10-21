@@ -22,59 +22,52 @@ class TransactionController
 
     public function makeTransfer($body, $token){
 
-        $validateFields = $this->validateFields($body);
-        if($validateFields['error']){
-            return $validateFields;
-        }
+        try {
 
-        $objUser = $this->UserController->convertToken($token);
-        $account = $this->getBankAccount($objUser->id, " AND uw.id = {$body['idUw']}");
-        if($account['error']){
-            return $account;
-        }
+            $this->validateFields($body);
 
-        if($body['idUw'] == $body['destino']){
-            return ['error' => 'Você não pode enviar uma transferência para sua própria conta!'];
-        }
+            $objUser = $this->UserController->convertToken($token);
+            $account = $this->getBankAccount($objUser->id, " AND uw.id = {$body['idUw']}");
 
-        $destinationAccount = $this->TransactionModel->destinationAccount($body['destino']);
-        if($destinationAccount['error']){
-            return $destinationAccount;
-        }
-
-        if($body['valor'] > $account['valorConta']){
-            return ['error' => "Você não pode enviar uma transferência do valor informado, pois ele é superior ao seu saldo de R$ {$account['valorConta']}!"];
-        }
-
-        $getAuthorization = $this->getAuthorization();
-        if($getAuthorization['error']){
-            return $getAuthorization;
-        }
-        
-        $transfer = $this->transfer($body['valor'], $account['valorConta'], $destinationAccount['balance'], $body['idUw'], $body['destino']);
-        if($transfer['error']){
-            return $transfer;
-        }
-
-        $transfersRegister = $this->transfersRegister($body['valor'], $body['idUw'], $body['destino']);
-        if($transfersRegister['error']){
-            return $transfersRegister;
-        }
-
-        if($token){
-            $userLogRegister = $this->UserModel->registerLogUser($objUser->id, "transaction", "Usuário {$objUser->email} realizou uma transferência. IP: {$_SERVER['REMOTE_ADDR']}");
-            if(isset($userLogRegister['error'])){
-                return ['message' => "Usuário realizou a transferência com sucesso, contudo, ocorreu um erro na criação do log. Erro: {$userLogRegister['error']}"];
+            if($body['idUw'] == $body['destino']){
+                throw new Exception('Você não pode enviar uma transferência para sua própria conta!');
             }
-        }
 
-        return ['message' => 'Transferência realizada com sucesso!'];
+            $destinationAccount = $this->TransactionModel->destinationAccount($body['destino']);
+            if($destinationAccount['error']){
+                throw new Exception($destinationAccount['error']);
+            }
+
+            if($body['valor'] > $account['valorConta']){
+                throw new Exception("Você não pode enviar uma transferência do valor informado, pois ele é superior ao seu saldo de R$ {$account['valorConta']}!");
+            }
+
+            $this->getAuthorization();
+            $this->transfer($body['valor'], $account['valorConta'], $destinationAccount['balance'], $body['idUw'], $body['destino']);
+            $this->transfersRegister($body['valor'], $body['idUw'], $body['destino']);
+
+            if($token){
+                $userLogRegister = $this->UserModel->registerLogUser($objUser->id, "transaction", "Usuário {$objUser->email} realizou uma transferência. IP: {$_SERVER['REMOTE_ADDR']}");
+                if(isset($userLogRegister['error'])){
+                    return ['message' => "Usuário realizou a transferência com sucesso, contudo, ocorreu um erro na criação do log. Erro: {$userLogRegister['error']}"];
+                }
+            }
+
+            return ['message' => 'Transferência realizada com sucesso!'];
+
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
 
     }
 
     public function getBankAccount($id, $idUw = ''){
             
-        return $this->TransactionModel->getBankAccount($id, $idUw);
+        $account = $this->TransactionModel->getBankAccount($id, $idUw);
+        if($account['error']){
+            throw new Exception($account['error']);
+        }
+        return $account;
 
     }
 
@@ -89,13 +82,13 @@ class TransactionController
         $currentBalanceDestionation = ($balanceDestionation + $value);
         $addValuePayee = $this->TransactionModel->modifyBalance($currentBalanceDestionation, $payeeId);
         if($addValuePayee['error']){
-            return $addValuePayee;
+            throw new Exception($addValuePayee['error']);
         }
 
         $currentBalance = ($balance - $value);
         $withdrawValuePayer = $this->TransactionModel->modifyBalance($currentBalance, $payerId);
         if($withdrawValuePayer['error']){
-            return $withdrawValuePayer;
+            throw new Exception($withdrawValuePayer['error']);
         }
 
     }
@@ -104,7 +97,7 @@ class TransactionController
 
         $transfersRegister = $this->TransactionModel->transfersRegister($value, $payerId, $payeeId);        
         if($transfersRegister['error']){
-            return $transfersRegister;
+            throw new Exception($transfersRegister['error']);
         }
 
     }
@@ -115,33 +108,33 @@ class TransactionController
         $response = file_get_contents($mockyAutorizacao);
         
         if($response === false){
-            return ['error' => 'Erro ao fazer a requisição.'];
+            throw new Exception('Erro ao fazer a requisição.');
         }
         
         $data = json_decode($response);
 
         if($data->message != 'Autorizado'){
-            return ['error' => 'Ocorreu um erro ao realizar a transferência, tente novamente mais tarde.'];
+            throw new Exception('Ocorreu um erro ao realizar a transferência, tente novamente mais tarde.');
         }
 
     }
 
-    public function validateFields($body){
+    private function validateFields($body){
 
         if(empty($body)){
-            return ['error' => 'O corpo da requisição não pode estar vazio.'];
+            throw new Exception('O corpo da requisição não pode estar vazio.');
         }
 
         if(!isset($body['idUw']) || empty($body['idUw'])){
-            return ['error' => 'Reinicie a página!'];
+            throw new Exception('Reinicie a página!');
         }
 
         if(!isset($body['destino']) || empty($body['destino'])){
-            return ['error' => 'O campo de destino é obrigatório.'];
+            throw new Exception('O campo de destino é obrigatório.');
         }
 
         if(!isset($body['valor']) || empty($body['valor'])){
-            return ['error' => 'O campo de valor é obrigatório.'];
+            throw new Exception('O campo de valor é obrigatório.');
         }
 
     }
