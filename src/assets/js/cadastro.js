@@ -58,6 +58,46 @@ $(function(){
 
     });
 
+    $("#formularioUsuario").on("submit", event => {
+
+        event.preventDefault();
+
+        const formulario = document.getElementById("formularioUsuario");
+        const formData = new FormData(formulario);
+        const form = Object.fromEntries(new URLSearchParams(formData).entries());
+
+        const isStrongPass = isStrongPassword(form.senha, form.nome);
+        if(isStrongPass.error){
+            document.getElementById("senha").classList.add("error");
+            toastr.error(isStrongPass.error,'Erro!');
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: `/cadastrarUsuario`,
+            data: JSON.stringify(form),
+            contentType: 'application/json',
+            success: res => {
+
+                res = JSON.parse(res);
+
+                if(!res.error){
+
+                    window.location.href = "/" + '?msg=success';
+
+                } else {
+
+                    toastr.error(res.error,'Erro!');
+    
+                }
+
+            }
+
+        });
+
+    });
+
     $('#togglePassword').click(function () {
         let senhaInput = $('#senha');
         let tipo = senhaInput.attr('type');

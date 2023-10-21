@@ -71,20 +71,8 @@ class Router
                 if($this->route == '/cadastrarUsuario'){
 
                     $this->validateToken(true);
-                    $cadastrarUsuario = $this->UserController->insertUser($this->post, 'createAdmin', $this->token);
-                    $error = 'error';
-                    
-                    if($cadastrarUsuario['error'] == 'O usuário já existe.'){
-                        $error = 'userExists';
-                    }
-
-                    if(isset($cadastrarUsuario['error'])){
-                        header("Location: {$this->url}?msg={$error}");
-                        exit;
-
-                    }
-
-                    header('Location: '. $this->url .'?msg=success');
+                    $cadastrarUsuario = $this->UserController->insertUser($this->body, 'createAdmin', $this->token);
+                    echo json_encode($cadastrarUsuario);
                     exit;
 
                 }

@@ -190,9 +190,5 @@ $user = mysqli_fetch_array($router->validateToken(), MYSQLI_ASSOC);
             toastr.error('Erro ao cadastrar!');
             return;
         }
-        if(msg.includes('userExists')){
-            toastr.error('O usuário já existe.');
-            return;
-        }
     })
 </script>
