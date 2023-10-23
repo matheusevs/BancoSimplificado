@@ -16,18 +16,22 @@ class LoginController
 
     public function login($body){
 
-        $validateFields = $this->validateFields($body);
-        if($validateFields['error']){
-            return $validateFields;
+        try {
+
+            $this->validateFields($body);
+            $login = $this->LoginModel->login($body);
+            
+            if($login['error']){
+                return $login;
+            }
+            
+            return $this->encodeBase64($login);
+
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
         }
 
-        $login = $this->LoginModel->login($body);
         
-        if($login['error']){
-            return $login;
-        }
-        
-        return $this->encodeBase64($login);
 
     }
 
@@ -44,19 +48,19 @@ class LoginController
     public function validateFields($body){
 
         if(empty($body)){
-            return ['error' => 'O corpo da requisição não pode estar vazio.'];
+            throw new Exception('O corpo da requisição não pode estar vazio.');
         }
 
         if(!isset($body['email']) || empty($body['email'])){
-            return ['error' => 'O campo de email é obrigatório.'];
+            throw new Exception('O campo de email é obrigatório.');
         }
 
         if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
-            return ['error' => 'O campo de email não está em um formato válido.'];
+            throw new Exception('O campo de email não está em um formato válido.');
         }
 
         if(!isset($body['password']) || empty($body['password'])){
-            return ['error' => 'O campo de senha é obrigatório.'];
+            throw new Exception('O campo de senha é obrigatório.');
         }
 
     }

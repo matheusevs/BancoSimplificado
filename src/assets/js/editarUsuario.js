@@ -1,6 +1,25 @@
 
 jQuery(document).ready(function(){
     let user = window.location.href;
+    let base64Image;
+
+    document.getElementById('avatar-upload').addEventListener('change', function() {
+        const fileInput = this;
+    
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+    
+            const reader = new FileReader();
+    
+            reader.onload = function(e) {
+                base64Image = e.target.result;
+            };
+    
+            reader.readAsDataURL(file);
+        }
+    });
+    
+
 
     $(document).on('click', '.btn-edit', function() {
         
@@ -37,6 +56,7 @@ jQuery(document).ready(function(){
 
         const formulario = document.getElementById("formEdit");
         const formData = new FormData(formulario);
+        formData.append('photo_profile', base64Image);
         const form = Object.fromEntries(new URLSearchParams(formData).entries());
 
         $.ajax({

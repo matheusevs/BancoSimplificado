@@ -5,6 +5,9 @@ $roles = 'Administrador';
 if($user['user_type'] != 'admin'){
     $roles = ucfirst($user['user_type']);
 }
+if(!$user['photo_profile']){
+    $user['photo_profile'] = 'src/assets/img/avatar.jpg';
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +31,7 @@ if($user['user_type'] != 'admin'){
         <h1 id="dados-usuario">Dados do Usuário</h1>
         <div class="user-info">
             <div class="user-avatar">
-                <img src="src/assets/img/avatar.jpg" alt="Foto de Perfil">
+                <img src="<?php echo $user['photo_profile'] ?>" alt="Foto de Perfil">
             </div>
             <div class="user-name">
                 <span id="name"><?php echo $user['full_name']; ?></span>
@@ -61,6 +64,10 @@ if($user['user_type'] != 'admin'){
                     <div class="modal-body">
                         <p><strong>Atenção:</strong> Ao alterar seu CPF/CNPJ ou e-mail, você será automaticamente desconectado e precisará fazer login novamente.</p>
                         <div>
+                            <div class="mb-3">
+                            <label for="perfil">Foto de Perfil</label></br>
+                                <input type="file" id="avatar-upload" name="photo_profile" accept="image/*">
+                            </div>
                             <div class="mb-3">
                                 <label for="usuario">Nome</label>
                                 <input required="required" class="form-control" type="text" id="nomeEdit" placeholder="Digite o nome do usuário" name="full_name" maxlength="255">

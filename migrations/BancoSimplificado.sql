@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS users
     cpf_cnpj            VARCHAR(18) NOT NULL,
     email               VARCHAR(255) NOT NULL,
     password            VARCHAR(255) NOT NULL,
+    photo_profile       LONGTEXT NULL,
     user_type           ENUM('comum', 'lojista', 'admin') DEFAULT 'comum' NOT NULL,
     registration_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_time         TIMESTAMP NULL DEFAULT NULL

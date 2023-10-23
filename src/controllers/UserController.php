@@ -294,6 +294,12 @@
                 if(empty($body['user_type'])){
                     unset($body['user_type']);
                 }
+
+                if($type == 'updateMyUser'){
+                    if($body['photo_profile'] == 'undefined'){
+                        unset($body['photo_profile']);
+                    }
+                }
     
                 return $body;
 
